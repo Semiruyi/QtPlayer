@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/QtPlayer/">
+    <file alias="Main.qml">C:/y/project/QtPlayer/Main.qml</file>
+    <file alias="PlayPage.qml">C:/y/project/QtPlayer/PlayPage.qml</file>
+  </qresource>
+</RCC>
+
