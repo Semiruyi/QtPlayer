@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_appQtPlayer_FILE C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/appQtPlayer.exe)
-set(__QT_DEPLOY_TARGET_appQtPlayer_RUNTIME_DLLS C:/Program_Files/QT/6.7.1/mingw_64/bin/Qt6Quick.dll;C:/Program_Files/QT/6.7.1/mingw_64/bin/Qt6QmlModels.dll;C:/Program_Files/QT/6.7.1/mingw_64/bin/Qt6Qml.dll;C:/Program_Files/QT/6.7.1/mingw_64/bin/Qt6Network.dll;C:/Program_Files/QT/6.7.1/mingw_64/bin/Qt6OpenGL.dll;C:/Program_Files/QT/6.7.1/mingw_64/bin/Qt6Gui.dll;C:/Program_Files/QT/6.7.1/mingw_64/bin/Qt6Core.dll)

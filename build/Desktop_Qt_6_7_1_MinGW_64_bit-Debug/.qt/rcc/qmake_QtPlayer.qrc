@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/QtPlayer">
-    <file alias="qmldir">C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/QtPlayer/qmldir</file>
-  </qresource>
-</RCC>
-

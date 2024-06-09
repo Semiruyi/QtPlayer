@@ -1,7 +1,0 @@
---resource
-C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qmake_QtPlayer.qrc
---resource
-C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/appQtPlayer_raw_qml_0.qrc
-/QtPlayer/Main.qml
-/QtPlayer/PlayPage.qml
-/QtPlayer/TestButton.qml

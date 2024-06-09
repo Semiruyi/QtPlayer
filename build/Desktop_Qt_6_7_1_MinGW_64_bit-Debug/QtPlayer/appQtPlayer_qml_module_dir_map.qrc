@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file alias="/QtPlayer">C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/QtPlayer</file>
-
-  </qresource>
-</RCC>
