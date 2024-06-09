@@ -47,7 +47,7 @@ cmake_ninja_workdir = C$:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit
 #############################################
 # Order-only phony target for appQtPlayer
 
-build cmake_object_order_depends_target_appQtPlayer: phony || .qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp .qt/rcc/qrc_qmake_QtPlayer.cpp .rcc/qmlcache/appQtPlayer_Main_qml.cpp .rcc/qmlcache/appQtPlayer_PlayPage_qml.cpp .rcc/qmlcache/appQtPlayer_qmlcache_loader.cpp QtPlayer/appQtPlayer.qmltypes appQtPlayer_autogen appQtPlayer_autogen/mocs_compilation.cpp appQtPlayer_autogen/timestamp appQtPlayer_autogen_timestamp_deps appQtPlayer_qmlimportscan appQtPlayer_tooling appqtplayer_qmltyperegistrations.cpp meta_types/appQtPlayer_json_file_list.txt meta_types/appQtPlayer_json_file_list.txt.timestamp meta_types/qt6appqtplayer_debug_metatypes.json meta_types/qt6appqtplayer_debug_metatypes.json.gen
+build cmake_object_order_depends_target_appQtPlayer: phony || .qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp .qt/rcc/qrc_qmake_QtPlayer.cpp .rcc/qmlcache/appQtPlayer_Main_qml.cpp .rcc/qmlcache/appQtPlayer_PlayPage_qml.cpp .rcc/qmlcache/appQtPlayer_TestButton_qml.cpp .rcc/qmlcache/appQtPlayer_qmlcache_loader.cpp QtPlayer/appQtPlayer.qmltypes appQtPlayer_autogen appQtPlayer_autogen/mocs_compilation.cpp appQtPlayer_autogen/timestamp appQtPlayer_autogen_timestamp_deps appQtPlayer_qmlimportscan appQtPlayer_tooling appqtplayer_qmltyperegistrations.cpp meta_types/appQtPlayer_json_file_list.txt meta_types/appQtPlayer_json_file_list.txt.timestamp meta_types/qt6appqtplayer_debug_metatypes.json meta_types/qt6appqtplayer_debug_metatypes.json.gen
 
 build CMakeFiles/appQtPlayer.dir/appQtPlayer_autogen/mocs_compilation.cpp.obj: CXX_COMPILER__appQtPlayer_unscanned_Debug C$:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/appQtPlayer_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_appQtPlayer
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLBUILTINS_LIB -DQT_QMLINTEGRATION_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_QUICK_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
@@ -105,6 +105,14 @@ build CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/
   OBJECT_DIR = CMakeFiles\appQtPlayer.dir
   OBJECT_FILE_DIR = CMakeFiles\appQtPlayer.dir\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.rcc\qmlcache
 
+build CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_TestButton_qml.cpp.obj: CXX_COMPILER__appQtPlayer_unscanned_Debug C$:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_TestButton_qml.cpp || cmake_object_order_depends_target_appQtPlayer
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLBUILTINS_LIB -DQT_QMLINTEGRATION_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_QUICK_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\appQtPlayer.dir\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.rcc\qmlcache\appQtPlayer_TestButton_qml.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always
+  INCLUDES = -IC:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/appQtPlayer_autogen/include -IC:/y/project/QtPlayer -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQml/6.7.1 -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQml/6.7.1/QtQml -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtCore/6.7.1 -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtCore/6.7.1/QtCore -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtCore -isystem C:/Program_Files/QT/6.7.1/mingw_64/include -isystem C:/Program_Files/QT/6.7.1/mingw_64/mkspecs/win32-g++ -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQmlBuiltins/6.7.1 -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQmlBuiltins/6.7.1/QtQmlBuiltins -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQmlBuiltins -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQml -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQmlIntegration -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtNetwork -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQuick -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtGui -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtQmlModels -isystem C:/Program_Files/QT/6.7.1/mingw_64/include/QtOpenGL
+  OBJECT_DIR = CMakeFiles\appQtPlayer.dir
+  OBJECT_FILE_DIR = CMakeFiles\appQtPlayer.dir\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.rcc\qmlcache
+
 build CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp.obj: CXX_COMPILER__appQtPlayer_unscanned_Debug C$:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp || cmake_object_order_depends_target_appQtPlayer
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLBUILTINS_LIB -DQT_QMLINTEGRATION_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_QUICK_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\appQtPlayer.dir\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.qt\rcc\qrc_appQtPlayer_raw_qml_0.cpp.obj.d
@@ -121,7 +129,7 @@ build CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/r
 #############################################
 # Link the executable appQtPlayer.exe
 
-build appQtPlayer.exe: CXX_EXECUTABLE_LINKER__appQtPlayer_Debug CMakeFiles/appQtPlayer.dir/appQtPlayer_autogen/mocs_compilation.cpp.obj CMakeFiles/appQtPlayer.dir/main.cpp.obj CMakeFiles/appQtPlayer.dir/appqtplayer_qmltyperegistrations.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_qmake_QtPlayer.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_qmlcache_loader.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_Main_qml.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_PlayPage_qml.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp.obj | C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Quick.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6QmlModels.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Qml.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6QmlBuiltins.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Network.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6OpenGL.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Gui.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Core.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6EntryPoint.a || appQtPlayer_autogen appQtPlayer_autogen_timestamp_deps appQtPlayer_qmlimportscan appQtPlayer_tooling
+build appQtPlayer.exe: CXX_EXECUTABLE_LINKER__appQtPlayer_Debug CMakeFiles/appQtPlayer.dir/appQtPlayer_autogen/mocs_compilation.cpp.obj CMakeFiles/appQtPlayer.dir/main.cpp.obj CMakeFiles/appQtPlayer.dir/appqtplayer_qmltyperegistrations.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_qmake_QtPlayer.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_qmlcache_loader.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_Main_qml.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_PlayPage_qml.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_TestButton_qml.cpp.obj CMakeFiles/appQtPlayer.dir/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp.obj | C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Quick.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6QmlModels.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Qml.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6QmlBuiltins.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Network.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6OpenGL.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Gui.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Core.a C$:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6EntryPoint.a || appQtPlayer_autogen appQtPlayer_autogen_timestamp_deps appQtPlayer_qmlimportscan appQtPlayer_tooling
   FLAGS = -DQT_QML_DEBUG -g
   LINK_FLAGS = -mwindows
   LINK_LIBRARIES = C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Quick.a  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6QmlModels.a  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Qml.a  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6QmlBuiltins.a  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Network.a  -lws2_32  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6OpenGL.a  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Gui.a  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lmingw32  C:/Program_Files/QT/6.7.1/mingw_64/lib/libQt6EntryPoint.a  -lshell32  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -luser32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
@@ -184,7 +192,7 @@ build all_qmllint_module: phony appQtPlayer_qmllint_module
 #############################################
 # Utility command for appQtPlayer_tooling
 
-build appQtPlayer_tooling: phony QtPlayer/Main.qml QtPlayer/PlayPage.qml
+build appQtPlayer_tooling: phony QtPlayer/Main.qml QtPlayer/PlayPage.qml QtPlayer/TestButton.qml QtPlayer/Resources.qrc
 
 
 #############################################
@@ -326,9 +334,18 @@ build .rcc/qmlcache/appQtPlayer_PlayPage_qml.cpp | ${cmake_ninja_workdir}.rcc/qm
 
 
 #############################################
+# Custom command for .rcc\qmlcache\appQtPlayer_TestButton_qml.cpp
+
+build .rcc/qmlcache/appQtPlayer_TestButton_qml.cpp | ${cmake_ninja_workdir}.rcc/qmlcache/appQtPlayer_TestButton_qml.cpp: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmlcachegen.exe C$:/y/project/QtPlayer/TestButton.qml .qt/rcc/qmake_QtPlayer.qrc .qt/rcc/appQtPlayer_raw_qml_0.qrc QtPlayer/appQtPlayer.qmltypes QtPlayer/qmldir || appQtPlayer_autogen appQtPlayer_autogen_timestamp_deps appQtPlayer_qmlimportscan appQtPlayer_tooling
+  COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug && C:\Program_Files\QT\Tools\CMake_64\bin\cmake.exe -E make_directory C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache && C:\y\project\QtPlayer\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.qt\bin\qt_setup_tool_path.bat C:/Program_Files/QT/6.7.1/mingw_64/./bin/qmlcachegen.exe --bare --resource-path /QtPlayer/TestButton.qml -I C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug -I C:/Program_Files/QT/6.7.1/mingw_64/./qml -i C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/QtPlayer/qmldir --resource C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qmake_QtPlayer.qrc --resource C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/appQtPlayer_raw_qml_0.qrc -o C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appQtPlayer_TestButton_qml.cpp C:/y/project/QtPlayer/TestButton.qml"
+  DESC = Generating .rcc/qmlcache/appQtPlayer_TestButton_qml.cpp
+  restat = 1
+
+
+#############################################
 # Custom command for .qt\rcc\qrc_appQtPlayer_raw_qml_0.cpp
 
-build .qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp | ${cmake_ninja_workdir}.qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp: CUSTOM_COMMAND C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml .qt/rcc/appQtPlayer_raw_qml_0.qrc C$:/Program_Files/QT/6.7.1/mingw_64/./bin/rcc.exe || appQtPlayer_autogen appQtPlayer_autogen_timestamp_deps appQtPlayer_qmlimportscan appQtPlayer_tooling
+build .qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp | ${cmake_ninja_workdir}.qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp: CUSTOM_COMMAND C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml C$:/y/project/QtPlayer/TestButton.qml C$:/y/project/QtPlayer/Resources.qrc .qt/rcc/appQtPlayer_raw_qml_0.qrc C$:/Program_Files/QT/6.7.1/mingw_64/./bin/rcc.exe || appQtPlayer_autogen appQtPlayer_autogen_timestamp_deps appQtPlayer_qmlimportscan appQtPlayer_tooling
   COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug && C:\Program_Files\QT\6.7.1\mingw_64\.\bin\rcc.exe --output C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appQtPlayer_raw_qml_0.cpp --name appQtPlayer_raw_qml_0 C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/appQtPlayer_raw_qml_0.qrc --no-zstd"
   DESC = Running rcc for resource appQtPlayer_raw_qml_0
   restat = 1
@@ -362,21 +379,21 @@ build CMakeFiles/appQtPlayer_qmltyperegistration | ${cmake_ninja_workdir}CMakeFi
 #############################################
 # Custom command for CMakeFiles\appQtPlayer_qmllint
 
-build CMakeFiles/appQtPlayer_qmllint | ${cmake_ninja_workdir}CMakeFiles/appQtPlayer_qmllint: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml .rcc/qmllint/appQtPlayer.rsp || all_qmltyperegistrations appQtPlayer_qmltyperegistration
+build CMakeFiles/appQtPlayer_qmllint | ${cmake_ninja_workdir}CMakeFiles/appQtPlayer_qmllint: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml C$:/y/project/QtPlayer/TestButton.qml .rcc/qmllint/appQtPlayer.rsp || all_qmltyperegistrations appQtPlayer_qmltyperegistration
   COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer && C:\y\project\QtPlayer\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.qt\bin\qt_setup_tool_path.bat C:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe @C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmllint/appQtPlayer.rsp"
 
 
 #############################################
 # Custom command for CMakeFiles\appQtPlayer_qmllint_json
 
-build CMakeFiles/appQtPlayer_qmllint_json | ${cmake_ninja_workdir}CMakeFiles/appQtPlayer_qmllint_json: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml .rcc/qmllint/appQtPlayer_json.rsp || all_qmltyperegistrations appQtPlayer_qmltyperegistration
+build CMakeFiles/appQtPlayer_qmllint_json | ${cmake_ninja_workdir}CMakeFiles/appQtPlayer_qmllint_json: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml C$:/y/project/QtPlayer/TestButton.qml .rcc/qmllint/appQtPlayer_json.rsp || all_qmltyperegistrations appQtPlayer_qmltyperegistration
   COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer && C:\y\project\QtPlayer\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.qt\bin\qt_setup_tool_path.bat C:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe @C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmllint/appQtPlayer_json.rsp"
 
 
 #############################################
 # Custom command for CMakeFiles\appQtPlayer_qmllint_module
 
-build CMakeFiles/appQtPlayer_qmllint_module | ${cmake_ninja_workdir}CMakeFiles/appQtPlayer_qmllint_module: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml .rcc/qmllint/appQtPlayer_module.rsp || all_qmltyperegistrations appQtPlayer_qmltyperegistration
+build CMakeFiles/appQtPlayer_qmllint_module | ${cmake_ninja_workdir}CMakeFiles/appQtPlayer_qmllint_module: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml C$:/y/project/QtPlayer/TestButton.qml .rcc/qmllint/appQtPlayer_module.rsp || all_qmltyperegistrations appQtPlayer_qmltyperegistration
   COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer && C:\y\project\QtPlayer\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.qt\bin\qt_setup_tool_path.bat C:/Program_Files/QT/6.7.1/mingw_64/bin/qmllint.exe @C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmllint/appQtPlayer_module.rsp"
 
 
@@ -399,6 +416,24 @@ build QtPlayer/PlayPage.qml | ${cmake_ninja_workdir}QtPlayer/PlayPage.qml: CUSTO
 
 
 #############################################
+# Custom command for QtPlayer\TestButton.qml
+
+build QtPlayer/TestButton.qml | ${cmake_ninja_workdir}QtPlayer/TestButton.qml: CUSTOM_COMMAND C$:/y/project/QtPlayer/TestButton.qml
+  COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer && C:\Program_Files\QT\Tools\CMake_64\bin\cmake.exe -E copy C:/y/project/QtPlayer/TestButton.qml C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/QtPlayer/TestButton.qml"
+  DESC = Copying TestButton.qml to C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/QtPlayer/TestButton.qml
+  restat = 1
+
+
+#############################################
+# Custom command for QtPlayer\Resources.qrc
+
+build QtPlayer/Resources.qrc | ${cmake_ninja_workdir}QtPlayer/Resources.qrc: CUSTOM_COMMAND C$:/y/project/QtPlayer/Resources.qrc
+  COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer && C:\Program_Files\QT\Tools\CMake_64\bin\cmake.exe -E copy C:/y/project/QtPlayer/Resources.qrc C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/QtPlayer/Resources.qrc"
+  DESC = Copying Resources.qrc to C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/QtPlayer/Resources.qrc
+  restat = 1
+
+
+#############################################
 # Phony custom command for CMakeFiles\appQtPlayer_qmlimportscan
 
 build CMakeFiles/appQtPlayer_qmlimportscan | ${cmake_ninja_workdir}CMakeFiles/appQtPlayer_qmlimportscan: phony .qt/qml_imports/appQtPlayer_build.cmake
@@ -407,7 +442,7 @@ build CMakeFiles/appQtPlayer_qmlimportscan | ${cmake_ninja_workdir}CMakeFiles/ap
 #############################################
 # Custom command for .qt\qml_imports\appQtPlayer_build.cmake
 
-build .qt/qml_imports/appQtPlayer_build.cmake | ${cmake_ninja_workdir}.qt/qml_imports/appQtPlayer_build.cmake: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmlimportscanner.exe .qt/rcc/qmake_QtPlayer.qrc .qt/rcc/appQtPlayer_raw_qml_0.qrc C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml
+build .qt/qml_imports/appQtPlayer_build.cmake | ${cmake_ninja_workdir}.qt/qml_imports/appQtPlayer_build.cmake: CUSTOM_COMMAND C$:/Program_Files/QT/6.7.1/mingw_64/bin/qmlimportscanner.exe .qt/rcc/qmake_QtPlayer.qrc .qt/rcc/appQtPlayer_raw_qml_0.qrc C$:/y/project/QtPlayer/Main.qml C$:/y/project/QtPlayer/PlayPage.qml C$:/y/project/QtPlayer/TestButton.qml
   COMMAND = cmd.exe /C "cd /D C:\y\project\QtPlayer && C:\y\project\QtPlayer\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\.qt\bin\qt_setup_tool_path.bat C:/Program_Files/QT/6.7.1/mingw_64/./bin/qmlimportscanner.exe @C:/y/project/QtPlayer/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/qml_imports/appQtPlayer_build.rsp"
   DESC = Running qmlimportscanner for appQtPlayer
   restat = 1

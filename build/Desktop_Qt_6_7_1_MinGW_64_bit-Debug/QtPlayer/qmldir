@@ -3,4 +3,5 @@ typeinfo appQtPlayer.qmltypes
 prefer :/QtPlayer/
 Main 1.0 Main.qml
 PlayPage 1.0 PlayPage.qml
+TestButton 1.0 TestButton.qml
 

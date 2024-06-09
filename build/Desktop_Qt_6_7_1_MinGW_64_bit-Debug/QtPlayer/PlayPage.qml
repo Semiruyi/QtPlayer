@@ -5,16 +5,18 @@ import Qt.labs.folderlistmodel
 
 
 Item {
-    id: playPage
-    anchors.fill: parent
+    id: root
     focus: true
+    property variant parentValue: null
     property string folderUrl: ""
     property int epIndex: 0
+    signal back()
 
     FolderListModel {
         id: folderModel
-        folder: playPage.folderUrl
+        folder: root.folderUrl
         nameFilters: ["*.mp4"]
+        showDirs: false
     }
 
     function rgb(r,g,b){
@@ -35,17 +37,16 @@ Item {
             }
             video.isPlaying = !video.isPlaying
         } else if (event.key === Qt.Key_Escape) {
-            root.showNormal()
+            root.parentValue.showNormal()
             videoArea.fullScreen = false
         }
     }
 
-
     Rectangle {
         id: videoArea
         property bool fullScreen: false
-        width: videoArea.fullScreen ? root.width : playPage.width - epArea.width
-        height: videoArea.fullScreen ? root.height : playPage.height
+        width: videoArea.fullScreen ? root.width : root.width - epArea.width
+        height: videoArea.fullScreen ? root.height : root.height
         z: fullScreen ? 1 : 0
         color: epArea.color
         Video {
@@ -88,7 +89,6 @@ Item {
                 GradientStop { position: 1.0; color: videoArea.color }
             }
 
-
             Slider {
                 id: progressBar
                 from: 0
@@ -118,23 +118,37 @@ Item {
                 height: 30
                 width: videoFooter.width
                 anchors.bottom: videoFooter.bottom
-                Button {
-                    id: fullScreenBtn
-                    text: "fullsreen"
-                    onClicked: {
-                        if(videoArea.fullScreen === false){
-                            root.showFullScreen()
+                anchors.bottomMargin: 10
+                color: "black"
+                Row {
+                    anchors.fill: footerBtnRec
+                    Button {
+                        id: fullScreenBtn
+                        text: "fullsreen"
+                        onClicked: {
+                            if(videoArea.fullScreen === false){
+                                root.parentValue.showFullScreen()
+                            }
+                            else {
+                                root.parentValue.showNormal()
+                            }
+                            videoArea.fullScreen = !videoArea.fullScreen
                         }
-                        else {
-                            root.showNormal()
+                    }
+                    TestButton {
+
+                        height: 40
+                        width: 40
+                        bgColor: "transparent"
+                        icon: "file:///C:/y/project/QtPlayer/resources/icons/next.png"
+                        onClicked: {
+
                         }
-                        videoArea.fullScreen = !videoArea.fullScreen
                     }
                 }
-                color: "transparent"
+
             }
         }
-
     }
 
 
@@ -152,8 +166,8 @@ Item {
     Rectangle {
         id: epArea
         width: 250
-        height: playPage.height
-        anchors.right: playPage.right
+        height: root.height
+        anchors.right: root.right
         color: rgb(31,34,35)
 
         GridView {
@@ -181,7 +195,7 @@ Item {
                     radius: 10
                     color: rgb(10, 10, 10)
                     Component.onCompleted: {
-                        if(index === playPage.epIndex) {
+                        if(index === root.epIndex) {
                             epBtn.state = "selected"
                             epBtn.watched = true
                             video.source = folderUrl + "/" + fileName
@@ -271,11 +285,10 @@ Item {
                         hoverEnabled: true
 
                         onClicked: {
-                            //if(epBtn.state === "selected") return
-                            epList.itemAtIndex(playPage.epIndex).children[0].state = "watched"
-                            epList.itemAtIndex(playPage.epIndex).children[0].watched = true
+                            epList.itemAtIndex(root.epIndex).children[0].state = "watched"
+                            epList.itemAtIndex(root.epIndex).children[0].watched = true
                             epBtn.state = "selected"
-                            playPage.epIndex = index
+                            root.epIndex = index
                             video.isPlaying = false
                             video.source = folderUrl + "/" + fileName
                             video.play()
@@ -287,7 +300,7 @@ Item {
                             epBtn.state = "focus"
                         }
                         onExited: {
-                            if(index === playPage.epIndex) {
+                            if(index === root.epIndex) {
                                 epBtn.state = "selected"
                                 return
                             }
@@ -298,12 +311,9 @@ Item {
                             }
 
                         }
+
                     }
-
-
                 }
-
-
             }
 
 
@@ -312,7 +322,7 @@ Item {
             anchors.bottom: parent.bottom
             text: "Back"
             onClicked: {
-                root.stack.pop()
+                root.parentValue.back()
             }
         }
     }

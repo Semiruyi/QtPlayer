@@ -13,6 +13,11 @@ Window {
     width: 2200 / 2
     height: 1080 / 2
 
+    function back() {
+        console.log("test")
+        stack.pop()
+    }
+
     property StackView stack: stack
 
     StackView {
@@ -23,15 +28,12 @@ Window {
 
     Item {
         id: mainView
-        anchors.fill: parent
-
-
         FolderDialog {
             id: folderDialog
 
             onAccepted: {
                 if (selectedFolder !== undefined && selectedFolder !== "") {
-                    console.log("folderDialog select: ", selectedFolder)
+                    //console.log("folderDialog select: ", selectedFolder)
                     animeList.insert(0, { "folderUrl":selectedFolder })
                 } else{
                     console.log("Error on user selecting folder")
@@ -49,17 +51,19 @@ Window {
                 ListElement {
                     folderUrl: "file:///C:/Users/wyy/Videos/bocchi the rock"
                 }
-
             }
             spacing: 10
             delegate: Button {
                 text: folderUrl
                 height: 100
                 onClicked: {
-                    stack.push("PlayPage.qml", {folderUrl: folderUrl})
+                    // console.log(folderUrl)
+                    stack.push("PlayPage.qml", {
+                                   folderUrl: folderUrl,
+                                   parentValue: root
+                               })
                 }
             }
-            z: -1
         }
 
         Button {
@@ -72,10 +76,8 @@ Window {
             onClicked: {
                 folderDialog.visible = true;
             }
-
         }
-
-
     }
+
 
 }

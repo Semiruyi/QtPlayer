@@ -19,6 +19,13 @@ namespace _0x5f_QtPlayer_PlayPage_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
+namespace _0x5f_QtPlayer_TestButton_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
 
 }
 namespace {
@@ -35,6 +42,7 @@ Q_GLOBAL_STATIC(Registry, unitRegistry)
 Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/QtPlayer/Main.qml"), &QmlCacheGeneratedCode::_0x5f_QtPlayer_Main_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/QtPlayer/PlayPage.qml"), &QmlCacheGeneratedCode::_0x5f_QtPlayer_PlayPage_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/QtPlayer/TestButton.qml"), &QmlCacheGeneratedCode::_0x5f_QtPlayer_TestButton_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;
