@@ -43,7 +43,8 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: {
+
+        onClicked: function (mouse) {
             if (root.checkable)
                 root.checked = !root.checked
             root.clicked(mouse)

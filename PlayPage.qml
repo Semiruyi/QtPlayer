@@ -106,7 +106,7 @@ Item {
                 }
 
                 Timer {
-                    interval: 1000 // 每秒更新一次进度条
+                    interval: 1000
                     running: video.playbackState === video.PlayingState
                     repeat: true
                     onTriggered: progressBar.value = video.position
@@ -142,15 +142,10 @@ Item {
                         bgColor: "transparent"
                         icon: "file:///C:/y/project/QtPlayer/resources/icons/next.png"
                         onClicked: function (mouse) {
-                            epList.itemAtIndex(root.epIndex + 1).children[0].children[1].clicked(mouse)
+                            epList.itemAtIndex(root.epIndex + 1).mouseArea.clicked(mouse)
                         }
-
-                        // onClicked: {
-                        //     epList.itemAtIndex(root.epIndex + 1).children[0].children[1].clicked(mouse)
-                        // }
                     }
                 }
-
             }
         }
     }
@@ -188,12 +183,13 @@ Item {
                 width: epList.cellWidth
                 height: epList.cellHeight
                 color: rgb(31,34,35)
+                property MouseArea mouseArea: epBtnMouseArea
+                property Rectangle btn: epBtn
                 Rectangle {
                     id: epBtn
                     property int thisHeight: 50
                     property int thisWidth: 50
                     property bool watched: false
-
                     width: epBtn.thisWidth
                     height: epBtn.thisHeight
                     anchors.centerIn: parent
@@ -290,8 +286,8 @@ Item {
                         hoverEnabled: true
 
                         onClicked: {
-                            epList.itemAtIndex(root.epIndex).children[0].state = "watched"
-                            epList.itemAtIndex(root.epIndex).children[0].watched = true
+                            epList.itemAtIndex(root.epIndex).btn.state = "watched"
+                            epList.itemAtIndex(root.epIndex).btn.watched = true
                             epBtn.state = "selected"
                             root.epIndex = index
                             video.isPlaying = false
