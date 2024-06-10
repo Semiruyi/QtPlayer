@@ -48,7 +48,6 @@ Item {
         z: fullScreen ? 1 : 0
         color: epArea.color
 
-
         Video {
             property bool isPlaying: false
             id: video
@@ -111,9 +110,8 @@ Item {
                     repeat: true
                     onTriggered: progressBar.value = video.position
                 }
-
-
             }
+
             Rectangle {
                 id: footerBtnRec
                 height: 30
@@ -156,6 +154,7 @@ Item {
                         width: height
                         scale: 0.8
                         icon: "file:///C:/y/project/QtPlayer/resources/icons/next.png"
+                        visible: root.epIndex === epList.count - 1 ? false : true
                         onClicked: function (mouse) {
                             epList.itemAtIndex(root.epIndex + 1).mouseArea.clicked(mouse)
                         }
@@ -193,8 +192,7 @@ Item {
         }
     }
 
-
-
+    // episode list area. create a series of button to switch episode and set animation on switch episode
     Rectangle {
         id: epArea
         width: 250
@@ -353,6 +351,5 @@ Item {
             }
         }
     }
-
 
 }
