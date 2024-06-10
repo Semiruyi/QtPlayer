@@ -19,6 +19,10 @@ Item {
         showDirs: false
     }
 
+    // MouseEvent {
+    //     id: mouse
+    // }
+
     function rgb(r,g,b){
         var ret=(r << 16 | g << 8 | b);
         return("#"+ret.toString(16)).toUpperCase();
@@ -30,11 +34,7 @@ Item {
             fullScreenBtn.clicked()
         } else if (event.key === Qt.Key_Space) {
             event.accepted = true;
-            if(video.isPlaying){
-                video.pause()
-            } else {
-                video.play()
-            }
+            videoMouseArea.doubleClicked(mouse)
             video.isPlaying = !video.isPlaying
         } else if (event.key === Qt.Key_Escape) {
             root.parentValue.showNormal()
@@ -57,6 +57,7 @@ Item {
             MouseArea {
                 id: videoMouseArea
                 anchors.fill: video
+
                 onDoubleClicked: {
                     if(video.isPlaying){
                         video.pause()
@@ -140,9 +141,13 @@ Item {
                         width: 40
                         bgColor: "transparent"
                         icon: "file:///C:/y/project/QtPlayer/resources/icons/next.png"
-                        onClicked: {
-
+                        onClicked: function (mouse) {
+                            epList.itemAtIndex(root.epIndex + 1).children[0].children[1].clicked(mouse)
                         }
+
+                        // onClicked: {
+                        //     epList.itemAtIndex(root.epIndex + 1).children[0].children[1].clicked(mouse)
+                        // }
                     }
                 }
 
@@ -188,6 +193,7 @@ Item {
                     property int thisHeight: 50
                     property int thisWidth: 50
                     property bool watched: false
+
                     width: epBtn.thisWidth
                     height: epBtn.thisHeight
                     anchors.centerIn: parent

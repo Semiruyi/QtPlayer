@@ -53,7 +53,7 @@ compile_commands.json
 
 *_qmlcache.qrc3
 
-# build/
+build/
 .kdev4
 /CMakeLists.txt.user
 /test

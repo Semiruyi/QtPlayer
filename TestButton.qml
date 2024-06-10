@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick
+
 
 Rectangle {
     id: root
@@ -12,7 +13,7 @@ Rectangle {
     property color textColor: "white"
     property bool hovered: false //mouseArea.containsMouse
     readonly property alias pressed: mouseArea.pressed
-    signal clicked()
+    signal clicked(MouseEvent mouse)
     signal pressAndHold()
 
     opacity: 0.7
@@ -45,7 +46,7 @@ Rectangle {
         onClicked: {
             if (root.checkable)
                 root.checked = !root.checked
-            root.clicked()
+            root.clicked(mouse)
         }
         onHoveredChanged: {
             //console.log("button.hover mouseX: " + mouseX)
