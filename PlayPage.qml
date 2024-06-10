@@ -187,11 +187,9 @@ Item {
                 property Rectangle btn: epBtn
                 Rectangle {
                     id: epBtn
-                    property int thisHeight: 50
-                    property int thisWidth: 50
                     property bool watched: false
-                    width: epBtn.thisWidth
-                    height: epBtn.thisHeight
+                    width: 50
+                    height: 50
                     anchors.centerIn: parent
                     radius: 10
                     color: rgb(10, 10, 10)
@@ -219,8 +217,7 @@ Item {
                             PropertyChanges {
                                 target: epBtn
                                 color: rgb(70,70,70)
-                                height: epBtn.thisHeight
-                                width: epBtn.thisWidth
+                                scale: 1.0
                             }
                         },
                         State {
@@ -228,8 +225,7 @@ Item {
                             PropertyChanges {
                                 target: epBtn
                                 color: "lightSkyBlue"
-                                height: epBtn.thisHeight + 10
-                                width: epBtn.thisWidth + 10
+                                scale: 1.2
                             }
                         },
                         State {
@@ -237,8 +233,7 @@ Item {
                             PropertyChanges {
                                 target: epBtn
                                 color: "steelBlue"
-                                height: epBtn.thisHeight + 10
-                                width: epBtn.thisWidth + 10
+                                scale: 1.2
                             }
                         },
                         State {
@@ -246,8 +241,7 @@ Item {
                             PropertyChanges {
                                 target: epBtn
                                 color: rgb(10, 10, 10)
-                                height: epBtn.thisHeight
-                                width: epBtn.thisWidth
+                                scale: 1.0
                             }
                         },
                         State {
@@ -256,8 +250,7 @@ Item {
                             PropertyChanges {
                                 target: epBtn
                                 color: "steelBlue"
-                                height: epBtn.thisHeight - 10
-                                width: epBtn.thisWidth - 10
+                                scale: 0.8
                             }
                         }
 
@@ -268,7 +261,7 @@ Item {
                             to: "*"
                             NumberAnimation {
                                 target: epBtn
-                                properties: "width, height"
+                                properties: "width, height, scale"
                                 duration: 200
                                 easing.type: Easing.InOutQuad
                             }
