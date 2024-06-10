@@ -114,18 +114,18 @@ Item {
 
             Rectangle {
                 id: footerBtnRec
-                height: 30
+                height: videoArea.fullScreen ? 30 : 20
                 width: videoFooter.width
                 anchors.bottom: videoFooter.bottom
                 anchors.bottomMargin: 10
-                color: "transparent"
-                RowLayout {
+                color: "black"
+                Row {
                     anchors.fill: footerBtnRec
-                    spacing: 10
-                    layoutDirection: Qt.LeftToRight
-
+                    spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
+                    //layoutDirection: Qt.LeftToRight
                     IconButton {
                         id: lastEpBtn
+                        Layout.fillWidth: true
                         height: parent.height
                         width: height
                         scale: 0.8

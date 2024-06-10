@@ -60,8 +60,23 @@ Rectangle {
         State {
             name: "brighter"
             when: hovered // only the first true State is applied, so put scale and opacity together
-            PropertyChanges { target: root; opacity: 1.0; scale: mouseArea.pressed ? 1.0 : 1.0 }
-        }
+            PropertyChanges { target: root; opacity: 1.0; scale: 1.0 }
+        }/*,
+        State {
+            name: "pressed"
+            when: pressed
+            PropertyChanges {
+
+                target: root; opacity: 1.0; scale: 0.8
+            }
+        },
+        State {
+            name: "clicked"
+            when: clicked
+            PropertyChanges {
+                target: root; opacity: 1.0; scale: 1.0
+            }
+        }*/
     ]
     transitions: [
         Transition {
