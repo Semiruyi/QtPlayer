@@ -1,6 +1,5 @@
 import QtQuick
 
-
 Rectangle {
     id: root
     property string text
@@ -8,8 +7,8 @@ Rectangle {
     property alias iconChecked: iconChecked.source
     property bool checkable: false
     property bool checked: false
-    property color bgColor: "#555555"
-    property color bgColorSelected: "#ee6666dd"
+    property color bgColor: "transparent"
+    property color bgColorSelected: "transparent"
     property color textColor: "white"
     property bool hovered: false //mouseArea.containsMouse
     readonly property alias pressed: mouseArea.pressed

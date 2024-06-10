@@ -19,7 +19,7 @@ qt_add_qml_module(appQtPlayer
         Main.qml
         QML_FILES PlayPage.qml
         RESOURCES Resources.qrc
-        QML_FILES TestButton.qml
+        QML_FILES IconButton.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
