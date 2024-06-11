@@ -6,7 +6,6 @@ import QtQuick.Layouts
 import QtMultimedia
 import Qt.labs.folderlistmodel
 
-
 Window {
     visible: true
     id: root
@@ -49,7 +48,7 @@ Window {
             model: ListModel {
                 id: animeList
                 ListElement {
-                    folderUrl: "file:///home/wyy/Videos/bocchi the rock"
+                    folderUrl: "file:///C:/Users/wyy/Videos/bocchi the rock"
                 }
             }
             spacing: 10

@@ -129,7 +129,7 @@ Item {
                         height: parent.height
                         width: height
                         scale: 0.8
-                        icon: "file:///C:/y/project/QtPlayer/resources/icons/last.png"
+                        icon: "qrc:/resources/icons/last.png"
                         visible: root.epIndex === 0 ? false : true
                         onClicked: function (mouse) {
                             epList.itemAtIndex(root.epIndex - 1).mouseArea.clicked(mouse)
@@ -141,8 +141,8 @@ Item {
                         height: parent.height
                         width: height
                         checked: video.isPlaying
-                        icon: "file:///C:/y/project/QtPlayer/resources/icons/play.png"
-                        iconChecked: "file:///C:/y/project/QtPlayer/resources/icons/pause.png"
+                        icon: "qrc:/resources/icons/play.png"
+                        iconChecked: "qrc:/resources/icons/pause.png"
                         onClicked: function (mouse) {
                             videoMouseArea.doubleClicked(mouse)
                         }
@@ -153,7 +153,7 @@ Item {
                         height: parent.height
                         width: height
                         scale: 0.8
-                        icon: "file:///C:/y/project/QtPlayer/resources/icons/next.png"
+                        icon: "qrc:/resources/icons/next.png"
                         visible: root.epIndex === epList.count - 1 ? false : true
                         onClicked: function (mouse) {
                             epList.itemAtIndex(root.epIndex + 1).mouseArea.clicked(mouse)
@@ -164,8 +164,8 @@ Item {
                         id: fullScreenBtn
                         height: parent.height
                         width: height
-                        icon: "file:///C:/y/project/QtPlayer/resources/icons/fullScreen.png"
-                        iconChecked: "file:///C:/y/project/QtPlayer/resources/icons/exitFullScreen.png"
+                        icon: "qrc:/resources/icons/fullScreen.png"
+                        iconChecked: "qrc:/resources/icons/exitFullScreen.png"
                         checked: videoArea.fullScreen
                         onClicked: function (mouse) {
                             if(videoArea.fullScreen === false){

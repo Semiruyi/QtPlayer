@@ -49,7 +49,6 @@ Rectangle {
             root.clicked(mouse)
         }
         onHoveredChanged: {
-            //console.log("button.hover mouseX: " + mouseX)
             if (mouseX > 65535) //qt5.6 touch screen release finger becomes very large e.g. 0x7fffffff
                 return
             hovered = mouseArea.containsMouse
