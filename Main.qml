@@ -49,7 +49,7 @@ Window {
             model: ListModel {
                 id: animeList
                 ListElement {
-                    folderUrl: "file:///C:/Users/wyy/Videos/bocchi the rock"
+                    folderUrl: "file:///home/wyy/Videos/bocchi the rock"
                 }
             }
             spacing: 10
