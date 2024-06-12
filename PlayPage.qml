@@ -69,8 +69,48 @@ Item {
                 }
                 hoverEnabled: true
                 onMouseXChanged: {
+                    videoHeader.visible = true
                     videoFooter.visible = true
-                    hideFooterTimer.restart()
+                    autoHideTimer.restart()
+                }
+            }
+        }
+
+        Rectangle {
+            id: videoHeader
+            anchors.top: video.top
+            height: 40
+            width: video.width
+            z: 2
+            visible: false
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: videoArea.color }
+                GradientStop { position: 1.0; color: "transparent" }
+            }
+            Rectangle {
+                id: headerBtnRec
+                height: videoArea.fullScreen ? 30 : 20
+                width: videoHeader.width
+                anchors.top: videoHeader.top
+                anchors.topMargin: 10
+                color: "transparent"
+                Row {
+                    anchors.fill: headerBtnRec
+                    anchors.leftMargin: headerBtnRec.height / 3
+                    anchors.rightMargin: headerBtnRec.height / 3
+                    spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
+                    IconButton {
+                        height: parent.height + 5
+                        width: height
+                        icon: "qrc:/resources/icons/back.png"
+                        onClicked: {
+                            if(videoArea.fullScreen === true) {
+                                fullScreenBtn.clicked(mouse)
+                            } else {
+                                root.parentValue.back()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -104,7 +144,7 @@ Item {
                         when: video.isPlaying
                         PropertyChanges {
                             target: pauseIcon
-                            scale: 3.0
+                            scale: 0
                             opacity: 0
                         }
                     }
@@ -130,9 +170,7 @@ Item {
             height: 70
             width: video.width
             z: 2
-            // color: "white"
             visible: false
-            color: videoArea.color
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "transparent" }
                 GradientStop { position: 1.0; color: videoArea.color }
@@ -149,9 +187,8 @@ Item {
                 width: videoFooter.width
 
                 onMoved: {
-                    // video.position = value
                     video.seek(value)
-                    hideFooterTimer.restart()
+                    autoHideTimer.restart()
                 }
 
                 Timer {
@@ -171,6 +208,8 @@ Item {
                 color: "transparent"
                 Row {
                     anchors.fill: footerBtnRec
+                    anchors.leftMargin: footerBtnRec.height
+                    anchors.rightMargin: footerBtnRec.height
                     spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
                     //layoutDirection: Qt.LeftToRight
                     IconButton {
@@ -225,6 +264,7 @@ Item {
                     }
 
                     IconButton {
+                        id: speedMessage
                         height: parent.height
                         width: 30
                         textColor: "white"
@@ -254,11 +294,12 @@ Item {
         }
 
         Timer {
-            id: hideFooterTimer
+            id: autoHideTimer
             interval: 1500;
             repeat: false;
             running: false;
             onTriggered: {
+                videoHeader.visible = false
                 videoFooter.visible = false
             }
         }
@@ -413,16 +454,8 @@ Item {
                     }
                 }
             }
-
-
         }
-        Button {
-            anchors.bottom: parent.bottom
-            text: "Back"
-            onClicked: {
-                root.parentValue.back()
-            }
-        }
+
     }
 
 }
