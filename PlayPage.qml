@@ -141,6 +141,7 @@ Item {
                         height: parent.height
                         width: height
                         checked: video.isPlaying
+                        hoveredScale: 1.4
                         icon: "qrc:/resources/icons/play.png"
                         iconChecked: "qrc:/resources/icons/pause.png"
                         onClicked: function (mouse) {
@@ -338,6 +339,7 @@ Item {
                             epBtn.state = "focus"
                         }
                         onExited: {
+                            // console.log("test", index)
                             if(index === root.epIndex) {
                                 epBtn.state = "selected"
                                 return

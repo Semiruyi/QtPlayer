@@ -11,11 +11,14 @@ Rectangle {
     property color bgColorSelected: "transparent"
     property color textColor: "white"
     property bool hovered: false //mouseArea.containsMouse
+    property real normalScale: 1.0
+    property real pressedScale: 0.8
+    property real hoveredScale: 1.2
     readonly property alias pressed: mouseArea.pressed
     signal clicked(MouseEvent mouse)
     signal pressAndHold()
 
-    opacity: 0.7
+    opacity: 0.9
     color: checked ? bgColorSelected : mouseArea.pressed ? Qt.darker(bgColor) : bgColor
     border.color: Qt.lighter(color)
 
@@ -59,7 +62,7 @@ Rectangle {
         State {
             name: "brighter"
             when: hovered // only the first true State is applied, so put scale and opacity together
-            PropertyChanges { target: root; opacity: 1.0; scale: 1.0 }
+            PropertyChanges { target: root; opacity: 1.0; scale: hoveredScale }
         }/*,
         State {
             name: "pressed"
