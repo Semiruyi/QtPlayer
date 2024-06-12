@@ -3,6 +3,7 @@ import QtMultimedia
 import QtQuick.Controls
 import Qt.labs.folderlistmodel
 import QtQuick.Layouts
+import "utils.js" as Utils
 
 
 Item {
@@ -71,7 +72,6 @@ Item {
                     hideFooterTimer.restart()
                 }
             }
-
         }
 
         Rectangle {
@@ -118,7 +118,7 @@ Item {
                 width: videoFooter.width
                 anchors.bottom: videoFooter.bottom
                 anchors.bottomMargin: 10
-                color: "black"
+                color: "transparent"
                 Row {
                     anchors.fill: footerBtnRec
                     spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
@@ -157,6 +157,19 @@ Item {
                         visible: root.epIndex === epList.count - 1 ? false : true
                         onClicked: function (mouse) {
                             epList.itemAtIndex(root.epIndex + 1).mouseArea.clicked(mouse)
+                        }
+                    }
+
+                    Rectangle {
+                        height: parent.height
+                        width:  videoProgressMessage.width
+                        color: "transparent"
+                        Text {
+                            id: videoProgressMessage
+                            font.pixelSize: videoArea.fullScreen ? 15 : 13
+                            color: "white"
+                            anchors.centerIn: parent
+                            text: Utils.formattedVideoDuration(video.position) + " / " + Utils.formattedVideoDuration(video.duration)
                         }
                     }
 
