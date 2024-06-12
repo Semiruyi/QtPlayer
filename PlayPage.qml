@@ -76,6 +76,55 @@ Item {
         }
 
         Rectangle {
+            width: 55
+            height: 55
+            anchors.right: videoFooter.right
+            anchors.bottom: videoFooter.top
+            anchors.bottomMargin: 5
+            anchors.rightMargin: 40
+            color: "transparent"
+            Image {
+                id: pauseIcon
+                anchors.fill: parent
+                anchors.centerIn: parent
+                fillMode: Image.PreserveAspectFit
+                source: "qrc:/resources/icons/pause-big.png"
+                states: [
+                    State {
+                        name: "display"
+                        when: !video.isPlaying
+                        PropertyChanges {
+                            target: pauseIcon
+                            scale: 1.0
+                            opacity: 1.0
+                        }
+                    },
+                    State {
+                        name: "hide"
+                        when: video.isPlaying
+                        PropertyChanges {
+                            target: pauseIcon
+                            scale: 3.0
+                            opacity: 0
+                        }
+                    }
+                ]
+                transitions: [
+                    Transition {
+                        from: "*"
+                        to: "*"
+                        PropertyAnimation {
+                            target: pauseIcon
+                            properties: "scale, opacity"
+                            duration: 200
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
+                ]
+            }
+        }
+
+        Rectangle {
             id: videoFooter
             anchors.bottom: video.bottom
             height: 70
@@ -87,55 +136,6 @@ Item {
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "transparent" }
                 GradientStop { position: 1.0; color: videoArea.color }
-            }
-
-            Rectangle {
-                width: 55
-                height: 55
-                anchors.right: videoFooter.right
-                anchors.bottom: progressBar.top
-                anchors.bottomMargin: 5
-                anchors.rightMargin: 40
-                color: "transparent"
-                Image {
-                    id: pauseIcon
-                    anchors.fill: parent
-                    anchors.centerIn: parent
-                    fillMode: Image.PreserveAspectFit
-                    source: "qrc:/resources/icons/pause-big.png"
-                    states: [
-                        State {
-                            name: "display"
-                            when: !video.isPlaying
-                            PropertyChanges {
-                                target: pauseIcon
-                                scale: 1.0
-                                opacity: 1.0
-                            }
-                        },
-                        State {
-                            name: "hide"
-                            when: video.isPlaying
-                            PropertyChanges {
-                                target: pauseIcon
-                                scale: 3.0
-                                opacity: 0
-                            }
-                        }
-                    ]
-                    transitions: [
-                        Transition {
-                            from: "*"
-                            to: "*"
-                            PropertyAnimation {
-                                target: pauseIcon
-                                properties: "scale, opacity"
-                                duration: 200
-                                easing.type: Easing.InOutQuad
-                            }
-                        }
-                    ]
-                }
             }
 
             Slider {
@@ -222,6 +222,14 @@ Item {
                             anchors.centerIn: parent
                             text: Utils.formattedVideoDuration(video.position) + " / " + Utils.formattedVideoDuration(video.duration)
                         }
+                    }
+
+                    IconButton {
+                        height: parent.height
+                        width: 30
+                        textColor: "white"
+                        text: "1.0x"
+                        fontBold: true
                     }
 
                     IconButton {

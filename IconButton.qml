@@ -14,6 +14,7 @@ Rectangle {
     property real normalScale: 1.0
     property real pressedScale: 0.8
     property real hoveredScale: 1.2
+    property bool fontBold: false
     readonly property alias pressed: mouseArea.pressed
     signal clicked(MouseEvent mouse)
     signal pressAndHold()
@@ -26,8 +27,9 @@ Rectangle {
         id: text
         anchors.fill: parent
         text: root.text
-        font.pixelSize: 0.5 * parent.height
+        font.pixelSize: 0.7 * parent.height
         color: textColor
+        font.bold: root.fontBold
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
