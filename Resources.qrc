@@ -6,5 +6,6 @@
         <file>resources/icons/last.png</file>
         <file>resources/icons/pause.png</file>
         <file>resources/icons/play.png</file>
+        <file>resources/icons/pause-big.png</file>
     </qresource>
 </RCC>

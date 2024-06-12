@@ -54,6 +54,7 @@ Item {
             id: video
             width: parent.width
             height: parent.height
+            //seekable: true
             MouseArea {
                 id: videoMouseArea
                 anchors.fill: video
@@ -76,7 +77,6 @@ Item {
 
         Rectangle {
             id: videoFooter
-
             anchors.bottom: video.bottom
             height: 70
             width: video.width
@@ -87,6 +87,55 @@ Item {
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "transparent" }
                 GradientStop { position: 1.0; color: videoArea.color }
+            }
+
+            Rectangle {
+                width: 55
+                height: 55
+                anchors.right: videoFooter.right
+                anchors.bottom: progressBar.top
+                anchors.bottomMargin: 5
+                anchors.rightMargin: 40
+                color: "transparent"
+                Image {
+                    id: pauseIcon
+                    anchors.fill: parent
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: "qrc:/resources/icons/pause-big.png"
+                    states: [
+                        State {
+                            name: "display"
+                            when: !video.isPlaying
+                            PropertyChanges {
+                                target: pauseIcon
+                                scale: 1.0
+                                opacity: 1.0
+                            }
+                        },
+                        State {
+                            name: "hide"
+                            when: video.isPlaying
+                            PropertyChanges {
+                                target: pauseIcon
+                                scale: 3.0
+                                opacity: 0
+                            }
+                        }
+                    ]
+                    transitions: [
+                        Transition {
+                            from: "*"
+                            to: "*"
+                            PropertyAnimation {
+                                target: pauseIcon
+                                properties: "scale, opacity"
+                                duration: 200
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+                    ]
+                }
             }
 
             Slider {
@@ -100,7 +149,8 @@ Item {
                 width: videoFooter.width
 
                 onMoved: {
-                    video.position = value
+                    // video.position = value
+                    video.seek(value)
                     hideFooterTimer.restart()
                 }
 
