@@ -207,25 +207,27 @@ Item {
                 anchors.bottomMargin: 10
                 color: "transparent"
 
-                Row {
+                RowLayout {
                     anchors.fill: footerBtnRec
-                    leftPadding: footerBtnRec.height
-                    rightPadding: footerBtnRec.height
+                    anchors.leftMargin: parent.height
+                    anchors.rightMargin: parent.height
                     spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
-                    move: Transition {
-                        from: "*"
-                        to: "*"
-                        NumberAnimation {
-                            property: "x"
-                            duration: 200
-                            easing.type: Easing.InOutQuad
-                        }
-                    }
+                    // move: Transition {
+                    //     from: "*"
+                    //     to: "*"
+                    //     NumberAnimation {
+                    //         property: "x"
+                    //         duration: 200
+                    //         easing.type: Easing.InOutQuad
+                    //     }
+                    // }
 
                     IconButton {
                         id: lastEpBtn
-                        Layout.fillWidth: true
-                        height: parent.height
+                        Layout.preferredWidth: parent.height
+                        Layout.preferredHeight: parent.height
+                        Layout.maximumHeight: parent.height * 1.2
+                        Layout.maximumWidth: parent.height * 1.2
                         width: height
                         scale: 0.8
                         icon: "qrc:/resources/icons/last.png"
@@ -237,29 +239,25 @@ Item {
 
                     IconButton {
                         id: playBtn
-                        height: parent.height
-                        width: height
+                        Layout.preferredWidth: parent.height
+                        Layout.preferredHeight: parent.height
+                        Layout.maximumHeight: parent.height * 1.2
+                        Layout.maximumWidth: parent.height * 1.2
                         checked: video.isPlaying
                         hoveredScale: 1.4
                         icon: "qrc:/resources/icons/play.png"
                         iconChecked: "qrc:/resources/icons/pause.png"
                         onClicked: function (mouse) {
-                            // console.log(playBtn.x)
-                            // playBtn.x += 30
                             videoMouseArea.doubleClicked(mouse)
-                        }
-                        Behavior on x {
-                            NumberAnimation {
-                                duration: 2000
-                                easing.type: Easing.InOutQuad
-                            }
                         }
                     }
 
                     IconButton {
                         id: nextEpBtn
-                        height: parent.height
-                        width: height
+                        Layout.preferredWidth: parent.height
+                        Layout.preferredHeight: parent.height
+                        Layout.maximumHeight: parent.height * 1.2
+                        Layout.maximumWidth: parent.height * 1.2
                         scale: 0.8
                         icon: "qrc:/resources/icons/next.png"
                         visible: root.epIndex === epList.count - 1 ? false : true
@@ -269,22 +267,31 @@ Item {
                     }
 
                     Rectangle {
-                        height: parent.height
-                        width:  videoProgressMessage.width
+                        Layout.preferredWidth: videoProgressMessage.width
+                        Layout.preferredHeight: parent.height
+                        Layout.maximumHeight: parent.height * 1.2
+                        Layout.maximumWidth: 220
                         color: "transparent"
                         Text {
                             id: videoProgressMessage
-                            font.pixelSize: videoArea.fullScreen ? 15 : 13
+                            font.pixelSize: videoArea.fullScreen ? 17 : 15
                             color: "white"
                             anchors.centerIn: parent
                             text: Utils.formattedVideoDuration(video.position) + " / " + Utils.formattedVideoDuration(video.duration)
                         }
                     }
 
+                    Rectangle {
+                        Layout.fillWidth: true
+                        height: parent.height
+                    }
+
                     IconButton {
                         id: speedMessage
-                        height: parent.height
-                        width: 30
+                        Layout.preferredWidth: parent.height
+                        Layout.preferredHeight: parent.height
+                        Layout.maximumHeight: parent.height * 1.2
+                        Layout.maximumWidth: parent.height * 1.2
                         textColor: "white"
                         text: "1.0x"
                         fontBold: true
@@ -292,8 +299,10 @@ Item {
 
                     IconButton {
                         id: fullScreenBtn
-                        height: parent.height
-                        width: height
+                        Layout.preferredWidth: parent.height
+                        Layout.preferredHeight: parent.height
+                        Layout.maximumHeight: parent.height * 1.2
+                        Layout.maximumWidth: parent.height * 1.2
                         icon: "qrc:/resources/icons/fullScreen.png"
                         iconChecked: "qrc:/resources/icons/exitFullScreen.png"
                         checked: videoArea.fullScreen
