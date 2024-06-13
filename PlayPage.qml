@@ -47,7 +47,7 @@ Item {
         width: videoArea.fullScreen ? root.width : root.width - epArea.width
         height: videoArea.fullScreen ? root.height : root.height
         z: fullScreen ? 1 : 0
-        color: epArea.color
+        color: fullScreen ? "black" : epArea.color
 
         Video {
             property bool isPlaying: false
@@ -206,12 +206,22 @@ Item {
                 anchors.bottom: videoFooter.bottom
                 anchors.bottomMargin: 10
                 color: "transparent"
+
                 Row {
                     anchors.fill: footerBtnRec
-                    anchors.leftMargin: footerBtnRec.height
-                    anchors.rightMargin: footerBtnRec.height
+                    leftPadding: footerBtnRec.height
+                    rightPadding: footerBtnRec.height
                     spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
-                    //layoutDirection: Qt.LeftToRight
+                    move: Transition {
+                        from: "*"
+                        to: "*"
+                        NumberAnimation {
+                            property: "x"
+                            duration: 200
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
+
                     IconButton {
                         id: lastEpBtn
                         Layout.fillWidth: true
@@ -226,7 +236,7 @@ Item {
                     }
 
                     IconButton {
-                        id: palyBtn
+                        id: playBtn
                         height: parent.height
                         width: height
                         checked: video.isPlaying
@@ -234,7 +244,15 @@ Item {
                         icon: "qrc:/resources/icons/play.png"
                         iconChecked: "qrc:/resources/icons/pause.png"
                         onClicked: function (mouse) {
+                            // console.log(playBtn.x)
+                            // playBtn.x += 30
                             videoMouseArea.doubleClicked(mouse)
+                        }
+                        Behavior on x {
+                            NumberAnimation {
+                                duration: 2000
+                                easing.type: Easing.InOutQuad
+                            }
                         }
                     }
 

@@ -27,6 +27,7 @@ Window {
 
     Item {
         id: mainView
+        //property url bOCHITHEROCK: "file:///C:/Users/wyy/Videos/bocchi the rock"
         FolderDialog {
             id: folderDialog
 
