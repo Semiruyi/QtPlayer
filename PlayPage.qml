@@ -72,7 +72,6 @@ Item {
             hoverEnabled: true
             onMouseXChanged: {
                 videoHeader.visible = true
-                //console.log()
                 videoFooter.state = "display"
                 autoHideTimer.restart()
             }
@@ -96,6 +95,14 @@ Item {
         VideoOutput {
             id: videoOutput
             anchors.fill: parent
+        }
+
+        Rectangle {
+            x: videoOutput.contentRect.x
+            y: videoOutput.contentRect.y
+            height: videoOutput.contentRect.height
+            width: videoOutput.contentRect.width
+            color: "white"
         }
 
         Rectangle {
@@ -228,9 +235,9 @@ Item {
                 from: 0
                 to: video.duration
                 value: video.position
-                height: 20
+                height: 25
                 anchors.bottom: footerBtnRec.top
-                // anchors.bottomMargin: 5
+                bottomPadding: 5
                 width: videoFooter.width
 
                 onMoved: {
@@ -276,27 +283,21 @@ Item {
                         playHistory.setEpPos(epIndex, video.position)
                     }
                 }
-
-                Rectangle {
-                    id: sliderRec
-                    anchors.fill: parent
-                    color: "white"
-                }
             }
 
             Rectangle {
                 id: footerBtnRec
-                height: videoArea.fullScreen ? 25 : 20
+                height: videoArea.fullScreen ? 35 : 30
                 width: videoFooter.width
                 anchors.bottom: videoFooter.bottom
-                //anchors.bottomMargin: 10
                 color: "transparent"
 
                 RowLayout {
                     anchors.fill: footerBtnRec
-                    anchors.leftMargin: parent.height
-                    anchors.rightMargin: parent.height
-                    spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
+                    anchors.leftMargin: parent.height * 0.65
+                    anchors.rightMargin: parent.height * 0.65
+                    anchors.bottomMargin: 10
+                    spacing: videoArea.fullScreen ? height * 0.8 + 5 : height * 0.8
 
                     IconButton {
                         id: lastEpBtn
@@ -350,10 +351,10 @@ Item {
                         color: "transparent"
                         Text {
                             id: videoProgressMessage
-                            font.pixelSize: videoArea.fullScreen ? 17 : 15
+                            font.pixelSize: videoArea.fullScreen ? 15 : 12
                             color: "white"
                             anchors.centerIn: parent
-                            text: Utils.formattedVideoDuration(video.position) + " / " + Utils.formattedVideoDuration(video.duration)
+                            text: Utils.formattedVideoDuration(video.position) + "  /  " + Utils.formattedVideoDuration(video.duration)
                         }
                     }
 
