@@ -3,6 +3,7 @@ import QtMultimedia
 import QtQuick.Controls
 import Qt.labs.folderlistmodel
 import QtQuick.Layouts
+import PlayControl
 import "utils.js" as Utils
 
 
@@ -10,9 +11,16 @@ Item {
     id: root
     focus: true
     property variant parentValue: null
-    property string folderUrl: ""
+    property url folderUrl: ""
     property int epIndex: 0
     signal back()
+
+    PlayHistory {
+        id: playHistory
+        Component.onCompleted: {
+            playHistory.init(folderUrl + "/QtPlayerData")
+        }
+    }
 
     FolderListModel {
         id: folderModel
@@ -49,38 +57,72 @@ Item {
         z: fullScreen ? 1 : 0
         color: fullScreen ? "black" : epArea.color
 
-        Video {
+        MouseArea {
+            id: videoMouseArea
+            anchors.fill: videoArea
+
+            onDoubleClicked: {
+                if(video.isPlaying){
+                    video.pause()
+                } else {
+                    video.play()
+                }
+
+                video.isPlaying = !video.isPlaying
+            }
+            hoverEnabled: true
+            onMouseXChanged: {
+                videoHeader.visible = true
+                videoFooter.visible = true
+                autoHideTimer.restart()
+            }
+        }
+
+
+        MediaPlayer {
             property bool isPlaying: false
             id: video
-            width: parent.width
-            height: parent.height
-            //seekable: true
-            MouseArea {
-                id: videoMouseArea
-                anchors.fill: video
+            videoOutput: videoOutput
 
-                onDoubleClicked: {
-                    if(video.isPlaying){
-                        video.pause()
-                    } else {
-                        video.play()
-                    }
-                    video.isPlaying = !video.isPlaying
-                }
-                hoverEnabled: true
-                onMouseXChanged: {
-                    videoHeader.visible = true
-                    videoFooter.visible = true
-                    autoHideTimer.restart()
-                }
-            }
+            // onStatusChanged: {
+            //     if (video.status === MediaPlayer.Loaded || video.status === MediaPlayer.Ready) {
+            //         video.position = 20003;
+            //     }
+            // }
+            //seekable: true
+        //     MouseArea {
+        //         id: videoMouseArea
+        //         anchors.fill: videoArea
+
+        //         onDoubleClicked: {
+        //             if(video.isPlaying){
+        //                 video.pause()
+        //             } else {
+        //                 video.play()
+        //             }
+
+        //             video.isPlaying = !video.isPlaying
+        //         }
+        //         hoverEnabled: true
+        //         onMouseXChanged: {
+        //             videoHeader.visible = true
+        //             videoFooter.visible = true
+        //             autoHideTimer.restart()
+        //         }
+        //     }
+
+        }
+
+        VideoOutput {
+            id: videoOutput
+            anchors.fill: parent
         }
 
         Rectangle {
             id: videoHeader
-            anchors.top: video.top
+            anchors.top: videoArea.top
             height: 40
-            width: video.width
+            width: videoArea.width
             z: 2
             visible: false
             gradient: Gradient {
@@ -166,9 +208,9 @@ Item {
 
         Rectangle {
             id: videoFooter
-            anchors.bottom: video.bottom
+            anchors.bottom: videoArea.bottom
             height: 70
-            width: video.width
+            width: videoArea.width
             z: 2
             visible: false
             gradient: Gradient {
@@ -176,28 +218,31 @@ Item {
                 GradientStop { position: 1.0; color: videoArea.color }
             }
 
-            Slider {
-                id: progressBar
-                from: 0
-                to: video.duration
-                value: video.position
-                height: 20
-                anchors.bottom: footerBtnRec.top
-                anchors.bottomMargin: 5
-                width: videoFooter.width
+            // Slider {
+            //     id: progressBar
+            //     from: 0
+            //     to: video.duration
+            //     value: video.position
+            //     height: 20
+            //     anchors.bottom: footerBtnRec.top
+            //     anchors.bottomMargin: 5
+            //     width: videoFooter.width
 
-                onMoved: {
-                    video.seek(value)
-                    autoHideTimer.restart()
-                }
+            //     onMoved: {
+            //         video.seek(value)
+            //         autoHideTimer.restart()
+            //     }
 
-                Timer {
-                    interval: 1000
-                    running: video.playbackState === video.PlayingState
-                    repeat: true
-                    onTriggered: progressBar.value = video.position
-                }
-            }
+            //     Timer {
+            //         interval: 1000
+            //         running: video.isPlaying
+            //         repeat: true
+            //         onTriggered: {
+            //             progressBar.value = video.position
+            //             playHistory.setEpPos(epIndex, video.position)
+            //         }
+            //     }
+            // }
 
             Rectangle {
                 id: footerBtnRec
@@ -212,15 +257,6 @@ Item {
                     anchors.leftMargin: parent.height
                     anchors.rightMargin: parent.height
                     spacing: videoArea.fullScreen ? footerBtnRec.height + 10 : footerBtnRec.height
-                    // move: Transition {
-                    //     from: "*"
-                    //     to: "*"
-                    //     NumberAnimation {
-                    //         property: "x"
-                    //         duration: 200
-                    //         easing.type: Easing.InOutQuad
-                    //     }
-                    // }
 
                     IconButton {
                         id: lastEpBtn
@@ -295,6 +331,9 @@ Item {
                         textColor: "white"
                         text: "1.0x"
                         fontBold: true
+                        onClicked: {
+                            video.position = 30002
+                        }
                     }
 
                     IconButton {
@@ -371,6 +410,10 @@ Item {
                             video.source = folderUrl + "/" + fileName
                             video.play()
                             video.pause()
+                        }
+                        else if(playHistory.isWatched(index)) {
+                            epBtn.watched = true;
+                            epBtn.state = "watched"
                         }
                     }
 
@@ -450,14 +493,17 @@ Item {
                         hoverEnabled: true
 
                         onClicked: {
+                            if(index === root.epIndex) {
+                                epBtn.state = "selected"
+                                console.log(video.position)
+                                return
+                            }
                             epList.itemAtIndex(root.epIndex).btn.state = "watched"
-                            epList.itemAtIndex(root.epIndex).btn.watched = true
+                            epBtn.watched = true
                             epBtn.state = "selected"
                             root.epIndex = index
                             video.isPlaying = false
                             video.source = folderUrl + "/" + fileName
-                            video.play()
-                            video.isPlaying = true
                         }
 
                         onEntered: {

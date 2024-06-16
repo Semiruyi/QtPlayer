@@ -39,10 +39,6 @@ function msec2string(t) {
     return hh + ":" + mm +":" + ss
 }
 
-function scaled(x) {
-    //console.log("scaleRatio: " + scaleRatio + "; " + x + ">>>" + x*scaleRatio);
-    return x * scaleRatio;
-}
 
 function htmlEscaped(s) {
     if (!s) {

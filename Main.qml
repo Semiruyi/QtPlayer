@@ -13,7 +13,6 @@ Window {
     height: 1080 / 2
 
     function back() {
-        console.log("test")
         stack.pop()
     }
 
