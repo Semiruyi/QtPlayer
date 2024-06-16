@@ -32,7 +32,7 @@ public:
     Q_INVOKABLE int setWatchState(int index, bool state);
     Q_INVOKABLE int setEpPos(int index, int postion);
     Q_INVOKABLE int getEpPos(int index);
-    int saveData();
+    Q_INVOKABLE int saveData();
     int getTest() const;
     void setTest(int newTest);
 

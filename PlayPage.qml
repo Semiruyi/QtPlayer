@@ -60,7 +60,6 @@ Item {
         MouseArea {
             id: videoMouseArea
             anchors.fill: videoArea
-
             onDoubleClicked: {
                 if(video.isPlaying){
                     video.pause()
@@ -73,44 +72,25 @@ Item {
             hoverEnabled: true
             onMouseXChanged: {
                 videoHeader.visible = true
-                videoFooter.visible = true
+                //console.log()
+                videoFooter.state = "display"
                 autoHideTimer.restart()
             }
         }
-
 
         MediaPlayer {
             property bool isPlaying: false
             id: video
             videoOutput: videoOutput
-
-            // onStatusChanged: {
-            //     if (video.status === MediaPlayer.Loaded || video.status === MediaPlayer.Ready) {
-            //         video.position = 20003;
-            //     }
-            // }
-            //seekable: true
-        //     MouseArea {
-        //         id: videoMouseArea
-        //         anchors.fill: videoArea
-
-        //         onDoubleClicked: {
-        //             if(video.isPlaying){
-        //                 video.pause()
-        //             } else {
-        //                 video.play()
-        //             }
-
-        //             video.isPlaying = !video.isPlaying
-        //         }
-        //         hoverEnabled: true
-        //         onMouseXChanged: {
-        //             videoHeader.visible = true
-        //             videoFooter.visible = true
-        //             autoHideTimer.restart()
-        //         }
-        //     }
-
+            audioOutput: AudioOutput {
+                volume: 1.0
+            }
+            onMediaStatusChanged: {
+                if(mediaStatus === MediaPlayer.LoadedMedia) {
+                    video.position = playHistory.getEpPos(root.epIndex)
+                    progressBar.value = video.position
+                }
+            }
         }
 
         VideoOutput {
@@ -150,6 +130,7 @@ Item {
                                 fullScreenBtn.clicked(mouse)
                             } else {
                                 root.parentValue.back()
+                                playHistory.saveData()
                             }
                         }
                     }
@@ -158,6 +139,7 @@ Item {
         }
 
         Rectangle {
+            id: pauseIconRec
             width: 55
             height: 55
             anchors.right: videoFooter.right
@@ -208,48 +190,106 @@ Item {
 
         Rectangle {
             id: videoFooter
-            anchors.bottom: videoArea.bottom
-            height: 70
+            anchors.top: videoArea.bottom
+            height: progressBar.height + footerBtnRec.height
             width: videoArea.width
-            z: 2
-            visible: false
+
+            //visible: false
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "transparent" }
                 GradientStop { position: 1.0; color: videoArea.color }
             }
 
-            // Slider {
-            //     id: progressBar
-            //     from: 0
-            //     to: video.duration
-            //     value: video.position
-            //     height: 20
-            //     anchors.bottom: footerBtnRec.top
-            //     anchors.bottomMargin: 5
-            //     width: videoFooter.width
+            states: [
+                State {
+                    name: "display"
+                    AnchorChanges {
+                        target: videoFooter
+                        anchors.top: undefined
+                        anchors.bottom: videoArea.bottom
+                    }
+                },
+                State {
+                    name: "hide"
+                    AnchorChanges {
+                        target: videoFooter
+                        anchors.top: videoArea.bottom
+                        anchors.bottom: undefined
+                    }
+                }
+            ]
 
-            //     onMoved: {
-            //         video.seek(value)
-            //         autoHideTimer.restart()
-            //     }
+            transitions: Transition {
+                AnchorAnimation { duration: 200; easing.type: Easing.InOutQuad}
+            }
 
-            //     Timer {
-            //         interval: 1000
-            //         running: video.isPlaying
-            //         repeat: true
-            //         onTriggered: {
-            //             progressBar.value = video.position
-            //             playHistory.setEpPos(epIndex, video.position)
-            //         }
-            //     }
-            // }
+            Slider {
+                id: progressBar
+                from: 0
+                to: video.duration
+                value: video.position
+                height: 20
+                anchors.bottom: footerBtnRec.top
+                // anchors.bottomMargin: 5
+                width: videoFooter.width
+
+                onMoved: {
+                    video.position = value
+                    autoHideTimer.restart()
+                }
+
+                background: Rectangle {
+                    x: progressBar.leftPadding
+                    y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
+                    implicitWidth: 200
+                    implicitHeight: 4
+
+                    width: progressBar.availableWidth
+                    height: implicitHeight
+                    radius: 2
+                    color: "transparent"
+
+                    Rectangle {
+                        width: progressBar.visualPosition * parent.width
+                        height: parent.height
+                        color: rgb(33,139,188)
+                        radius: 2
+                    }
+                }
+
+                handle: Rectangle {
+                    x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
+                    y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
+                    implicitWidth: 10
+                    implicitHeight: 17
+                    radius: 2
+                    color: progressBar.pressed ? "#f0f0f0" : "#f6f6f6"
+                    border.color: "#bdbebf"
+                }
+
+                Timer {
+                    interval: 350
+                    running: video.isPlaying
+                    repeat: true
+                    onTriggered: {
+                        progressBar.value = video.position
+                        playHistory.setEpPos(epIndex, video.position)
+                    }
+                }
+
+                Rectangle {
+                    id: sliderRec
+                    anchors.fill: parent
+                    color: "white"
+                }
+            }
 
             Rectangle {
                 id: footerBtnRec
-                height: videoArea.fullScreen ? 30 : 20
+                height: videoArea.fullScreen ? 25 : 20
                 width: videoFooter.width
                 anchors.bottom: videoFooter.bottom
-                anchors.bottomMargin: 10
+                //anchors.bottomMargin: 10
                 color: "transparent"
 
                 RowLayout {
@@ -320,6 +360,7 @@ Item {
                     Rectangle {
                         Layout.fillWidth: true
                         height: parent.height
+                        color: "transparent"
                     }
 
                     IconButton {
@@ -331,9 +372,6 @@ Item {
                         textColor: "white"
                         text: "1.0x"
                         fontBold: true
-                        onClicked: {
-                            video.position = 30002
-                        }
                     }
 
                     IconButton {
@@ -366,7 +404,7 @@ Item {
             running: false;
             onTriggered: {
                 videoHeader.visible = false
-                videoFooter.visible = false
+                videoFooter.state = "hide"
             }
         }
     }
@@ -495,15 +533,16 @@ Item {
                         onClicked: {
                             if(index === root.epIndex) {
                                 epBtn.state = "selected"
-                                console.log(video.position)
                                 return
                             }
+                            playHistory.setWatchState(index, true)
                             epList.itemAtIndex(root.epIndex).btn.state = "watched"
                             epBtn.watched = true
                             epBtn.state = "selected"
                             root.epIndex = index
-                            video.isPlaying = false
                             video.source = folderUrl + "/" + fileName
+                            video.play()
+                            video.isPlaying = true
                         }
 
                         onEntered: {

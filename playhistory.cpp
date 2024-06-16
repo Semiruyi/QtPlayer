@@ -58,20 +58,12 @@ int PlayHistory::isWatched(int index) {
 
 int PlayHistory::setWatchState(int index, bool state) {
     data[index].isWatched = state;
-    if(saveData() == -1) {
-        cerr << "error on setWatchState" << endl;
-        return -1;
-    }
     return 0;
 }
 
 int PlayHistory::setEpPos(int index, int position) {
     data[index].position = position;
     cout << "setEpPos " << index << " " << position << endl;
-    if(saveData() == -1) {
-        cerr << "error on setEpPos" << endl;
-        return -1;
-    }
     return 0;
 }
 

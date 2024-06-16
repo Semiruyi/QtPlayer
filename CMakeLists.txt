@@ -22,7 +22,6 @@ qt_add_qml_module(appQtPlayer
         QML_FILES PlayPage.qml
         QML_FILES IconButton.qml
         QML_FILES utils.js
-        QML_FILES SliderTest.qml
         SOURCES playhistory.h playhistory.cpp
 )
 
