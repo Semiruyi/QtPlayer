@@ -14,14 +14,21 @@ qt_add_executable(appQtPlayer
     Resources.qrc
 )
 
+set(SOURCES
+    src/qml/Main.qml
+    src/qml/PlayPage/PlayPage.qml
+    src/qml/PlayPage/IconButton.qml
+    src/qml/PlayPage/utils.js
+    src/qml/PlayPage/VideoFooter.qml
+    src/qml/PlayPage/PlayPage-New.qml
+    src/qml/PlayPage/VideoBody.qml
+    src/qml/PlayPage/EpisodeList.qml
+)
+
 qt_add_qml_module(appQtPlayer
     URI QtPlayer
     VERSION 1.0
-    QML_FILES
-        Main.qml
-        QML_FILES PlayPage.qml
-        QML_FILES IconButton.qml
-        QML_FILES utils.js
+    QML_FILES ${SOURCES}
         SOURCES playhistory.h playhistory.cpp
 )
 

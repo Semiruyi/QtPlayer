@@ -8,5 +8,9 @@
         <file>resources/icons/play.png</file>
         <file>resources/icons/pause-big.png</file>
         <file>resources/icons/back.png</file>
+        <file>src/qml/PlayPage/VideoFooter.qml</file>
+        <file>src/qml/PlayPage/PlayPage-New.qml</file>
+        <file>src/qml/PlayPage/VideoBody.qml</file>
+        <file>src/qml/PlayPage/EpisodeList.qml</file>
     </qresource>
 </RCC>

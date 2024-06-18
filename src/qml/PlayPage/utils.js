@@ -99,3 +99,7 @@ function formattedVideoDuration(duration) {
     return formattedHours + ':' + formattedMinutes + ':' + formattedSeconds
 }
 
+function rgb(r,g,b){
+    var ret=(r << 16 | g << 8 | b);
+    return("#"+ret.toString(16)).toUpperCase();
+}
