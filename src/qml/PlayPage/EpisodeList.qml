@@ -1,9 +1,13 @@
 import QtQuick
 import Qt.labs.folderlistmodel
+import PlayControl
 import "utils.js" as Utils
 
 Item {
     id: root
+
+    property alias playHistory: playHistory
+
     property url folderUrl
     property FolderListModel folderModel
     property VideoBody video
@@ -18,6 +22,14 @@ Item {
         epList.itemAtIndex(root.epIndex).btn.watched = true
         epList.itemAtIndex(root.epIndex).btn.state = "selected"
         lastEpIndex = epIndex
+    }
+
+    PlayHistory {
+        id: playHistory
+    }
+
+    Component.onCompleted: {
+        playHistory.init(folderUrl + "/QtPlayerData")
     }
 
     GridView {
@@ -42,19 +54,19 @@ Item {
                 anchors.centerIn: parent
                 radius: 10
                 color: Utils.rgb(10, 10, 10)
-                // Component.onCompleted: {
-                //     if(index === root.epIndex) {
-                //         epBtn.state = "selected"
-                //         epBtn.watched = true
-                //         video.source = root.folderUrl + "/" + fileName
-                //         video.play()
-                //         video.pause()
-                //     }
-                //     else if(playHistory.isWatched(index)) {
-                //         epBtn.watched = true;
-                //         epBtn.state = "watched"
-                //     }
-                // }
+                Component.onCompleted: {
+                    if(index === root.epIndex) {
+                        epBtn.state = "selected"
+                        epBtn.watched = true
+                        video.source = root.folderUrl + "/" + fileName
+                        // video.play()
+                        // video.pause()
+                    }
+                    else if(playHistory.isWatched(index)) {
+                        epBtn.watched = true;
+                        epBtn.state = "watched"
+                    }
+                }
 
                 Text {
                     anchors.centerIn: parent
@@ -153,13 +165,9 @@ Item {
                         } else {
                             epBtn.state = "normal"
                         }
-
                     }
-
                 }
-
             }
         }
     }
-
 }

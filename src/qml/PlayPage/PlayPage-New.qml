@@ -45,6 +45,10 @@ Item {
         Rectangle {
             id: videoArea
             property bool isFullScreen: false
+
+            signal singleClicked()
+            signal doubleClicked()
+
             onIsFullScreenChanged: {
                 if(isFullScreen) {
                     root.parentValue.showFullScreen()
@@ -52,6 +56,48 @@ Item {
                 } else {
                     root.parentValue.showNormal()
                     videoArea.state = "normal"
+                }
+            }
+
+            onSingleClicked: {
+                videoBody.playStateChanged()
+            }
+
+            onDoubleClicked: {
+                videoArea.isFullScreen = !videoArea.isFullScreen
+            }
+
+            Timer {
+                id: autoHideTimer
+                interval: 1500;
+                repeat: false;
+                running: false;
+                onTriggered: {
+                    // videoHeader.visible = false
+                    videoFooterArea.state = "hide"
+                }
+            }
+
+            MouseArea {
+                Timer {
+                    id: videoAreaClickTimer
+                    interval: 300
+                    onTriggered: videoArea.singleClicked()
+                }
+
+                anchors.fill: parent
+                hoverEnabled: true
+                onMouseXChanged: {
+                    videoFooterArea.state = "display"
+                    autoHideTimer.restart()
+                }
+                onClicked: {
+                    if(videoAreaClickTimer.running) {
+                        videoArea.doubleClicked()
+                        videoAreaClickTimer.stop()
+                    } else {
+                        videoAreaClickTimer.restart()
+                    }
                 }
             }
 
@@ -77,26 +123,27 @@ Item {
                 }
             ]
 
-            transitions: [
-                Transition {
-                    from: "*"
-                    to: "*"
-                    NumberAnimation {
-                        target: videoArea
-                        properties: "width, height"
-                        duration: 500
-                        easing.type: Easing.InOutQuad
-                    }
-                }
-            ]
+            // transitions: [
+            //     Transition {
+            //         from: "*"
+            //         to: "*"
+            //         NumberAnimation {
+            //             target: videoArea
+            //             properties: "width, height"
+            //             duration: 500
+            //             easing.type: Easing.InOutQuad
+            //         }
+            //     }
+            // ]
 
             Rectangle {
                 id: videoBodyArea
                 anchors.fill: videoArea
                 VideoBody {
                     id: videoBody
+                    playHistory: episodeList.playHistory
                     anchors.fill: videoBodyArea
-                    source: "file:///C:/Users/wyy/Videos/bocchi the rock/[Airota][BOCCHI THE ROCK!][01][BDRip 1080p AVC AAC][CHS].mp4"
+                    // source: "file:///C:/Users/wyy/Videos/bocchi the rock/[Airota][BOCCHI THE ROCK!][01][BDRip 1080p AVC AAC][CHS].mp4"
                 }
             }
 
@@ -105,20 +152,44 @@ Item {
             }
 
             Rectangle {
-                id: videoFooter
+                id: videoFooterArea
                 height: 50
                 width: videoArea.width
-                anchors.bottom: videoArea.bottom
+                // anchors.bottom: videoArea.bottom
                 color: "transparent"
+                state: "hide"
+                states: [
+                    State {
+                        name: "display"
+                        AnchorChanges {
+                            target: videoFooterArea
+                            anchors.top: undefined
+                            anchors.bottom: videoArea.bottom
+                        }
+                    },
+                    State {
+                        name: "hide"
+                        AnchorChanges {
+                            target: videoFooterArea
+                            anchors.top: videoArea.bottom
+                            anchors.bottom: undefined
+                        }
+                    }
+                ]
+
+                transitions: Transition {
+                    AnchorAnimation { duration: 200; easing.type: Easing.InOutQuad}
+                }
+
                 VideoFooter {
-                    anchors.fill: videoFooter
+                    id: videoFooter
+                    anchors.fill: videoFooterArea
                     video: videoBody
                     videoArea: videoArea
                     epList: episodeList
                     finalEpIndex: folderModel.count - 1
                 }
             }
-
         }
 
         Rectangle {

@@ -12,32 +12,11 @@ Item {
     Rectangle {
         id: videoFooter
         anchors.fill: root
-
+        y: root.height
         gradient: Gradient {
             GradientStop { position: 0.0; color: "transparent" }
             GradientStop { position: 1.0; color: "black" }
         }
-
-        state: "display"
-
-        states: [
-            State {
-                name: "display"
-                AnchorChanges {
-                    target: videoFooter
-                    anchors.top: undefined
-                    anchors.bottom: root.bottom
-                }
-            },
-            State {
-                name: "hide"
-                AnchorChanges {
-                    target: videoFooter
-                    anchors.top: root.bottom
-                    anchors.bottom: undefined
-                }
-            }
-        ]
 
         transitions: Transition {
             AnchorAnimation { duration: 200; easing.type: Easing.InOutQuad}
@@ -202,11 +181,7 @@ Item {
                     }
                 }
             }
-
         }
-
     }
-
-
 }
 

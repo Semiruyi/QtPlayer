@@ -8,6 +8,7 @@ Item {
     property bool isPlaying: false
     property alias position: video.position
     property alias duration: video.duration
+    property PlayHistory playHistory
 
     // property PlayHistory playHistory
 
@@ -53,12 +54,12 @@ Item {
         audioOutput: AudioOutput {
             volume: 1.0
         }
-        // onMediaStatusChanged: {
-        //     if(mediaStatus === MediaPlayer.LoadedMedia) {
-        //         video.position = root.playHistory.getEpPos(root.epIndex)
-        //         progressBar.value = video.position
-        //     }
-        // }
+        onMediaStatusChanged: {
+            if(mediaStatus === MediaPlayer.LoadedMedia) {
+                video.position = root.playHistory.getEpPos(root.epIndex)
+                // progressBar.value = video.position
+            }
+        }
     }
 
     VideoOutput {
