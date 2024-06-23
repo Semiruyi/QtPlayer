@@ -16,13 +16,14 @@ qt_add_executable(appQtPlayer
 
 set(SOURCES
     src/qml/Main.qml
-    src/qml/PlayPage/PlayPage.qml
     src/qml/PlayPage/IconButton.qml
     src/qml/PlayPage/utils.js
     src/qml/PlayPage/VideoFooter.qml
     src/qml/PlayPage/PlayPage-New.qml
     src/qml/PlayPage/VideoBody.qml
     src/qml/PlayPage/EpisodeList.qml
+    src/qml/PlayPage/ProgressBar.qml
+    src/qml/PlayPage/PauseIcon.qml
 )
 
 qt_add_qml_module(appQtPlayer

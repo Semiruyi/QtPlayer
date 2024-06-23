@@ -51,6 +51,7 @@ Window  {
                     folderUrl: "file:///C:/Users/wyy/Videos/bocchi the rock"
                 }
             }
+
             spacing: 10
             delegate: Button {
                 text: folderUrl

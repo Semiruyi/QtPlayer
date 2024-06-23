@@ -12,5 +12,7 @@
         <file>src/qml/PlayPage/PlayPage-New.qml</file>
         <file>src/qml/PlayPage/VideoBody.qml</file>
         <file>src/qml/PlayPage/EpisodeList.qml</file>
+        <file>src/qml/PlayPage/ProgressBar.qml</file>
+        <file>src/qml/PlayPage/PauseIcon.qml</file>
     </qresource>
 </RCC>

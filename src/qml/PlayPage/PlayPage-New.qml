@@ -10,6 +10,8 @@ Item {
     property real preferrRatio: 1.8
     signal back()
     focus: true
+
+    // key event process
     Keys.onPressed: function (event) {
         switch (event.key) {
             case Qt.Key_Escape:
@@ -48,6 +50,28 @@ Item {
 
             signal singleClicked()
             signal doubleClicked()
+
+            states: [
+                State {
+                    name: "normal"
+                    PropertyChanges {
+                        target: videoArea
+                        width: contentArea.width - episodeArea.width
+                        height: width / 16 * 9
+                    }
+                },
+                State {
+                    name: "fullScreen"
+                    PropertyChanges {
+                        target: videoArea
+                        width: contentArea.width
+                        height: contentArea.height
+                    }
+                }
+            ]
+
+            state: "normal"
+            color: "black"
 
             onIsFullScreenChanged: {
                 if(isFullScreen) {
@@ -101,41 +125,6 @@ Item {
                 }
             }
 
-            state: "normal"
-            color: "black"
-
-            states: [
-                State {
-                    name: "normal"
-                    PropertyChanges {
-                        target: videoArea
-                        width: contentArea.width - episodeArea.width
-                        height: width / 16 * 9
-                    }
-                },
-                State {
-                    name: "fullScreen"
-                    PropertyChanges {
-                        target: videoArea
-                        width: contentArea.width
-                        height: contentArea.height
-                    }
-                }
-            ]
-
-            // transitions: [
-            //     Transition {
-            //         from: "*"
-            //         to: "*"
-            //         NumberAnimation {
-            //             target: videoArea
-            //             properties: "width, height"
-            //             duration: 500
-            //             easing.type: Easing.InOutQuad
-            //         }
-            //     }
-            // ]
-
             Rectangle {
                 id: videoBodyArea
                 anchors.fill: videoArea
@@ -155,7 +144,6 @@ Item {
                 id: videoFooterArea
                 height: 50
                 width: videoArea.width
-                // anchors.bottom: videoArea.bottom
                 color: "transparent"
                 state: "hide"
                 states: [
@@ -186,8 +174,22 @@ Item {
                     anchors.fill: videoFooterArea
                     video: videoBody
                     videoArea: videoArea
-                    epList: episodeList
+                    episodeList: episodeList
                     finalEpIndex: folderModel.count - 1
+                }
+            }
+
+            Rectangle {
+                width: 55
+                height: 55
+                color: "transparent"
+                anchors.bottom: videoArea.bottom
+                anchors.right: videoArea.right
+                anchors.bottomMargin: 55
+                anchors.rightMargin: 55
+                PauseIcon {
+                    anchors.fill: parent
+                    video: videoBody
                 }
             }
         }

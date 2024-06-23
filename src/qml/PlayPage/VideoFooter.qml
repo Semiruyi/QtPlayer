@@ -1,18 +1,19 @@
 import QtQuick
 import QtQuick.Layouts
+import PlayControl
 import "utils.js" as Utils
 
 Item {
     id: root
     property VideoBody video
     property Rectangle videoArea
-    property EpisodeList epList
+    property EpisodeList episodeList
     property int finalEpIndex
+
 
     Rectangle {
         id: videoFooter
         anchors.fill: root
-        y: root.height
         gradient: Gradient {
             GradientStop { position: 0.0; color: "transparent" }
             GradientStop { position: 1.0; color: "black" }
@@ -22,60 +23,12 @@ Item {
             AnchorAnimation { duration: 200; easing.type: Easing.InOutQuad}
         }
 
-        // Slider {
-        //     id: progressBar
-        //     from: 0
-        //     to: video.duration
-        //     value: video.position
-        //     height: 25
-        //     anchors.bottom: footerBtnRec.top
-        //     bottomPadding: 5
-        //     width: videoFooter.width
-
-        //     onMoved: {
-        //         video.position = value
-        //         autoHideTimer.restart()
-        //     }
-
-        //     background: Rectangle {
-        //         x: progressBar.leftPadding
-        //         y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
-        //         implicitWidth: 200
-        //         implicitHeight: 4
-
-        //         width: progressBar.availableWidth
-        //         height: implicitHeight
-        //         radius: 2
-        //         color: "transparent"
-
-        //         Rectangle {
-        //             width: progressBar.visualPosition * parent.width
-        //             height: parent.height
-        //             color: rgb(33,139,188)
-        //             radius: 2
-        //         }
-        //     }
-
-        //     handle: Rectangle {
-        //         x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
-        //         y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
-        //         implicitWidth: 10
-        //         implicitHeight: 17
-        //         radius: 2
-        //         color: progressBar.pressed ? "#f0f0f0" : "#f6f6f6"
-        //         border.color: "#bdbebf"
-        //     }
-
-        //     Timer {
-        //         interval: 350
-        //         running: video.isPlaying
-        //         repeat: true
-        //         onTriggered: {
-        //             progressBar.value = video.position
-        //             playHistory.setEpPos(epIndex, video.position)
-        //         }
-        //     }
-        // }
+        ProgressBar {
+            video: root.video
+            episodeList: root.episodeList
+            width: root.width
+            height: root.height - footerBtnRec.height
+        }
 
         Rectangle {
             id: footerBtnRec
@@ -100,9 +53,9 @@ Item {
                     width: height
                     scale: 0.8
                     icon: "qrc:/resources/icons/last.png"
-                    visible: root.epList.epIndex === 0 ? false : true
+                    visible: root.episodeList.epIndex === 0 ? false : true
                     onClicked: function (mouse) {
-                        root.epList.epIndex -= 1
+                        root.episodeList.epIndex -= 1
                     }
                 }
 
@@ -129,9 +82,9 @@ Item {
                     Layout.maximumWidth: parent.height * 1.2
                     scale: 0.8
                     icon: "qrc:/resources/icons/next.png"
-                    visible: root.epList.epIndex === root.finalEpIndex ? false : true
+                    visible: root.episodeList.epIndex === root.finalEpIndex ? false : true
                     onClicked: {
-                        root.epList.epIndex += 1
+                        root.episodeList.epIndex += 1
                     }
                 }
 
@@ -153,7 +106,7 @@ Item {
                 Rectangle {
                     Layout.fillWidth: true
                     height: parent.height
-                    color: "white"
+                    color: "transparent"
                 }
 
                 IconButton {
