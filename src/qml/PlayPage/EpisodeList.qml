@@ -16,7 +16,6 @@ Item {
 
     onEpIndexChanged: {
         video.source = root.folderUrl + "/" + root.folderModel.get(root.epIndex, "fileName")
-        video.playStateChanged()
         // playHistory.setWatchState(index, true)
         epList.itemAtIndex(root.lastEpIndex).btn.state = "watched"
         epList.itemAtIndex(root.epIndex).btn.watched = true

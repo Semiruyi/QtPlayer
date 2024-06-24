@@ -57,6 +57,7 @@ Item {
         onMediaStatusChanged: {
             if(mediaStatus === MediaPlayer.LoadedMedia) {
                 video.position = root.playHistory.getEpPos(root.epIndex)
+                root.playStateChanged()
                 // progressBar.value = video.position
             }
         }
