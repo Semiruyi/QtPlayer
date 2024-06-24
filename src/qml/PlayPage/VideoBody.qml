@@ -9,6 +9,7 @@ Item {
     property alias position: video.position
     property alias duration: video.duration
     property PlayHistory playHistory
+    property int epIndex
 
     // property PlayHistory playHistory
 
@@ -33,10 +34,12 @@ Item {
 
     onPlay: {
         video.play()
+        isPlaying = true
     }
 
     onPause: {
         video.pause()
+        isPlaying = false
     }
 
     onPlayStateChanged: {
@@ -57,7 +60,7 @@ Item {
         onMediaStatusChanged: {
             if(mediaStatus === MediaPlayer.LoadedMedia) {
                 video.position = root.playHistory.getEpPos(root.epIndex)
-                root.playStateChanged()
+                // root.playStateChanged()
                 // progressBar.value = video.position
             }
         }

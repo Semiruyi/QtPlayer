@@ -5,7 +5,10 @@ project(QtPlayer VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick sql)
+
+# find_package(Qt6 REQUIRED COMPONENTS Sql)
+# target_link_libraries(mytarget PRIVATE Qt6::Sql)
 
 qt_standard_project_setup()
 
@@ -19,7 +22,7 @@ set(SOURCES
     src/qml/PlayPage/IconButton.qml
     src/qml/PlayPage/utils.js
     src/qml/PlayPage/VideoFooter.qml
-    src/qml/PlayPage/PlayPage-New.qml
+    src/qml/PlayPage/PlayPage.qml
     src/qml/PlayPage/VideoBody.qml
     src/qml/PlayPage/EpisodeList.qml
     src/qml/PlayPage/ProgressBar.qml
@@ -46,6 +49,7 @@ set_target_properties(appQtPlayer PROPERTIES
 
 target_link_libraries(appQtPlayer
     PRIVATE Qt6::Quick
+    PRIVATE Qt6::Sql
 )
 
 include(GNUInstallDirs)

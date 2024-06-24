@@ -58,7 +58,7 @@ Window  {
                 height: 100
                 onClicked: {
                     // console.log(folderUrl)
-                    stack.push("PlayPage/PlayPage-New.qml", {
+                    stack.push("PlayPage/PlayPage.qml", {
                                    folderUrl: folderUrl,
                                    parentValue: root
                                })

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QSqlDatabase>
 #include <QUrl>
 
 struct PlayData {
@@ -41,7 +42,7 @@ signals:
 private:
     QMap<int, PlayData> data;
     QUrl dataUrl;
-    int test;
+    QSqlDatabase db;
 };
 
 #endif // PLAYHISTORY_H
