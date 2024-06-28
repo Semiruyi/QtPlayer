@@ -19,34 +19,34 @@ Item {
             root.video.position = value
         }
 
-        // background: Rectangle {
-        //     x: progressBar.leftPadding
-        //     y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
-        //     implicitWidth: 200
-        //     implicitHeight: 4
+        background: Rectangle {
+            x: progressBar.leftPadding
+            y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
+            implicitWidth: 200
+            implicitHeight: 4
 
-        //     width: progressBar.availableWidth
-        //     height: implicitHeight
-        //     radius: 2
-        //     color: "transparent"
+            width: progressBar.availableWidth
+            height: implicitHeight
+            radius: 2
+            color: "transparent"
 
-        //     Rectangle {
-        //         width: progressBar.visualPosition * parent.width
-        //         height: parent.height
-        //         color: Utils.rgb(33,139,188)
-        //         radius: 2
-        //     }
-        // }
+            Rectangle {
+                width: progressBar.visualPosition * parent.width
+                height: parent.height
+                color: Utils.rgb(33,139,188)
+                radius: 2
+            }
+        }
 
-        // handle: Rectangle {
-        //     x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
-        //     y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
-        //     implicitWidth: 10
-        //     implicitHeight: 17
-        //     radius: 2
-        //     color: progressBar.pressed ? "#f0f0f0" : "#f6f6f6"
-        //     border.color: "#bdbebf"
-        // }
+        handle: Rectangle {
+            x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
+            y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
+            implicitWidth: 10
+            implicitHeight: 17
+            radius: 2
+            color: progressBar.pressed ? "#f0f0f0" : "#f6f6f6"
+            border.color: "#bdbebf"
+        }
 
         Timer {
             interval: 350

@@ -1,5 +1,6 @@
 import QtQuick
 import Qt.labs.folderlistmodel
+import QtQuick.Controls
 import PlayControl
 import "utils.js" as Utils
 
@@ -34,12 +35,43 @@ Item {
 
     GridView {
         id: epList
-        anchors.fill: parent
+        width: parent.width
+        height: 200
+        // anchors.fill: parent
 
         cellWidth: width / 4
         cellHeight: cellWidth
         clip: true
         model: root.folderModel
+
+        header: Rectangle {
+            height: 20;
+            width: parent.width
+            color: "red"
+        }
+
+        ScrollBar.vertical: ScrollBar {       //滚动条
+            anchors.right: epList.right
+            width: 10
+            active: true
+            background: Item {            //滚动条的背景样式
+                Rectangle {
+                    // anchors.centerIn: parent
+                    // height: parent.height
+                    // width: parent.width * 0.2
+                    // color: 'grey'
+                    // radius: width/2
+                    anchors.fill: parent
+                    color: "transparent"
+                }
+            }
+
+            contentItem: Rectangle {
+                radius: width/3        //bar的圆角
+                color: 'yellow'
+            }
+        }
+
 
         delegate: Rectangle {
             width: epList.cellWidth

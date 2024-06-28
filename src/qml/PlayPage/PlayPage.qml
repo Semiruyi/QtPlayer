@@ -110,10 +110,11 @@ Item {
 
                 anchors.fill: parent
                 hoverEnabled: true
-                onMouseXChanged: {
+                onPositionChanged: {
                     videoFooterArea.state = "display"
                     autoHideTimer.restart()
                 }
+
                 onClicked: {
                     if(videoAreaClickTimer.running) {
                         videoArea.doubleClicked()

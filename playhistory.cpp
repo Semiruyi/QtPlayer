@@ -21,7 +21,8 @@ int PlayHistory::saveData() {
         out.setVersion(QDataStream::Qt_5_15);
         out << data;
         file.close();
-    } else {
+    }
+    else {
         cerr << "play history write data failed" << endl;
         return -1;
     }
