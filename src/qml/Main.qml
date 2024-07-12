@@ -25,8 +25,9 @@ Window  {
         initialItem: mainView
     }
 
-    Item {
+    Rectangle {
         id: mainView
+        color: "black"
         FolderDialog {
             id: folderDialog
 
@@ -48,7 +49,7 @@ Window  {
             model: ListModel {
                 id: animeList
                 ListElement {
-                    folderUrl: "file:///C:/Users/wyy/Videos/bocchi the rock"
+                    folderUrl: "file:///home/wyy/Videos/bocchi the rock/"
                 }
             }
 

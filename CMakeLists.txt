@@ -5,7 +5,7 @@ project(QtPlayer VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick sql)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Sql)
 
 # find_package(Qt6 REQUIRED COMPONENTS Sql)
 # target_link_libraries(mytarget PRIVATE Qt6::Sql)

@@ -1,8 +1,9 @@
 import QtQuick
 import Qt.labs.folderlistmodel
 
-Item {
+Rectangle {
     id: root
+    color: "black"
     property Window parentValue
     property url folderUrl: ""
     property int epIndex: 0
@@ -39,12 +40,14 @@ Item {
 
     Rectangle {
         id: contentArea
+
         width: playPageRatio > preferrRatio ? height * preferrRatio : root.width
         height: root.height
         anchors.horizontalCenter: root.horizontalCenter
 
         Rectangle {
             id: videoArea
+            color: "black"
             property bool isFullScreen: false
 
             signal singleClicked()
@@ -70,7 +73,6 @@ Item {
             ]
 
             state: "normal"
-            color: "black"
 
             onIsFullScreenChanged: {
                 if(isFullScreen) {
@@ -127,6 +129,7 @@ Item {
 
             Rectangle {
                 id: videoBodyArea
+                color: "black"
                 anchors.fill: videoArea
                 VideoBody {
                     id: videoBody
