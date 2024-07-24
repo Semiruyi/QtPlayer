@@ -36,7 +36,7 @@ Item {
     GridView {
         id: epList
         width: parent.width
-        height: 200
+        height: root.height
         // anchors.fill: parent
 
         cellWidth: width / 4
@@ -44,11 +44,11 @@ Item {
         clip: true
         model: root.folderModel
 
-        header: Rectangle {
-            height: 20;
-            width: parent.width
-            color: "red"
-        }
+        // header: Rectangle {
+        //     height: 20;
+        //     width: parent.width
+        //     color: "red"
+        // }
 
         ScrollBar.vertical: ScrollBar {       //滚动条
             anchors.right: epList.right

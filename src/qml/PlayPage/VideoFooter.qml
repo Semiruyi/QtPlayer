@@ -5,6 +5,7 @@ import "utils.js" as Utils
 
 Item {
     id: root
+    clip: true
     property VideoBody video
     property Rectangle videoArea
     property EpisodeList episodeList
@@ -28,6 +29,7 @@ Item {
             episodeList: root.episodeList
             width: root.width
             height: root.height - footerBtnRec.height
+
         }
 
         Rectangle {

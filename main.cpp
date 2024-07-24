@@ -1,9 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "playhistory.h"
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
+
     QGuiApplication app(argc, argv);
     qmlRegisterType<PlayHistory>("PlayControl", 1, 0, "PlayHistory");
     QQmlApplicationEngine engine;

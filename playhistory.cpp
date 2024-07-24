@@ -14,21 +14,6 @@ PlayHistory::PlayHistory(QObject *parent)
     : QObject{parent}
 {}
 
-int PlayHistory::saveData() {
-    QFile file(this->dataUrl.toLocalFile());
-    if (file.open(QIODevice::WriteOnly)) {
-        QDataStream out(&file);
-        out.setVersion(QDataStream::Qt_5_15);
-        out << data;
-        file.close();
-    }
-    else {
-        cerr << "play history write data failed" << endl;
-        return -1;
-    }
-    return 0;
-}
-
 int PlayHistory::init(QString dataUrl) {
 
     this->dataUrl = QUrl(dataUrl);

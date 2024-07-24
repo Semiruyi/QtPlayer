@@ -1,5 +1,6 @@
 import QtQuick
 import Qt.labs.folderlistmodel
+import "utils.js" as Utils
 
 Rectangle {
     id: root
@@ -8,9 +9,19 @@ Rectangle {
     property url folderUrl: ""
     property int epIndex: 0
     property real playPageRatio: root.width / root.height
-    property real preferrRatio: 1.8
+    property real preferrRatio: 2.0
     signal back()
     focus: true
+
+    Timer {
+        id: log
+        interval: 1000;
+        repeat: true;
+        running: false;
+        onTriggered: {
+            console.log("now ratio is ", root.playPageRatio)
+        }
+    }
 
     Keys.onPressed: function (event) {
         switch (event.key) {
@@ -45,9 +56,13 @@ Rectangle {
         height: root.height
         anchors.horizontalCenter: root.horizontalCenter
 
+        color: "black"
+
         Rectangle {
             id: videoArea
-            color: "black"
+            color: Utils.rgb(31,34,35)
+            anchors.verticalCenter: contentArea.verticalCenter
+            clip: true
             property bool isFullScreen: false
 
             signal singleClicked()
@@ -180,6 +195,7 @@ Rectangle {
                     videoArea: videoArea
                     episodeList: episodeList
                     finalEpIndex: folderModel.count - 1
+
                 }
             }
 
@@ -198,26 +214,27 @@ Rectangle {
             }
         }
 
-        Rectangle {
-            id: commentArea
-            anchors.top: videoArea.bottom
-            width: videoArea.width
-            height: contentArea.height - videoArea.height
-            color: "yellow"
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
+        // Rectangle {
+        //     id: commentArea
+        //     anchors.top: videoArea.bottom
+        //     width: videoArea.width
+        //     height: contentArea.height - videoArea.height
+        //     color: "yellow"
+        //     MouseArea {
+        //         anchors.fill: parent
+        //         onClicked: {
 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
 
         Rectangle {
             id: episodeArea
             width: 250
             height: contentArea.height
             anchors.left: videoArea.right
-            color: "blue"
+            // color: "blue"
+            color: Utils.rgb(31,34,35)
             EpisodeList {
                 id: episodeList
                 anchors.fill: parent
