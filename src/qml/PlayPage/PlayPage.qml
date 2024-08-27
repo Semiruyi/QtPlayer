@@ -58,6 +58,13 @@ Rectangle {
 
         color: "black"
 
+        // MouseArea {
+        //     anchors.fill: parent
+        //     onClicked: {
+        //         qPlayHistory.setTest(1)
+        //     }
+        // }
+
         Rectangle {
             id: videoArea
             color: Utils.rgb(31,34,35)
@@ -148,10 +155,8 @@ Rectangle {
                 anchors.fill: videoArea
                 VideoBody {
                     id: videoBody
-                    playHistory: episodeList.playHistory
                     anchors.fill: videoBodyArea
                     epIndex: episodeList.epIndex
-                    // source: "file:///C:/Users/wyy/Videos/bocchi the rock/[Airota][BOCCHI THE ROCK!][01][BDRip 1080p AVC AAC][CHS].mp4"
                 }
             }
 
@@ -212,6 +217,7 @@ Rectangle {
                     video: videoBody
                 }
             }
+
         }
 
         // Rectangle {

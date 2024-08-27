@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import PlayControl
 import "utils.js" as Utils
 
 Item {
@@ -53,7 +52,7 @@ Item {
             running: root.video.isPlaying
             repeat: true
             onTriggered: {
-                root.episodeList.playHistory.setEpPos(root.episodeList.epIndex, video.position)
+                qPlayHistory.setEpPos(root.episodeList.epIndex, video.position)
             }
         }
     }

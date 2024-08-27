@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import PlayControl
 import "utils.js" as Utils
 
 Item {

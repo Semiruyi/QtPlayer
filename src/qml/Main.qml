@@ -49,7 +49,7 @@ Window  {
             model: ListModel {
                 id: animeList
                 ListElement {
-                    folderUrl: "file:///C:/y/anime/bocchi the rock"
+                    folderUrl: "file:///C:/Users/wyy/Videos/[Nekomoe kissaten][Bocchi the Rock!][01-12][1080p][CHS]"
                 }
             }
 

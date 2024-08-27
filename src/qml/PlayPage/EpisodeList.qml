@@ -1,13 +1,10 @@
 import QtQuick
 import Qt.labs.folderlistmodel
 import QtQuick.Controls
-import PlayControl
 import "utils.js" as Utils
 
 Item {
     id: root
-
-    property alias playHistory: playHistory
 
     property url folderUrl
     property FolderListModel folderModel
@@ -18,19 +15,15 @@ Item {
     onEpIndexChanged: {
         video.source = root.folderUrl + "/" + root.folderModel.get(root.epIndex, "fileName")
         video.pause()
-        playHistory.setWatchState(lastEpIndex, true)
+        qPlayHistory.setWatchState(lastEpIndex, true)
         epList.itemAtIndex(root.lastEpIndex).btn.state = "watched"
         epList.itemAtIndex(root.epIndex).btn.watched = true
         epList.itemAtIndex(root.epIndex).btn.state = "selected"
         lastEpIndex = epIndex
     }
 
-    PlayHistory {
-        id: playHistory
-    }
-
     Component.onCompleted: {
-        playHistory.init(folderUrl + "/history.db")
+        qPlayHistory.init(folderUrl + "/history.db")
     }
 
     GridView {
@@ -92,7 +85,7 @@ Item {
                         epBtn.watched = true
                         video.source = root.folderUrl + "/" + fileName
                     }
-                    else if(playHistory.isWatched(index)) {
+                    else if(qPlayHistory.isWatched(index)) {
                         epBtn.watched = true;
                         epBtn.state = "watched"
                     }

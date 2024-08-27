@@ -1,18 +1,18 @@
 #include "playhistory.h"
 #include <QFile>
-#include <iostream>
 #include <QUrl>
 #include <QFileInfo>
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QQmlContext>
 
-using namespace std;
-
-PlayHistory::PlayHistory(QObject *parent)
+PlayHistory::PlayHistory(QQmlApplicationEngine& engine, QObject *parent)
     : QObject{parent}
-{}
+{
+    engine.rootContext()->setContextProperty("qPlayHistory", this);
+}
 
 int PlayHistory::init(QString dataUrl) {
 
@@ -41,13 +41,13 @@ int PlayHistory::init(QString dataUrl) {
             qDebug() << "init table success";
         }
         else{
-            qDebug() << "init table error";
+            qCritical() << "init table error";
         }
         // 关闭数据库
         // db.close();
     }
     else {
-        qDebug() << "history.db open failed";
+        qCritical() << "history.db open failed";
     }
 
 
@@ -134,3 +134,6 @@ int PlayHistory::getEpPos(int index) {
     return 0;
 }
 
+void PlayHistory::setTest(int newTest) {
+    qDebug() << "qPlayHistory is working";
+}

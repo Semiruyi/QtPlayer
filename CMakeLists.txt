@@ -15,6 +15,8 @@ qt_standard_project_setup()
 qt_add_executable(appQtPlayer
     main.cpp
     Resources.qrc
+    ./src/cpp/PlayHistory/playhistory.h
+    ./src/cpp/PlayHistory/playhistory.cpp
 )
 
 set(SOURCES
@@ -33,7 +35,6 @@ qt_add_qml_module(appQtPlayer
     URI QtPlayer
     VERSION 1.0
     QML_FILES ${SOURCES}
-        SOURCES playhistory.h playhistory.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

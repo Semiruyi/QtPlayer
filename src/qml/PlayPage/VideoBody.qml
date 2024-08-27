@@ -1,6 +1,5 @@
 import QtQuick
 import QtMultimedia
-import PlayControl
 
 Item {
     id: root
@@ -8,10 +7,7 @@ Item {
     property bool isPlaying: false
     property alias position: video.position
     property alias duration: video.duration
-    property PlayHistory playHistory
     property int epIndex
-
-    // property PlayHistory playHistory
 
     signal play()
     signal pause()
@@ -59,7 +55,7 @@ Item {
         }
         onMediaStatusChanged: {
             if(mediaStatus === MediaPlayer.LoadedMedia) {
-                video.position = root.playHistory.getEpPos(root.epIndex)
+                video.position = qPlayHistory.getEpPos(root.epIndex)
                 // root.playStateChanged()
                 // progressBar.value = video.position
             }
