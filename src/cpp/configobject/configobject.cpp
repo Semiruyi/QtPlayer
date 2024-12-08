@@ -17,7 +17,18 @@ QJsonObject ConfigObject::toJson() const {
         }
 
         QVariant value = metaProperty.read(this);
-        json[name] = QJsonValue::fromVariant(value);
+        // json[name] = QJsonValue::fromVariant(value);
+        if (value.typeId() == QMetaType::QStringList)
+        {
+            QJsonArray jsonArray;
+            QStringList stringList = value.toStringList();
+            for (const QString &str : stringList) {
+                jsonArray.append(str);
+            }
+            json.insert(name, jsonArray);
+        } else {
+            json.insert(name, QJsonValue::fromVariant(value));
+        }
     }
     return json;
 }
@@ -30,7 +41,21 @@ void ConfigObject::fromJson(const QJsonObject &json) {
         if (json.contains(name)) {
             QJsonValue jsonValue = json[name];
             if (!jsonValue.isNull()) {
-                QVariant value = jsonValue.toVariant();
+                QVariant value;
+                if(metaProperty.typeId() == QMetaType::QStringList)
+                {
+                    QJsonArray jsonArray = jsonValue.toArray();
+                    QStringList stringList;
+                    for (const QJsonValue &jsonVal : jsonArray) {
+                        stringList.append(jsonVal.toString());
+                    }
+                    value = stringList;
+                }
+                else
+                {
+                    value = jsonValue.toVariant();
+                }
+
                 metaProperty.write(this, value);
             }
         }

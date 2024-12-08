@@ -1,3 +1,7 @@
+#ifndef CONFIGOBJECT_H
+#define CONFIGOBJECT_H
+
+
 #include <QCoreApplication>
 #include <QDebug>
 #include <QJsonDocument>
@@ -9,7 +13,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QDir>
-
+#include <QJsonArray>
 
 class ConfigObject : public QObject
 {
@@ -37,19 +41,4 @@ public:
     void writeDataToJson();
 };
 
-class MyConfig : public ConfigObject
-{
-    Q_OBJECT
-    Q_PROPERTY(double size READ size WRITE setSize NOTIFY sizeChanged FINAL)
-
-
-    public:
-        double size() const;
-        void setSize(double newSize);
-
-    signals:
-        void sizeChanged();
-
-    private:
-        double m_size = 10086;
-};
+#endif

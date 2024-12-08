@@ -28,8 +28,11 @@ Window  {
 
             onAccepted: {
                 if (selectedFolder !== undefined && selectedFolder !== "") {
-                    //console.log("folderDialog select: ", selectedFolder)
-                    animeList.insert(0, { "folderUrl": selectedFolder.toString() })
+                    // animeList.insert(0, { "folderUrl": selectedFolder.toString() })
+                    var newFolderPath = selectedFolder.toString()
+                    var playFolderPaths = qMainPageConfig.playFolderPaths
+                    playFolderPaths.push(newFolderPath)
+                    qMainPageConfig.setPlayFolderPaths(playFolderPaths)
                 } else{
                     console.log("Error on user selecting folder")
                 }
@@ -41,22 +44,14 @@ Window  {
 
         ListView {
             anchors.fill: parent
-            model: ListModel {
-                id: animeList
-                ListElement {
-                    folderUrl: "file:///C:/y-s/anime/bocchi the rock"
-                }
-            }
-
-            spacing: 10
+            model: qMainPageConfig.playFolderPaths
             delegate: Button {
-                text: folderUrl
+                text: modelData
                 height: 100
 
                 onClicked: {
-                    console.log(folderUrl)
                     stack.push("PlayPage/PlayPage.qml", {
-                                   folderUrl: folderUrl,
+                                   folderUrl: modelData,
                                    parentValue: root
                                })
                 }
