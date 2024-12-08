@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include "./src/cpp/PlayHistory/playhistory.h"
 #include <QFile>
+#include "./src/cpp/configobject/configobject.h"
 
 int main(int argc, char *argv[])
 {

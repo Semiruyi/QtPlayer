@@ -11,7 +11,7 @@
 PlayHistory::PlayHistory(QQmlApplicationEngine& engine, QObject *parent)
     : QObject{parent}
 {
-    engine.rootContext()->setContextProperty("qPlayHistory", this);
+    engine.rootContext()->setContextProperty("qPlayHistoryConfig", this);
 }
 
 int PlayHistory::init(QString dataUrl) {

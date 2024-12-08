@@ -52,7 +52,7 @@ Rectangle {
     Rectangle {
         id: contentArea
 
-        width: playPageRatio > preferrRatio ? height * preferrRatio : root.width
+        width: root.playPageRatio > root.preferrRatio ? height * root.preferrRatio : root.width
         height: root.height
         anchors.horizontalCenter: root.horizontalCenter
 

@@ -15,7 +15,7 @@ Item {
     onEpIndexChanged: {
         video.source = root.folderUrl + "/" + root.folderModel.get(root.epIndex, "fileName")
         video.pause()
-        qPlayHistory.setWatchState(lastEpIndex, true)
+        qPlayHistoryConfig.setWatchState(lastEpIndex, true)
         epList.itemAtIndex(root.lastEpIndex).btn.state = "watched"
         epList.itemAtIndex(root.epIndex).btn.watched = true
         epList.itemAtIndex(root.epIndex).btn.state = "selected"
@@ -23,7 +23,7 @@ Item {
     }
 
     Component.onCompleted: {
-        qPlayHistory.init(folderUrl + "/history.db")
+        qPlayHistoryConfig.init(folderUrl + "/history.db")
     }
 
     GridView {
@@ -85,7 +85,7 @@ Item {
                         epBtn.watched = true
                         video.source = root.folderUrl + "/" + fileName
                     }
-                    else if(qPlayHistory.isWatched(index)) {
+                    else if(qPlayHistoryConfig.isWatched(index)) {
                         epBtn.watched = true;
                         epBtn.state = "watched"
                     }

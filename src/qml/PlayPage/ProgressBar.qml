@@ -11,8 +11,8 @@ Item {
         id: progressBar
         anchors.fill: parent
         from: 0
-        to: video.duration
-        value: video.position
+        to: root.video.duration
+        value: root.video.position
 
         onMoved: {
             root.video.position = value
@@ -52,7 +52,7 @@ Item {
             running: root.video.isPlaying
             repeat: true
             onTriggered: {
-                qPlayHistory.setEpPos(root.episodeList.epIndex, video.position)
+                qPlayHistoryConfig.setEpPos(root.episodeList.epIndex, video.position)
             }
         }
     }

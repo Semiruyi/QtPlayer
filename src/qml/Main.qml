@@ -2,10 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Dialogs
-import QtQuick.Layouts
-import QtMultimedia
-import Qt.labs.folderlistmodel
-import "PlayPage" as PlayPage
+import "./PlayPage"
 
 Window  {
     visible: true
@@ -16,8 +13,6 @@ Window  {
     function back() {
         stack.pop()
     }
-
-    property StackView stack: stack
 
     StackView {
         id: stack
@@ -34,7 +29,7 @@ Window  {
             onAccepted: {
                 if (selectedFolder !== undefined && selectedFolder !== "") {
                     //console.log("folderDialog select: ", selectedFolder)
-                    animeList.insert(0, { "folderUrl":selectedFolder })
+                    animeList.insert(0, { "folderUrl": selectedFolder.toString() })
                 } else{
                     console.log("Error on user selecting folder")
                 }
@@ -49,7 +44,7 @@ Window  {
             model: ListModel {
                 id: animeList
                 ListElement {
-                    folderUrl: "file:///C:/Users/wyy/Videos/[Nekomoe kissaten][Bocchi the Rock!][01-12][1080p][CHS]"
+                    folderUrl: "file:///C:/y-s/anime/bocchi the rock"
                 }
             }
 
@@ -57,8 +52,9 @@ Window  {
             delegate: Button {
                 text: folderUrl
                 height: 100
+
                 onClicked: {
-                    // console.log(folderUrl)
+                    console.log(folderUrl)
                     stack.push("PlayPage/PlayPage.qml", {
                                    folderUrl: folderUrl,
                                    parentValue: root

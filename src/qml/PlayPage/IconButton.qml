@@ -28,20 +28,20 @@ Rectangle {
         anchors.fill: parent
         text: root.text
         font.pixelSize: 0.7 * parent.height
-        color: textColor
+        color: root.textColor
         font.bold: root.fontBold
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
     Image {
-        source: icon
+        source: root.icon
         anchors.fill: parent
-        visible: !checked
+        visible: !root.checked
     }
     Image {
         id: iconChecked
         anchors.fill: parent
-        visible: checked
+        visible: root.checked
     }
     MouseArea {
         id: mouseArea
@@ -63,7 +63,7 @@ Rectangle {
     states: [
         State {
             name: "brighter"
-            when: hovered // only the first true State is applied, so put scale and opacity together
+            when: root.hovered // only the first true State is applied, so put scale and opacity together
             PropertyChanges { target: root; opacity: 1.0; scale: hoveredScale }
         }/*,
         State {

@@ -55,7 +55,7 @@ Item {
         }
         onMediaStatusChanged: {
             if(mediaStatus === MediaPlayer.LoadedMedia) {
-                video.position = qPlayHistory.getEpPos(root.epIndex)
+                video.position = qPlayHistoryConfig.getEpPos(root.epIndex)
                 // root.playStateChanged()
                 // progressBar.value = video.position
             }
