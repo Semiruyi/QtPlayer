@@ -9,6 +9,7 @@ Item {
     property Rectangle videoArea
     property EpisodeList episodeList
     property int finalEpIndex
+    property bool containMouse: lastEpBtn.hovered || playBtn.hovered || nextEpBtn.hovered || speedMessage.hovered || fullScreenBtn.hovered || progressBar.containMouse
 
 
     Rectangle {
@@ -24,6 +25,7 @@ Item {
         }
 
         ProgressBar {
+            id: progressBar
             video: root.video
             episodeList: root.episodeList
             width: root.width

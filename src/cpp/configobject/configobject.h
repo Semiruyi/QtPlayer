@@ -14,6 +14,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QJsonArray>
+#include <QTimer>
 
 class ConfigObject : public QObject
 {
@@ -23,6 +24,7 @@ public:
 
 private:
     QString m_readWriteJsonFilePath;
+    QTimer* m_timer;
 
 #pragma region "" {
 

@@ -37,6 +37,8 @@ qt_add_qml_module(appQtPlayer
     QML_FILES ${SOURCES}
     SOURCES src/cpp/configobject/configobject.cpp src/cpp/configobject/configobject.h
     SOURCES src/cpp/mainpage/mainpageconfig.h
+    SOURCES
+    SOURCES src/cpp/config/playpageconfig.h src/cpp/configobject/configobject.cpp src/cpp/configobject/configobject.h src/cpp/mainpage/mainpageconfig.h src/cpp/PlayHistory/playhistory.cpp src/cpp/PlayHistory/playhistory.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

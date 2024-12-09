@@ -114,18 +114,8 @@ Rectangle {
                 videoArea.isFullScreen = !videoArea.isFullScreen
             }
 
-            Timer {
-                id: autoHideTimer
-                interval: 1500;
-                repeat: false;
-                running: false;
-                onTriggered: {
-                    // videoHeader.visible = false
-                    videoFooterArea.state = "hide"
-                }
-            }
-
             MouseArea {
+                id: vedioMouseEvent
                 Timer {
                     id: videoAreaClickTimer
                     interval: 300
@@ -136,7 +126,6 @@ Rectangle {
                 hoverEnabled: true
                 onPositionChanged: {
                     videoFooterArea.state = "display"
-                    autoHideTimer.restart()
                 }
 
                 onClicked: {
@@ -188,6 +177,13 @@ Rectangle {
                         }
                     }
                 ]
+                property bool containMouse: footerAreaMouseArea.containsMouse | videoFooter.containMouse
+
+                MouseArea {
+                    id: footerAreaMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                }
 
                 transitions: Transition {
                     AnchorAnimation { duration: 200; easing.type: Easing.InOutQuad}
@@ -201,6 +197,16 @@ Rectangle {
                     episodeList: episodeList
                     finalEpIndex: folderModel.count - 1
 
+                }
+
+                Timer {
+                    id: autoHideTimer
+                    interval: qPagePageConfig.autoHideInterval;
+                    repeat: false;
+                    running: videoFooterArea.state == "display" && !videoFooterArea.containMouse
+                    onTriggered: {
+                        videoFooterArea.state = "hide"
+                    }
                 }
             }
 

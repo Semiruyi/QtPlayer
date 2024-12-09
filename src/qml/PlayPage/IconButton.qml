@@ -10,7 +10,7 @@ Rectangle {
     property color bgColor: "transparent"
     property color bgColorSelected: "transparent"
     property color textColor: "white"
-    property bool hovered: false //mouseArea.containsMouse
+    property bool hovered: mouseArea.containsMouse
     property real normalScale: 1.0
     property real pressedScale: 0.8
     property real hoveredScale: 1.2
@@ -53,11 +53,11 @@ Rectangle {
                 root.checked = !root.checked
             root.clicked(mouse)
         }
-        onHoveredChanged: {
-            if (mouseX > 65535) //qt5.6 touch screen release finger becomes very large e.g. 0x7fffffff
-                return
-            hovered = mouseArea.containsMouse
-        }
+        // onHoveredChanged: {
+        //     if (mouseX > 65535) //qt5.6 touch screen release finger becomes very large e.g. 0x7fffffff
+        //         return
+        //     hovered = mouseArea.containsMouse
+        // }
         onPressAndHold: root.pressAndHold()
     }
     states: [

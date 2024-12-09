@@ -2,7 +2,13 @@
 
 ConfigObject::ConfigObject(QObject* parent) : QObject(parent)
 {
-
+    // auto save
+    {
+        m_timer = new QTimer(this);
+        connect(m_timer, &QTimer::timeout, this, &ConfigObject::writeDataToJson);
+        m_timer->setInterval(1000);
+        m_timer->start();
+    }
 }
 
 QJsonObject ConfigObject::toJson() const {

@@ -35,7 +35,7 @@ inline void MainPageConfig::setPlayFolderPaths(const QStringList &newPlayFolderP
     if (m_playFolderPaths == newPlayFolderPaths)
         return;
     m_playFolderPaths = newPlayFolderPaths;
-    writeDataToJson();
+    // writeDataToJson();
     emit playFolderPathsChanged();
 }
 

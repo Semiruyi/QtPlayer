@@ -3,6 +3,7 @@
 #include "./src/cpp/PlayHistory/playhistory.h"
 #include <QFile>
 #include "./src/cpp/mainpage/mainpageconfig.h"
+#include "./src/cpp/config/playpageconfig.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
     PlayHistory* playHistory = new PlayHistory(engine);
 
     MainPageConfig* mainPageConfig = new MainPageConfig(engine, QString("./config/MainPageConfig.json"));
+    PlayPageConfig* playPageConfig = new PlayPageConfig(engine, QString("./config/PlayPageConfig.json"));
 
     const QUrl url(QStringLiteral("qrc:/QtPlayer/src/qml/Main.qml"));
     QObject::connect(

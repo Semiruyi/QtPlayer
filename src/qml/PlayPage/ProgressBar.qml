@@ -6,6 +6,7 @@ Item {
     id: root
     property VideoBody video
     property EpisodeList episodeList
+    property bool containMouse: progressBar.hovered || progressBar.pressed
 
     Slider {
         id: progressBar
