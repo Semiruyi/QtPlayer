@@ -20,17 +20,13 @@ Item {
             GradientStop { position: 1.0; color: "#A0000000" }
         }
 
-        transitions: Transition {
-            AnchorAnimation { duration: 200; easing.type: Easing.InOutQuad}
-        }
-
         ProgressBar {
             id: progressBar
             video: root.video
             episodeList: root.episodeList
-            width: root.width
+            width: root.width * 0.97
             height: root.height - footerBtnRec.height
-
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
         Rectangle {
@@ -41,20 +37,19 @@ Item {
             color: "transparent"
 
             RowLayout {
+                id: footerRowLayout
                 anchors.fill: footerBtnRec
                 anchors.leftMargin: parent.height * 0.65
                 anchors.rightMargin: parent.height * 0.65
                 anchors.bottomMargin: 10
                 spacing: 10
+                property int itemImplicitWidth: 20
 
                 IconButton {
                     id: lastEpBtn
-                    Layout.preferredWidth: parent.height
-                    Layout.preferredHeight: parent.height
-                    Layout.maximumHeight: parent.height * 1.2
-                    Layout.maximumWidth: parent.height * 1.2
-                    width: height
-                    scale: 0.8
+                    implicitWidth: footerRowLayout.itemImplicitWidth
+                    implicitHeight: implicitWidth
+                    Layout.alignment: Qt.AlignVCenter
                     icon: "qrc:/resources/icons/last.png"
                     visible: root.episodeList.epIndex === 0 ? false : true
                     onClicked: function (mouse) {
@@ -64,12 +59,10 @@ Item {
 
                 IconButton {
                     id: playBtn
-                    Layout.preferredWidth: parent.height
-                    Layout.preferredHeight: parent.height
-                    Layout.maximumHeight: parent.height * 1.2
-                    Layout.maximumWidth: parent.height * 1.2
+                    implicitWidth: footerRowLayout.itemImplicitWidth
+                    implicitHeight: implicitWidth
+                    Layout.alignment: Qt.AlignVCenter
                     checked: root.video.isPlaying
-                    hoveredScale: 1.4
                     icon: "qrc:/resources/icons/play.png"
                     iconChecked: "qrc:/resources/icons/pause.png"
                     onClicked: function (mouse) {
@@ -79,11 +72,9 @@ Item {
 
                 IconButton {
                     id: nextEpBtn
-                    Layout.preferredWidth: parent.height
-                    Layout.preferredHeight: parent.height
-                    Layout.maximumHeight: parent.height * 1.2
-                    Layout.maximumWidth: parent.height * 1.2
-                    scale: 0.8
+                    implicitWidth: footerRowLayout.itemImplicitWidth
+                    implicitHeight: implicitWidth
+                    Layout.alignment: Qt.AlignVCenter
                     icon: "qrc:/resources/icons/next.png"
                     visible: root.episodeList.epIndex === root.finalEpIndex ? false : true
                     onClicked: {
@@ -92,43 +83,43 @@ Item {
                 }
 
                 Rectangle {
-                    Layout.preferredWidth: videoProgressMessage.width
-                    Layout.preferredHeight: parent.height
-                    Layout.maximumHeight: parent.height * 1.2
-                    Layout.maximumWidth: 220
+                    implicitWidth: 5
                     color: "transparent"
-                    Text {
-                        id: videoProgressMessage
-                        font.pixelSize: root.videoArea.isFullScreen ? 15 : 12
-                        color: "white"
-                        anchors.centerIn: parent
-                        text: Utils.formattedVideoDuration(root.video.position) + "  /  " + Utils.formattedVideoDuration(root.video.duration)
-                    }
+                }
+
+                Text {
+                    id: videoProgressMessage
+                    font.pixelSize: root.videoArea.isFullScreen ? 15 : 12
+                    color: "white"
+                    // anchors.centerIn: parent
+                    text: Utils.formattedVideoDuration(root.video.position) + "  /  " + Utils.formattedVideoDuration(root.video.duration)
                 }
 
                 Rectangle {
                     Layout.fillWidth: true
-                    height: parent.height
                     color: "transparent"
                 }
 
                 IconButton {
                     id: speedMessage
-                    Layout.preferredWidth: parent.height
-                    Layout.preferredHeight: parent.height
-                    Layout.maximumHeight: parent.height * 1.2
-                    Layout.maximumWidth: parent.height * 1.2
+                    implicitWidth: footerRowLayout.itemImplicitWidth
+                    implicitHeight: implicitWidth
+                    Layout.alignment: Qt.AlignVCenter
                     textColor: "white"
                     text: "1.0x"
                     fontBold: true
                 }
 
+                Rectangle {
+                    implicitWidth: 10
+                    color: "transparent"
+                }
+
                 IconButton {
                     id: fullScreenBtn
-                    Layout.preferredWidth: parent.height
-                    Layout.preferredHeight: parent.height
-                    Layout.maximumHeight: parent.height * 1.2
-                    Layout.maximumWidth: parent.height * 1.2
+                    implicitWidth: footerRowLayout.itemImplicitWidth
+                    implicitHeight: implicitWidth
+                    Layout.alignment: Qt.AlignVCenter
                     icon: "qrc:/resources/icons/fullScreen.png"
                     iconChecked: "qrc:/resources/icons/exitFullScreen.png"
                     checked: root.videoArea.isFullScreen
@@ -137,6 +128,7 @@ Item {
                     }
                 }
             }
+
         }
     }
 }

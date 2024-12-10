@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtMultimedia
 import "utils.js" as Utils
 
 Item {
@@ -16,22 +17,35 @@ Item {
         value: root.video.position
 
         onMoved: {
+            if(root.video.mediaStatus == MediaPlayer.EndOfMedia)
+            {
+                root.video.play()
+                root.video.pause()
+            }
+
             root.video.position = value
         }
 
         background: Rectangle {
-            x: progressBar.leftPadding
             y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
             implicitWidth: 200
             implicitHeight: 4
 
             width: progressBar.availableWidth
-            height: implicitHeight
+            height: progressBar.hovered ? implicitHeight * 1.4 : implicitHeight
+
             radius: 2
-            color: "transparent"
+            color: Qt.rgba(0.5, 0.5, 0.5, 0.4)
+
+            Behavior on height {
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
 
             Rectangle {
-                width: progressBar.visualPosition * parent.width
+                width: (progressBar.value - progressBar.from) / (progressBar.to - progressBar.from) * parent.width
                 height: parent.height
                 color: Utils.rgb(33,139,188)
                 radius: 2
@@ -39,8 +53,17 @@ Item {
         }
 
         handle: Rectangle {
-            x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
+            x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width) /*- 3 // 微调*/
+            // x: progressBar.visualPosition * root.width
             y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
+
+            scale: root.containMouse ? 1 : 0
+            Behavior on scale {
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
             implicitWidth: 10
             implicitHeight: 17
             radius: 2

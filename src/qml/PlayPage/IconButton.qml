@@ -19,6 +19,8 @@ Rectangle {
     signal clicked(MouseEvent mouse)
     signal pressAndHold()
 
+    width: 30
+    height: root.width
     opacity: 0.9
     color: checked ? bgColorSelected : mouseArea.pressed ? Qt.darker(bgColor) : bgColor
     border.color: Qt.lighter(color)

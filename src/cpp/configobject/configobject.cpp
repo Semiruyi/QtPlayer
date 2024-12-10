@@ -129,7 +129,7 @@ void ConfigObject::writeDataToJson() {
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         file.write(jsonDoc.toJson());
         file.close();
-        qDebug() << "Data written to JSON file:" << m_readWriteJsonFilePath;
+        // qDebug() << "Data written to JSON file:" << m_readWriteJsonFilePath;
     } else {
         qWarning() << "Failed to open file for writing:" << m_readWriteJsonFilePath;
     }

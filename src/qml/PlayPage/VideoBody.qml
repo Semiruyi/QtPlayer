@@ -8,6 +8,7 @@ Item {
     property alias position: video.position
     property alias duration: video.duration
     property int epIndex
+    property alias mediaStatus: video.mediaStatus
 
     signal play()
     signal pause()
@@ -56,8 +57,6 @@ Item {
         onMediaStatusChanged: {
             if(mediaStatus === MediaPlayer.LoadedMedia) {
                 video.position = qPlayHistoryConfig.getEpPos(root.epIndex)
-                // root.playStateChanged()
-                // progressBar.value = video.position
             }
         }
     }

@@ -26,7 +26,14 @@ Rectangle {
     Keys.onPressed: function (event) {
         switch (event.key) {
             case Qt.Key_Escape:
-                videoArea.isFullScreen = false
+                if(videoArea.isFullScreen == true) {
+                    videoArea.isFullScreen = false
+                } else
+                {
+                    parentValue.back();
+                }
+
+
                 break;
             case Qt.Key_Space:
                 videoBody.playStateChanged()
@@ -155,7 +162,7 @@ Rectangle {
 
             Rectangle {
                 id: videoFooterArea
-                height: 50
+                height: 70
                 width: videoArea.width
                 color: "transparent"
                 state: "hide"
@@ -216,7 +223,7 @@ Rectangle {
                 color: "transparent"
                 anchors.bottom: videoArea.bottom
                 anchors.right: videoArea.right
-                anchors.bottomMargin: 55
+                anchors.bottomMargin: 75
                 anchors.rightMargin: 55
                 PauseIcon {
                     anchors.fill: parent
@@ -225,20 +232,6 @@ Rectangle {
             }
 
         }
-
-        // Rectangle {
-        //     id: commentArea
-        //     anchors.top: videoArea.bottom
-        //     width: videoArea.width
-        //     height: contentArea.height - videoArea.height
-        //     color: "yellow"
-        //     MouseArea {
-        //         anchors.fill: parent
-        //         onClicked: {
-
-        //         }
-        //     }
-        // }
 
         Rectangle {
             id: episodeArea
