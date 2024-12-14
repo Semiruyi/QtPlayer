@@ -4,6 +4,7 @@
 #include <QFile>
 #include "./src/cpp/mainpage/mainpageconfig.h"
 #include "./src/cpp/config/playpageconfig.h"
+#include "./src/cpp/config/globalconfig.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
 
     MainPageConfig* mainPageConfig = new MainPageConfig(engine, QString("./config/MainPageConfig.json"));
     PlayPageConfig* playPageConfig = new PlayPageConfig(engine, QString("./config/PlayPageConfig.json"));
+    GlobalConfig* globalConfig = new GlobalConfig(engine, QString("./config/GlobalConfig.json"));
 
     const QUrl url(QStringLiteral("qrc:/QtPlayer/src/qml/Main.qml"));
     QObject::connect(

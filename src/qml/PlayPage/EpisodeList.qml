@@ -1,6 +1,7 @@
 import QtQuick
 import Qt.labs.folderlistmodel
 import QtQuick.Controls
+import "../MyComponents"
 import "utils.js" as Utils
 
 Item {
@@ -26,7 +27,7 @@ Item {
         qPlayHistoryConfig.init(folderUrl + "/history.db")
     }
 
-    GridView {
+    MyGridView {
         id: epList
         width: parent.width
         height: root.height
@@ -60,8 +61,8 @@ Item {
             }
 
             contentItem: Rectangle {
-                radius: width/3        //bar的圆角
-                color: 'yellow'
+                radius: qGlobalConfig.radius
+                color: 'gray'
             }
         }
 
@@ -77,7 +78,7 @@ Item {
                 width: 50
                 height: 50
                 anchors.centerIn: parent
-                radius: 10
+                radius: qGlobalConfig.radius
                 color: Utils.rgb(10, 10, 10)
                 Component.onCompleted: {
                     if(index === root.epIndex) {
@@ -112,7 +113,7 @@ Item {
                         PropertyChanges {
                             target: epBtn
                             color: "lightSkyBlue"
-                            scale: 1.2
+                            scale: 1.05
                         }
                     },
                     State {
@@ -120,7 +121,7 @@ Item {
                         PropertyChanges {
                             target: epBtn
                             color: "steelBlue"
-                            scale: 1.2
+                            scale: 1.05
                         }
                     },
                     State {
@@ -150,7 +151,7 @@ Item {
                             target: epBtn
                             properties: "width, height, scale"
                             duration: 200
-                            easing.type: Easing.InOutQuad
+                            easing.type: Easing.OutQuad
                         }
 
                         ColorAnimation {

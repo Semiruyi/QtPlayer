@@ -24,6 +24,7 @@ Rectangle {
     opacity: 0.9
     color: checked ? bgColorSelected : mouseArea.pressed ? Qt.darker(bgColor) : bgColor
     border.color: Qt.lighter(color)
+    scale: 0
 
     Text {
         id: text
@@ -49,44 +50,42 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
+        // acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         onClicked: function (mouse) {
             if (root.checkable)
                 root.checked = !root.checked
             root.clicked(mouse)
         }
-        // onHoveredChanged: {
-        //     if (mouseX > 65535) //qt5.6 touch screen release finger becomes very large e.g. 0x7fffffff
-        //         return
-        //     hovered = mouseArea.containsMouse
-        // }
         onPressAndHold: root.pressAndHold()
     }
+    // state: "hide"
     states: [
+        // State {
+        //     name: "hide"
+        //     PropertyChanges { target: root; opacity: 0; scale: 0 }
+        // },
+        // State {
+        //     name: "display"
+        //     PropertyChanges { target: root; opacity: 0.9; scale: 1 }
+        // },
         State {
             name: "brighter"
-            when: root.hovered // only the first true State is applied, so put scale and opacity together
+            when: mouseArea.containsMouse && !mouseArea.pressed // only the first true State is applied, so put scale and opacity together
             PropertyChanges { target: root; opacity: 1.0; scale: hoveredScale }
-        }/*,
-        State {
-            name: "pressed"
-            when: pressed
-            PropertyChanges {
-
-                target: root; opacity: 1.0; scale: 0.8
-            }
         },
         State {
-            name: "clicked"
-            when: clicked
+            name: "pressed"
+            when: mouseArea.pressed
             PropertyChanges {
-                target: root; opacity: 1.0; scale: 1.0
+                target: root; opacity: 1.0; scale: root.pressedScale
             }
-        }*/
+        }
     ]
+
     transitions: [
         Transition {
-            from: "*"; to: "*"
+            // from: "*"; to: "*"
             PropertyAnimation {
                 properties: "opacity,scale"
                 easing.type: Easing.OutQuart
@@ -94,4 +93,9 @@ Rectangle {
             }
         }
     ]
+
+    Component.onCompleted: {
+        root.scale = 1
+    }
+
 }

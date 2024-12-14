@@ -29,6 +29,8 @@ set(SOURCES
     src/qml/PlayPage/EpisodeList.qml
     src/qml/PlayPage/ProgressBar.qml
     src/qml/PlayPage/PauseIcon.qml
+    src/qml/MyComponents/MyCardView.qml
+    src/qml/MyComponents/MyGridView.qml
 )
 
 qt_add_qml_module(appQtPlayer
@@ -37,8 +39,10 @@ qt_add_qml_module(appQtPlayer
     QML_FILES ${SOURCES}
     SOURCES src/cpp/configobject/configobject.cpp src/cpp/configobject/configobject.h
     SOURCES src/cpp/mainpage/mainpageconfig.h
-    SOURCES
     SOURCES src/cpp/config/playpageconfig.h src/cpp/configobject/configobject.cpp src/cpp/configobject/configobject.h src/cpp/mainpage/mainpageconfig.h src/cpp/PlayHistory/playhistory.cpp src/cpp/PlayHistory/playhistory.h
+    SOURCES src/cpp/config/globalconfig.h
+    QML_FILES src/qml/MyComponents/ImageButton.qml
+    QML_FILES src/qml/PlayPage/VideoHeader.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

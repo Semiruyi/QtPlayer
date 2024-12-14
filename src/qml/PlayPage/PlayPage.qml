@@ -5,35 +5,23 @@ import "utils.js" as Utils
 Rectangle {
     id: root
     color: "black"
-    property Window parentValue
+
+    property var parentValue: null
     property url folderUrl: ""
     property int epIndex: 0
     property real playPageRatio: root.width / root.height
     property real preferrRatio: 2.0
-    signal back()
     focus: true
-
-    Timer {
-        id: log
-        interval: 1000;
-        repeat: true;
-        running: false;
-        onTriggered: {
-            console.log("now ratio is ", root.playPageRatio)
-        }
-    }
-
     Keys.onPressed: function (event) {
         switch (event.key) {
             case Qt.Key_Escape:
+                console.log("Key_Escape")
                 if(videoArea.isFullScreen == true) {
                     videoArea.isFullScreen = false
                 } else
                 {
                     parentValue.back();
                 }
-
-
                 break;
             case Qt.Key_Space:
                 videoBody.playStateChanged()
@@ -45,11 +33,20 @@ Rectangle {
                 videoArea.isFullScreen = true
                 break;
             case Qt.Key_Left:
+                autoHideTimer.restart()
+                videoFooterArea.state = "display"
                 videoBody.back()
                 break;
             case Qt.Key_Right:
+                autoHideTimer.restart()
+                videoFooterArea.state = "display"
                 videoBody.forward()
                 break;
+            case Qt.Key_Up:
+                videoBody.volumeUp()
+                break;
+            case Qt.Key_Down:
+                videoBody.volumeDown()
             default:
                 break;
         }
@@ -64,13 +61,6 @@ Rectangle {
         anchors.horizontalCenter: root.horizontalCenter
 
         color: "black"
-
-        // MouseArea {
-        //     anchors.fill: parent
-        //     onClicked: {
-        //         qPlayHistory.setTest(1)
-        //     }
-        // }
 
         Rectangle {
             id: videoArea
@@ -114,10 +104,12 @@ Rectangle {
             }
 
             onSingleClicked: {
+                root.forceActiveFocus()
                 videoBody.playStateChanged()
             }
 
             onDoubleClicked: {
+                root.forceActiveFocus()
                 videoArea.isFullScreen = !videoArea.isFullScreen
             }
 
@@ -157,7 +149,54 @@ Rectangle {
             }
 
             Rectangle {
-                id: videoHeader
+                property bool containsMouse: videoHeaderMouseArea.containsMouse || videoHeader.containsMouse
+                id: videoHeaderArea
+                height: 40
+                width: videoArea.width
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0.5)  }
+                    GradientStop { position: 1.0; color: "transparent"}
+                }
+                state: videoFooterArea.state
+                states: [
+                    State {
+                        name: "display"
+                        AnchorChanges {
+                            target: videoHeaderArea
+                            anchors.bottom: undefined
+                            anchors.top: videoArea.top
+                        }
+                    },
+                    State {
+                        name: "hide"
+                        AnchorChanges {
+                            target: videoHeaderArea
+                            anchors.top: undefined
+                            anchors.bottom: videoArea.top
+                        }
+                    }
+                ]
+                transitions: Transition {
+                    AnchorAnimation { duration: qGlobalConfig.animationDuration; easing.type: Easing.OutCubic}
+                }
+                MouseArea {
+                    id: videoHeaderMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                }
+
+                VideoHeader {
+                    id: videoHeader
+                    anchors.fill: parent
+                    onBackBtnClicked: {
+                        if(videoArea.isFullScreen)
+                        {
+                            videoArea.isFullScreen = false
+                            return
+                        }
+                        root.parentValue.back()
+                    }
+                }
             }
 
             Rectangle {
@@ -193,7 +232,7 @@ Rectangle {
                 }
 
                 transitions: Transition {
-                    AnchorAnimation { duration: 200; easing.type: Easing.InOutQuad}
+                    AnchorAnimation { duration: qGlobalConfig.animationDuration; easing.type: Easing.OutCubic}
                 }
 
                 VideoFooter {
@@ -210,7 +249,7 @@ Rectangle {
                     id: autoHideTimer
                     interval: qPagePageConfig.autoHideInterval;
                     repeat: false;
-                    running: videoFooterArea.state == "display" && !videoFooterArea.containMouse
+                    running: videoFooterArea.state == "display" && !videoFooterArea.containMouse && !videoHeaderArea.containsMouse
                     onTriggered: {
                         videoFooterArea.state = "hide"
                     }
@@ -246,15 +285,17 @@ Rectangle {
                 folderModel: FolderListModel {
                     id: folderModel
                     folder: root.folderUrl
-                    nameFilters: ["*.mp4"]
+                    nameFilters: ["*.mp4", "*.mkv"]
                     showDirs: false
                 }
                 folderUrl: root.folderUrl
                 video: videoBody
             }
         }
-
     }
 
+    Component.onCompleted: {
+        root.forceActiveFocus()
+    }
 
 }

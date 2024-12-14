@@ -15,6 +15,8 @@ Item {
     signal playStateChanged()
     signal forward()
     signal back()
+    signal volumeUp()
+    signal volumeDown()
 
     onForward: {
         video.position += 5000
@@ -48,10 +50,19 @@ Item {
         isPlaying = !isPlaying
     }
 
+    onVolumeUp: {
+        audioOutput.volume += 0.05
+    }
+
+    onVolumeDown: {
+        audioOutput.volume -= 0.05
+    }
+
     MediaPlayer {
         id: video
         videoOutput: videoOutput
         audioOutput: AudioOutput {
+            id: audioOutput
             volume: 1.0
         }
         onMediaStatusChanged: {

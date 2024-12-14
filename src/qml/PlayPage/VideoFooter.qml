@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import "../MyComponents"
 import "utils.js" as Utils
 
 Item {
@@ -39,8 +40,8 @@ Item {
             RowLayout {
                 id: footerRowLayout
                 anchors.fill: footerBtnRec
-                anchors.leftMargin: parent.height * 0.65
-                anchors.rightMargin: parent.height * 0.65
+                anchors.leftMargin: parent.height * 0.65 + parent.width * 0.01
+                anchors.rightMargin: parent.height * 0.65 + parent.width * 0.01
                 anchors.bottomMargin: 10
                 spacing: 10
                 property int itemImplicitWidth: 20

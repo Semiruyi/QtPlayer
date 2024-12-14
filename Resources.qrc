@@ -13,5 +13,9 @@
         <file>src/qml/PlayPage/EpisodeList.qml</file>
         <file>src/qml/PlayPage/ProgressBar.qml</file>
         <file>src/qml/PlayPage/PauseIcon.qml</file>
+        <file>src/qml/MyComponents/MyGridView.qml</file>
+        <file>src/qml/MyComponents/ImageButton.qml</file>
+        <file>resources/icons/atrly.png</file>
+        <file>src/qml/PlayPage/VideoHeader.qml</file>
     </qresource>
 </RCC>
