@@ -17,5 +17,6 @@
         <file>src/qml/MyComponents/ImageButton.qml</file>
         <file>resources/icons/atrly.png</file>
         <file>src/qml/PlayPage/VideoHeader.qml</file>
+        <file>resources/icons/play-fill.svg</file>
     </qresource>
 </RCC>

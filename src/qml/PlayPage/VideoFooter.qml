@@ -7,11 +7,11 @@ Item {
     id: root
     clip: true
     property VideoBody video
-    property Rectangle videoArea
+    property var videoArea
     property EpisodeList episodeList
     property int finalEpIndex
     property bool containMouse: lastEpBtn.hovered || playBtn.hovered || nextEpBtn.hovered || speedMessage.hovered || fullScreenBtn.hovered || progressBar.containMouse
-
+    signal progressBarReleased()
 
     Rectangle {
         id: videoFooter
@@ -28,6 +28,9 @@ Item {
             width: root.width * 0.97
             height: root.height - footerBtnRec.height
             anchors.horizontalCenter: parent.horizontalCenter
+            onReleased: {
+                root.progressBarReleased()
+            }
         }
 
         Rectangle {
@@ -131,6 +134,7 @@ Item {
             }
 
         }
+
     }
 }
 

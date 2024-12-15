@@ -102,7 +102,7 @@ int PlayHistory::setEpPos(int index, int position) {
         int iRet = query.exec(QString(R"(UPDATE play_history SET position=%2 WHERE episode_index='%1';)")
                                   .arg(index).arg(position));
         if(iRet){
-            qDebug() << "update video index " << index << " position: " << position << " success";
+            // qDebug() << "update video index " << index << " position: " << position << " success";
         }
         else{
             qDebug() << "update video position error: " << query.lastError();

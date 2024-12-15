@@ -67,7 +67,17 @@ Rectangle {
             color: Utils.rgb(31,34,35)
             anchors.verticalCenter: contentArea.verticalCenter
             clip: true
+            property bool containsMouse: videoAreaMouseArea.containsMouse || videoFooterArea.containMouse || videoHeaderArea.containsMouse
             property bool isFullScreen: false
+
+
+            // bug: the containsMouse property is not arrcurate
+            // onContainsMouseChanged: {
+            //     if(!videoArea.containsMouse)
+            //     {
+            //         videoFooterArea.state = "hide"
+            //     }
+            // }
 
             signal singleClicked()
             signal doubleClicked()
@@ -114,7 +124,7 @@ Rectangle {
             }
 
             MouseArea {
-                id: vedioMouseEvent
+                id: videoAreaMouseArea
                 Timer {
                     id: videoAreaClickTimer
                     interval: 300
@@ -153,6 +163,7 @@ Rectangle {
                 id: videoHeaderArea
                 height: 40
                 width: videoArea.width
+                visible: opacity < 0.01 ? false : true
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0.5)  }
                     GradientStop { position: 1.0; color: "transparent"}
@@ -161,23 +172,25 @@ Rectangle {
                 states: [
                     State {
                         name: "display"
-                        AnchorChanges {
+                        PropertyChanges {
                             target: videoHeaderArea
-                            anchors.bottom: undefined
-                            anchors.top: videoArea.top
+                            opacity: 1
                         }
                     },
                     State {
                         name: "hide"
-                        AnchorChanges {
+                        PropertyChanges {
                             target: videoHeaderArea
-                            anchors.top: undefined
-                            anchors.bottom: videoArea.top
+                            opacity: 0
                         }
                     }
                 ]
                 transitions: Transition {
-                    AnchorAnimation { duration: qGlobalConfig.animationDuration; easing.type: Easing.OutCubic}
+                    NumberAnimation {
+                        property: "opacity"
+                        duration: qGlobalConfig.animationDuration;
+                        easing.type: Easing.OutCubic
+                    }
                 }
                 MouseArea {
                     id: videoHeaderMouseArea
@@ -201,25 +214,25 @@ Rectangle {
 
             Rectangle {
                 id: videoFooterArea
+                visible: opacity < 0.01 ? false : true
                 height: 70
                 width: videoArea.width
                 color: "transparent"
-                state: "hide"
+                state: "display"
+                anchors.bottom: videoArea.bottom
                 states: [
                     State {
                         name: "display"
-                        AnchorChanges {
+                        PropertyChanges {
                             target: videoFooterArea
-                            anchors.top: undefined
-                            anchors.bottom: videoArea.bottom
+                            opacity: 1
                         }
                     },
                     State {
                         name: "hide"
-                        AnchorChanges {
+                        PropertyChanges {
                             target: videoFooterArea
-                            anchors.top: videoArea.bottom
-                            anchors.bottom: undefined
+                            opacity: 0
                         }
                     }
                 ]
@@ -232,7 +245,11 @@ Rectangle {
                 }
 
                 transitions: Transition {
-                    AnchorAnimation { duration: qGlobalConfig.animationDuration; easing.type: Easing.OutCubic}
+                    NumberAnimation {
+                        property: "opacity"
+                        duration: qGlobalConfig.animationDuration;
+                        easing.type: Easing.OutCubic
+                    }
                 }
 
                 VideoFooter {
@@ -242,7 +259,9 @@ Rectangle {
                     videoArea: videoArea
                     episodeList: episodeList
                     finalEpIndex: folderModel.count - 1
-
+                    onProgressBarReleased: {
+                        root.forceActiveFocus()
+                    }
                 }
 
                 Timer {

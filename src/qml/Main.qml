@@ -12,7 +12,7 @@ Window  {
     id: root
     width: 2200 / 2 - 50
     height: 1080 / 2
-    color: "black"
+    color: "#1f2223"
 
     function back() {
         stack.pop()
@@ -45,7 +45,7 @@ Window  {
                     from: 0.5
                     to: 1.0
                     duration: stack.animationDuration
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.OutCubic
                 }
             }
         }
@@ -82,7 +82,7 @@ Window  {
                     from: 0.5
                     to: 1.0
                     duration: stack.animationDuration
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.OutCubic
                 }
             }
         }
@@ -104,15 +104,23 @@ Window  {
         Rectangle {
             id: mainView
             color: "transparent"
+
+            function appendData(pathData, titleData) {
+                gridViewModel.append({
+                    animationTitle: titleData,
+                    path: pathData
+                })
+            }
+
             FolderDialog {
                 id: folderDialog
 
                 onAccepted: {
                     if (selectedFolder !== undefined && selectedFolder !== "") {
                         var newFolderPath = selectedFolder.toString()
-                        var playFolderPaths = qMainPageConfig.playFolderPaths
-                        playFolderPaths.push(newFolderPath)
-                        qMainPageConfig.setPlayFolderPaths(playFolderPaths)
+                        var title = newFolderPath.replace(/^.*[\\/]/, '')
+                        mainView.appendData(newFolderPath, title)
+                        qMainPageConfig.appendData(newFolderPath, title)
                     } else{
                         console.log("Error on user selecting folder")
                     }
@@ -124,25 +132,55 @@ Window  {
 
             Rectangle {
                 anchors.fill: myGridView
-                color: "gray"
+                color: "transparent"
+            }
+
+            ListModel {
+                id: gridViewModel
+                Component.onCompleted: {
+                    for(var i = 0; i < qMainPageConfig.playFolderPaths.length; i++) {
+                        mainView.appendData(qMainPageConfig.playFolderPaths[i], qMainPageConfig.titles[i])
+                    }
+                }
             }
 
             MyGridView {
                 id: myGridView
                 height: parent.height
-                width: Math.floor(parent.width / cellWidth) * cellWidth
+                width: (Math.floor(parent.width / cellWidth) < 0.01 ? 1 : Math.floor(parent.width / cellWidth)) * cellWidth
                 anchors.horizontalCenter: parent.horizontalCenter
-                model: qMainPageConfig.playFolderPaths
+                model: gridViewModel
                 cellWidth: 200 * 1.618
                 cellHeight: 200
-                delegate: MyCardView {
-                    width: 200 * 1.618 * 0.9
-                    height: 200 * 0.9
-                    onLeftClicked: {
-                        stack.push("PlayPage/PlayPage.qml", {
-                                       folderUrl: modelData,
-                                       parentValue: root
-                                   })
+                delegate: Rectangle {
+                    width: myGridView.cellWidth
+                    height: myGridView.cellHeight
+                    color: "transparent"
+                    Popup {
+                        id: cardRightClickPopup
+                        contentItem: Button {
+                            text: "remove"
+                            onClicked: {
+                                qMainPageConfig.removeData(index)
+                                gridViewModel.remove(index)
+                            }
+                        }
+                    }
+
+                    MyCardView {
+                        title: animationTitle
+                        width: 200 * 1.618 * 0.9
+                        height: 200 * 0.9
+                        anchors.centerIn: parent
+                        onLeftClicked: {
+                            stack.push("PlayPage/PlayPage.qml", {
+                                           folderUrl: path,
+                                           parentValue: root
+                                       })
+                        }
+                        onRightClicked: {
+                            cardRightClickPopup.open()
+                        }
                     }
                 }
             }

@@ -43,4 +43,6 @@ public:
     void writeDataToJson();
 };
 
+Q_DECLARE_METATYPE(ConfigObject)
+
 #endif

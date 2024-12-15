@@ -23,7 +23,7 @@ QJsonObject ConfigObject::toJson() const {
         }
 
         QVariant value = metaProperty.read(this);
-        // json[name] = QJsonValue::fromVariant(value);
+
         if (value.typeId() == QMetaType::QStringList)
         {
             QJsonArray jsonArray;

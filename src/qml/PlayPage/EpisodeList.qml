@@ -151,7 +151,7 @@ Item {
                             target: epBtn
                             properties: "width, height, scale"
                             duration: 200
-                            easing.type: Easing.OutQuad
+                            easing.type: Easing.OutCubic
                         }
 
                         ColorAnimation {

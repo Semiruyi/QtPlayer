@@ -6,14 +6,14 @@ GridView {
     Behavior on width {
         NumberAnimation {
             duration: qGlobalConfig.animationDuration
-            easing.type: Easing.InOutQuad
+            easing.type: Easing.OutCubic
         }
     }
     add: Transition {
         NumberAnimation {
             property: "scale"
             duration: qGlobalConfig.animationDuration
-            easing.type: Easing.OutQuad
+            easing.type: Easing.OutCubic
             from: 0.2
             to: 1
         }
@@ -23,24 +23,32 @@ GridView {
             NumberAnimation {
                 property: "scale"
                 duration: qGlobalConfig.animationDuration
-                easing.type: Easing.OutQuad
+                easing.type: Easing.OutCubic
                 to: 0
             }
             NumberAnimation {
                 property: "opacity"
                 duration: qGlobalConfig.animationDuration
-                easing.type: Easing.OutQuad
+                easing.type: Easing.OutCubic
                 to: 0
             }
         }
     }
 
     displaced: Transition {
-        NumberAnimation { properties: "x,y"; duration: qGlobalConfig.animationDuration }
+        NumberAnimation {
+            properties: "x,y";
+            duration: qGlobalConfig.animationDuration
+            easing.type: Easing.OutCubic
+        }
     }
 
     move: Transition {
-        NumberAnimation { properties: "x,y"; duration: qGlobalConfig.animationDuration }
+        NumberAnimation {
+            properties: "x,y";
+            duration: qGlobalConfig.animationDuration
+            easing.type: Easing.OutCubic
+        }
     }
 
     populate: Transition {

@@ -43,7 +43,7 @@ Item {
                         target: pauseIcon
                         properties: "scale, opacity"
                         duration: 200
-                        easing.type: Easing.InOutQuad
+                        easing.type: Easing.OutCubic
                     }
                 }
             ]

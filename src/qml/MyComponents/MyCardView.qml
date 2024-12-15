@@ -89,10 +89,14 @@ Rectangle {
         hoverEnabled: true
         anchors.left: img.left
         anchors.bottom: img.bottom
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         onClicked:function handleMousePress(mouse) {
             if (mouse.button === Qt.LeftButton) {
                 root.leftClicked()
+            }
+            else if(mouse.button === Qt.RightButton) {
+                root.rightClicked()
             }
         }
     }
