@@ -11,7 +11,10 @@ Rectangle {
     property string textRatio: 1 - titleRatio
     property string imageSource: "qrc:/resources/icons/atrly.png"
     property double textContentHeightRatio: 0.5
+    property bool allwaysDisplayTextContent: false
+    property int animationDuration: qGlobalConfig.animationDuration
     signal leftClicked()
+    signal leftDoubleClicked()
     signal rightClicked()
 
     radius: 10
@@ -73,11 +76,11 @@ Rectangle {
         brightness: -0.1
         maskEnabled: true
         maskSource: gradSrc
-        maskThresholdMax: mainMouseArea.containsMouse ? root.textContentHeightRatio : 0     // 模糊范围
+        maskThresholdMax: (mainMouseArea.containsMouse || root.allwaysDisplayTextContent) ? root.textContentHeightRatio : 0     // 模糊范围
         maskSpreadAtMax: 0.05   // 模糊边界过渡范围
         Behavior on maskThresholdMax {
             NumberAnimation {
-                duration: 200
+                duration: root.animationDuration
                 easing.type: Easing.OutCubic
             }
         }
@@ -93,12 +96,26 @@ Rectangle {
 
         onClicked:function handleMousePress(mouse) {
             if (mouse.button === Qt.LeftButton) {
+                // if(doubleClickTimer.running)
+                // {
+                //     root.leftDoubleClicked()
+                //     doubleClickTimer.stop()
+                // }
+                // else {
+                //     root.leftClicked()
+                // }
+                // console.log("doubleClickTimer.running", doubleClickTimer.running)
                 root.leftClicked()
             }
             else if(mouse.button === Qt.RightButton) {
                 root.rightClicked()
             }
         }
+
+        onDoubleClicked: {
+            root.leftDoubleClicked()
+        }
+
     }
 
     Rectangle {

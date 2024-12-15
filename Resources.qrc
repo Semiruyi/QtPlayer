@@ -18,5 +18,7 @@
         <file>resources/icons/atrly.png</file>
         <file>src/qml/PlayPage/VideoHeader.qml</file>
         <file>resources/icons/play-fill.svg</file>
+        <file>src/qml/MyComponents/MyPopup.qml</file>
+        <file>src/qml/MyComponents/MyMenu.qml</file>
     </qresource>
 </RCC>

@@ -10,8 +10,8 @@ import "./MyComponents"
 Window  {
     visible: true
     id: root
-    width: 2200 / 2 - 50
-    height: 1080 / 2
+    width: 1200 / 2 * 2.197324414715719
+    height: 1200 / 2
     color: "#1f2223"
 
     function back() {
@@ -156,30 +156,48 @@ Window  {
                     width: myGridView.cellWidth
                     height: myGridView.cellHeight
                     color: "transparent"
-                    Popup {
-                        id: cardRightClickPopup
-                        contentItem: Button {
+                    MyMenu {
+                        id: cardMenu
+                        MenuItem {
                             text: "remove"
-                            onClicked: {
+                            onTriggered: {
                                 qMainPageConfig.removeData(index)
                                 gridViewModel.remove(index)
+                            }
+                        }
+                        MenuItem {
+                            text: "Item 2"
+                        }
+                        MenuItem {
+                            text: "Item 3"
+                        }
+                        onOpenedChanged: {
+                            if(!cardMenu.opened)
+                            {
+                                cardView.allwaysDisplayTextContent = false
                             }
                         }
                     }
 
                     MyCardView {
+                        id: cardView
                         title: animationTitle
                         width: 200 * 1.618 * 0.9
                         height: 200 * 0.9
                         anchors.centerIn: parent
-                        onLeftClicked: {
+                        onLeftDoubleClicked: {
                             stack.push("PlayPage/PlayPage.qml", {
                                            folderUrl: path,
                                            parentValue: root
                                        })
                         }
                         onRightClicked: {
-                            cardRightClickPopup.open()
+                            if(cardMenu.popupEnable)
+                            {
+                                cardMenu.popupEnable = false
+                                cardMenu.popup()
+                                cardView.allwaysDisplayTextContent = true
+                            }
                         }
                     }
                 }
@@ -193,11 +211,6 @@ Window  {
                     text: "Add"
                     onClicked: {
                         folderDialog.visible = true
-                    }
-                }
-                Button {
-                    text: "remove"
-                    onClicked: {
                     }
                 }
             }

@@ -10,7 +10,7 @@ Rectangle {
     property url folderUrl: ""
     property int epIndex: 0
     property real playPageRatio: root.width / root.height
-    property real preferrRatio: 2.0
+    property real preferrRatio: 2.197324414715719
     focus: true
     Keys.onPressed: function (event) {
         switch (event.key) {
@@ -53,6 +53,15 @@ Rectangle {
         event.accepted = true
     }
 
+    // Timer {
+    //     running: true
+    //     repeat: true
+    //     interval: 1000
+    //     onTriggered: {
+    //         console.log(playPageRatio)
+    //     }
+    // }
+
     Rectangle {
         id: contentArea
 
@@ -69,7 +78,6 @@ Rectangle {
             clip: true
             property bool containsMouse: videoAreaMouseArea.containsMouse || videoFooterArea.containMouse || videoHeaderArea.containsMouse
             property bool isFullScreen: false
-
 
             // bug: the containsMouse property is not arrcurate
             // onContainsMouseChanged: {
