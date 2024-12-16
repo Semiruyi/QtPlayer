@@ -185,7 +185,7 @@ Window  {
                         width: 200 * 1.618 * 0.9
                         height: 200 * 0.9
                         anchors.centerIn: parent
-                        onLeftDoubleClicked: {
+                        onLeftClicked: {
                             stack.push("PlayPage/PlayPage.qml", {
                                            folderUrl: path,
                                            parentValue: root

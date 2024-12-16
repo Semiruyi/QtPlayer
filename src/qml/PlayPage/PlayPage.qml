@@ -274,7 +274,7 @@ Rectangle {
 
                 Timer {
                     id: autoHideTimer
-                    interval: qPagePageConfig.autoHideInterval;
+                    interval: qPlayPageConfig.autoHideInterval;
                     repeat: false;
                     running: videoFooterArea.state == "display" && !videoFooterArea.containMouse && !videoHeaderArea.containsMouse
                     onTriggered: {
