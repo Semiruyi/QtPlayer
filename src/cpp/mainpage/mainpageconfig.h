@@ -2,6 +2,7 @@
 #define MAINPAGECONFIG_H
 
 #include "../configobject/configobject.h"
+#include "../PlayHistory/playhistory.h"
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
@@ -39,6 +40,16 @@ public:
         }
         m_playFolderPaths.remove(index);
         m_titles.remove(index);
+    }
+
+    Q_INVOKABLE int getWatchedCount(QString path)
+    {
+        int ret = 0;
+
+        PlayHistory playHistory(this);
+        playHistory.init(path);
+
+        return playHistory.getWatchedCount();
     }
 
 signals:

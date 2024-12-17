@@ -217,6 +217,7 @@ Rectangle {
                         }
                         root.parentValue.back()
                     }
+                    fileName: videoBody.source
                 }
             }
 

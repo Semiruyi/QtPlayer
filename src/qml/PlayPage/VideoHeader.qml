@@ -5,6 +5,7 @@ Rectangle {
     id: root
 
     property bool containsMouse: backBtn.hovered
+    property string fileName: ""
     signal backBtnClicked()
 
     height: 30
@@ -30,6 +31,12 @@ Rectangle {
             onClicked: function (mouse) {
                 root.backBtnClicked()
             }
+        }
+
+        Text {
+            text: root.fileName
+            color: "white"
+            font.pixelSize: 15
         }
     }
 }

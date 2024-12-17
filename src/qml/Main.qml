@@ -5,6 +5,7 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
+import Qt.labs.folderlistmodel
 import "./MyComponents"
 
 Window  {
@@ -14,8 +15,11 @@ Window  {
     height: 1200 / 2
     color: "#1f2223"
 
+    signal refresh()
+
     function back() {
         stack.pop()
+        root.refresh()
     }
 
     StackView {
@@ -153,6 +157,9 @@ Window  {
                 cellWidth: 200 * 1.618
                 cellHeight: 200
                 delegate: Rectangle {
+
+                    property int watchedCount: 0
+
                     width: myGridView.cellWidth
                     height: myGridView.cellHeight
                     color: "transparent"
@@ -181,9 +188,11 @@ Window  {
 
                     MyCardView {
                         id: cardView
+
                         title: animationTitle
                         width: 200 * 1.618 * 0.9
                         height: 200 * 0.9
+                        text: qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + qMainPageConfig.getWatchedCount(path + "/history.db")
                         anchors.centerIn: parent
                         onLeftClicked: {
                             stack.push("PlayPage/PlayPage.qml", {
@@ -198,6 +207,20 @@ Window  {
                                 cardMenu.popup()
                                 cardView.allwaysDisplayTextContent = true
                             }
+                        }
+
+                        Connections {
+                            target: root
+                            function onRefresh() {
+                                cardView.text = qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + qMainPageConfig.getWatchedCount(path + "/history.db")
+                            }
+                        }
+
+                        FolderListModel {
+                            id: folderModel
+                            folder: path
+                            nameFilters: ["*.mp4", "*.mkv"]
+                            showDirs: false
                         }
                     }
                 }

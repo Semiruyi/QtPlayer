@@ -16,7 +16,6 @@ Item {
     onEpIndexChanged: {
         video.source = root.folderUrl + "/" + root.folderModel.get(root.epIndex, "fileName")
         video.pause()
-        qPlayHistoryConfig.setWatchState(lastEpIndex, true)
         epList.itemAtIndex(root.lastEpIndex).btn.state = "watched"
         epList.itemAtIndex(root.epIndex).btn.watched = true
         epList.itemAtIndex(root.epIndex).btn.state = "selected"

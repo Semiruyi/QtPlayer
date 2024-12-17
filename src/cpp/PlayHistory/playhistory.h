@@ -28,7 +28,7 @@ class PlayHistory : public QObject
     // Q_PROPERTY(int year READ getYear WRITE setYear NOTIFY yearChanged)
     Q_OBJECT
 public:
-    explicit PlayHistory(QQmlApplicationEngine& engine, QObject *parent = nullptr);
+    explicit PlayHistory(QObject *parent = nullptr);
     Q_INVOKABLE int init(QString dataUrl);
     Q_INVOKABLE int isWatched(int index);
     Q_INVOKABLE int setWatchState(int index, bool state);
@@ -36,6 +36,15 @@ public:
     Q_INVOKABLE int getEpPos(int index);
     int getTest() const;
     Q_INVOKABLE void setTest(int newTest);
+    Q_INVOKABLE int getWatchedCount();
+
+    void debug(const QString& log)
+    {
+        qDebug() << log;
+    }
+    ~PlayHistory() {
+        // db.close();
+    }
 
 signals:
 

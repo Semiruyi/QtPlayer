@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
     qRegisterMetaType<ConfigObject>("ConfigObject");
 
     //init play history for play page to use it
-    PlayHistory* playHistory = new PlayHistory(engine);
+    PlayHistory* playHistory = new PlayHistory();
+    engine.rootContext()->setContextProperty("qPlayHistoryConfig", playHistory); // playPage share one
 
     MainPageConfig* mainPageConfig = new MainPageConfig(engine, QString("./config/MainPageConfig.json"));
     PlayPageConfig* playPageConfig = new PlayPageConfig(engine, QString("./config/PlayPageConfig.json"));

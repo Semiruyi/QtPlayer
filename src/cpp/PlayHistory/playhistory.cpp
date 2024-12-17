@@ -8,20 +8,20 @@
 #include <QSqlError>
 #include <QQmlContext>
 
-PlayHistory::PlayHistory(QQmlApplicationEngine& engine, QObject *parent)
+PlayHistory::PlayHistory(QObject *parent)
     : QObject{parent}
 {
-    engine.rootContext()->setContextProperty("qPlayHistoryConfig", this);
+
 }
 
 int PlayHistory::init(QString dataUrl) {
 
     this->dataUrl = QUrl(dataUrl);
 
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-        db = QSqlDatabase::database("qt_sql_default_connection");
-    else
-        db = QSqlDatabase::addDatabase("QSQLITE");
+    // if(QSqlDatabase::contains("qt_sql_default_connection"))
+    //     db = QSqlDatabase::database("qt_sql_default_connection");
+    // else
+    db = QSqlDatabase::addDatabase("QSQLITE", dataUrl);
     db.setDatabaseName(this->dataUrl.toLocalFile());
 
     if(db.open()){
@@ -94,6 +94,9 @@ int PlayHistory::setWatchState(int index, bool state) {
 }
 
 int PlayHistory::setEpPos(int index, int position) {
+
+    setWatchState(index, true);
+
     QSqlQuery query(db);
 
     query.exec(QString(R"(SELECT * FROM play_history WHERE episode_index='%1';)").arg(index));
@@ -136,4 +139,22 @@ int PlayHistory::getEpPos(int index) {
 
 void PlayHistory::setTest(int newTest) {
     qDebug() << "qPlayHistory is working";
+}
+
+int PlayHistory::getWatchedCount()
+{
+    QSqlQuery query(db);
+
+    query.exec(QString(R"(SELECT is_watched FROM play_history;)"));
+
+    int ret = 0;
+
+    while(query.next()) {
+        if(query.value(0).toBool())
+            ret++;
+    }
+
+    debug(dataUrl.toString() + " " + QString("watched: %1").arg(ret));
+
+    return ret;
 }
