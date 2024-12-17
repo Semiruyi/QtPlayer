@@ -15,6 +15,7 @@
 #include <QDir>
 #include <QJsonArray>
 #include <QTimer>
+#include <QSet>
 
 class ConfigObject : public QObject
 {
@@ -25,6 +26,7 @@ public:
 private:
     QString m_readWriteJsonFilePath;
     QTimer* m_timer;
+    QSet<QString> m_hideProperties;
 
 #pragma region "" {
 
@@ -41,6 +43,7 @@ public:
     void fromJson(const QJsonObject &json);
     void readDataFromJson();
     void writeDataToJson();
+    void hide(const QString& property);
 };
 
 Q_DECLARE_METATYPE(ConfigObject)

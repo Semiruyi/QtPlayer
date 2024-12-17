@@ -10,7 +10,7 @@ class PlayPageConfig : public ConfigObject
     Q_OBJECT
     Q_PROPERTY(int autoHideInterval READ autoHideInterval WRITE setAutoHideInterval NOTIFY autoHideIntervalChanged FINAL)
     Q_PROPERTY(bool autoPlay READ autoPlay WRITE setAutoPlay NOTIFY autoPlayChanged FINAL)
-    Q_PROPERTY(bool animationFirst READ animationFirst WRITE setAnimationFirst NOTIFY animationFirstChanged FINAL)
+    Q_PROPERTY(bool animationFirst READ animationFirst WRITE setAnimationFirst NOTIFY animationFirstChanged FINAL) // unused
 
 private:
     int m_autoHideInterval = 1500; // ms
@@ -24,6 +24,7 @@ public:
     {
         engine.rootContext()->setContextProperty("qPlayPageConfig", this);
         setReadWriteJsonFilePath(jsonPath);
+        hide("animationFirst");
         readDataFromJson();
 
         connect(this, &PlayPageConfig::autoHideIntervalChanged, this, &PlayPageConfig::writeDataToJson);

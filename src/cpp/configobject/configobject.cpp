@@ -16,8 +16,8 @@ QJsonObject ConfigObject::toJson() const {
     const QMetaObject *metaObject = this->metaObject();
     for (int i = 0; i < metaObject->propertyCount(); ++i) {
         QMetaProperty metaProperty = metaObject->property(i);
-        const char *name = metaProperty.name();
-        if(QString(name) == QString("objectName"))
+        QString name = QString(metaProperty.name());
+        if(name == QString("objectName") || m_hideProperties.contains(name))
         {
             continue;
         }
@@ -44,6 +44,10 @@ void ConfigObject::fromJson(const QJsonObject &json) {
     for (int i = 0; i < metaObject->propertyCount(); ++i) {
         QMetaProperty metaProperty = metaObject->property(i);
         const char *name = metaProperty.name();
+        if(m_hideProperties.contains(QString(name)))
+        {
+            continue;
+        }
         if (json.contains(name)) {
             QJsonValue jsonValue = json[name];
             if (!jsonValue.isNull()) {
@@ -60,6 +64,7 @@ void ConfigObject::fromJson(const QJsonObject &json) {
                 else
                 {
                     value = jsonValue.toVariant();
+                    // qDebug() << name << ": " << value;
                 }
 
                 metaProperty.write(this, value);
@@ -133,4 +138,9 @@ void ConfigObject::writeDataToJson() {
     } else {
         qWarning() << "Failed to open file for writing:" << m_readWriteJsonFilePath;
     }
+}
+
+void ConfigObject::hide(const QString& property)
+{
+    m_hideProperties.insert(property);
 }

@@ -75,17 +75,10 @@ Item {
         onMediaStatusChanged: {
             console.log("mediaStatus", mediaStatus)
             if(mediaStatus === MediaPlayer.LoadedMedia) {
-                if(!qPlayPageConfig.animationFirst) {
-                    if(root.isFirstLoad) {
-                        video.play()              //force buffer the video
-                        video.pause()
-                        root.isFirstLoad = false // qt MediaPlayer first load will not continue buffer process
-                    }
-                }
-
                 video.position = qPlayHistoryConfig.getEpPos(root.epIndex)
             }
         }
+
     }
 
     VideoOutput {
@@ -93,7 +86,7 @@ Item {
         anchors.fill: root
     }
 
-    // 投降喵， 我选择暴力
+    // 投降喵， 我选择暴力 每一集的自动播放
     Timer {
         id: autoPlayTimer
         running: true
@@ -101,6 +94,10 @@ Item {
         interval: 400
         onTriggered: {
             // console.log("timer triggered")
+            if(root.isFirstLoad) {
+                autoPlayTimer.stop()
+                return
+            }
 
             if(!video.playing && !root.autoPlayUsed && root.autoPlay) {
                 video.play()
@@ -110,4 +107,33 @@ Item {
         }
     }
 
+    Timer {
+        running: true
+        interval: 400
+        repeat: false
+        onTriggered: {
+            // console.log("enter  mediaStatus", video.mediaStatus)
+            audioOutput.volume = 0
+            video.play()
+            pauseTimer.start()
+        }
+    }
+
+    Timer {
+        id: pauseTimer
+        interval: 400
+        running: false
+        onTriggered: {
+            if(!root.autoPlay) {
+                // console.log("rrrrrr right?")
+                video.pause()
+                root.isPlaying = false
+            } else {
+                // console.log("rrrrrr error?")
+                root.isPlaying = true
+            }
+            audioOutput.volume = 1.0
+            root.isFirstLoad = false
+        }
+    }
 }
