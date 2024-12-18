@@ -16,6 +16,7 @@
 #include <QJsonArray>
 #include <QTimer>
 #include <QSet>
+#include "mylistmodel.h"
 
 class ConfigObject : public QObject
 {

@@ -32,7 +32,13 @@ QJsonObject ConfigObject::toJson() const {
                 jsonArray.append(str);
             }
             json.insert(name, jsonArray);
-        } else {
+        }
+        else if(value.canConvert<MyListModel*>())
+        {
+            json.insert(name, value.value<MyListModel*>()->toJson());
+        }
+        else
+        {
             json.insert(name, QJsonValue::fromVariant(value));
         }
     }
@@ -43,6 +49,7 @@ void ConfigObject::fromJson(const QJsonObject &json) {
     const QMetaObject *metaObject = this->metaObject();
     for (int i = 0; i < metaObject->propertyCount(); ++i) {
         QMetaProperty metaProperty = metaObject->property(i);
+        const QVariant & propertyValue = metaProperty.read(this);
         const char *name = metaProperty.name();
         if(m_hideProperties.contains(QString(name)))
         {
@@ -60,14 +67,22 @@ void ConfigObject::fromJson(const QJsonObject &json) {
                         stringList.append(jsonVal.toString());
                     }
                     value = stringList;
+                    metaProperty.write(this, value);
+                    return ;
+                }
+                else if(propertyValue.canConvert<MyListModel*>())
+                {
+                    qDebug() << "enter value.canConvert<MyListModel*>()";
+                    propertyValue.value<MyListModel*>()->fromJson(jsonValue.toArray());
+                    metaProperty.write(this, propertyValue);
                 }
                 else
                 {
                     value = jsonValue.toVariant();
-                    // qDebug() << name << ": " << value;
+                    metaProperty.write(this, value);
                 }
 
-                metaProperty.write(this, value);
+
             }
         }
     }

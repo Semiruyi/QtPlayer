@@ -109,13 +109,6 @@ Window  {
             id: mainView
             color: "transparent"
 
-            function appendData(pathData, titleData) {
-                gridViewModel.append({
-                    animationTitle: titleData,
-                    path: pathData
-                })
-            }
-
             FolderDialog {
                 id: folderDialog
 
@@ -123,8 +116,10 @@ Window  {
                     if (selectedFolder !== undefined && selectedFolder !== "") {
                         var newFolderPath = selectedFolder.toString()
                         var title = newFolderPath.replace(/^.*[\\/]/, '')
-                        mainView.appendData(newFolderPath, title)
-                        qMainPageConfig.appendData(newFolderPath, title)
+                        qMainPageConfig.playCardModel.append({
+                                                                "animationTitle": title,
+                                                                "path" : newFolderPath
+                                                             })
                     } else{
                         console.log("Error on user selecting folder")
                     }
@@ -139,21 +134,12 @@ Window  {
                 color: "transparent"
             }
 
-            ListModel {
-                id: gridViewModel
-                Component.onCompleted: {
-                    for(var i = 0; i < qMainPageConfig.playFolderPaths.length; i++) {
-                        mainView.appendData(qMainPageConfig.playFolderPaths[i], qMainPageConfig.titles[i])
-                    }
-                }
-            }
-
             MyGridView {
                 id: myGridView
                 height: parent.height
                 width: (Math.floor(parent.width / cellWidth) < 0.01 ? 1 : Math.floor(parent.width / cellWidth)) * cellWidth
                 anchors.horizontalCenter: parent.horizontalCenter
-                model: gridViewModel
+                model: qMainPageConfig.playCardModel
                 cellWidth: 200 * 1.618
                 cellHeight: 200
                 delegate: Rectangle {
@@ -168,8 +154,7 @@ Window  {
                         MenuItem {
                             text: "remove"
                             onTriggered: {
-                                qMainPageConfig.removeData(index)
-                                gridViewModel.remove(index)
+                                qMainPageConfig.playCardModel.remove(index)
                             }
                         }
                         MenuItem {
