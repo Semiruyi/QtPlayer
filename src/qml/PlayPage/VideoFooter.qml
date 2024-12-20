@@ -35,7 +35,7 @@ Item {
 
         Rectangle {
             id: footerBtnRec
-            height: 30
+            height: 50
             width: root.width
             anchors.bottom: videoFooter.bottom
             color: "transparent"
@@ -43,10 +43,10 @@ Item {
             RowLayout {
                 id: footerRowLayout
                 anchors.fill: footerBtnRec
-                anchors.leftMargin: parent.height * 0.65 + parent.width * 0.01
-                anchors.rightMargin: parent.height * 0.65 + parent.width * 0.01
+                anchors.leftMargin: parent.height * 0.5 + parent.width * 0.01
+                anchors.rightMargin: parent.height * 0.5 + parent.width * 0.01
                 anchors.bottomMargin: 10
-                spacing: 10
+                spacing: 15
                 property int itemImplicitWidth: 20
 
                 IconButton {
@@ -63,8 +63,8 @@ Item {
 
                 IconButton {
                     id: playBtn
-                    implicitWidth: footerRowLayout.itemImplicitWidth
-                    implicitHeight: implicitWidth
+                    implicitWidth: footerRowLayout.itemImplicitWidth + 6
+                    implicitHeight: footerRowLayout.itemImplicitWidth + 6
                     Layout.alignment: Qt.AlignVCenter
                     checked: root.video.isPlaying
                     icon: "qrc:/resources/icons/play.png"
@@ -106,12 +106,22 @@ Item {
 
                 IconButton {
                     id: speedMessage
+
                     implicitWidth: footerRowLayout.itemImplicitWidth
                     implicitHeight: implicitWidth
                     Layout.alignment: Qt.AlignVCenter
                     textColor: "white"
                     text: "1.0x"
                     fontBold: true
+                    onClicked: {
+                        if(speedMessage.text == "1.0x") {
+                            speedMessage.text = "1.25x"
+                        }
+                        else {
+                            speedMessage.text = "1.0x"
+                            console.log("are there")
+                        }
+                    }
                 }
 
                 Rectangle {

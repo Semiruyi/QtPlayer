@@ -108,10 +108,12 @@ Window  {
         Rectangle {
             id: mainView
             color: "transparent"
+            width: root.width
+            height: root.height
 
             FolderDialog {
                 id: folderDialog
-
+                currentFolder: qMainPageConfig.lastOpenedFolder
                 onAccepted: {
                     if (selectedFolder !== undefined && selectedFolder !== "") {
                         var newFolderPath = selectedFolder.toString()
@@ -120,6 +122,10 @@ Window  {
                                                                 "animationTitle": title,
                                                                 "path" : newFolderPath
                                                              })
+                        var lastOpenedFolder = newFolderPath.split("/");
+                        lastOpenedFolder.pop();
+                        lastOpenedFolder = lastOpenedFolder.join("/");
+                        qMainPageConfig.lastOpenedFolder = lastOpenedFolder
                     } else{
                         console.log("Error on user selecting folder")
                     }
@@ -136,12 +142,14 @@ Window  {
 
             MyGridView {
                 id: myGridView
+                flow: GridView.FlowLeftToRight
                 height: parent.height
                 width: (Math.floor(parent.width / cellWidth) < 0.01 ? 1 : Math.floor(parent.width / cellWidth)) * cellWidth
                 anchors.horizontalCenter: parent.horizontalCenter
                 model: qMainPageConfig.playCardModel
                 cellWidth: 200 * 1.618
                 cellHeight: 200
+                animationDuration: qGlobalConfig.animationDuration
                 delegate: Rectangle {
 
                     property int watchedCount: 0
@@ -214,9 +222,11 @@ Window  {
             RowLayout {
                 anchors.bottom: mainView.bottom
                 anchors.horizontalCenter: mainView.horizontalCenter
-                anchors.bottomMargin: 20
-                Button {
-                    text: "Add"
+                anchors.bottomMargin: 40
+                IconButton {
+                    implicitWidth: 50
+                    implicitHeight: 50
+                    icon: "qrc:/resources/icons/plus.png"
                     onClicked: {
                         folderDialog.visible = true
                     }

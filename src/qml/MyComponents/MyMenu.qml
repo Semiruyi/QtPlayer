@@ -9,10 +9,6 @@ Menu {
     property bool popupEnable: true
     property int animationDuration: qGlobalConfig.animationDuration
 
-    // background: Rectangle {
-    //     color: "black"
-    // }
-
     onClosed: {
         root.popupEnable = true
     }

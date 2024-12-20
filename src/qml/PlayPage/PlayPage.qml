@@ -224,7 +224,7 @@ Rectangle {
             Rectangle {
                 id: videoFooterArea
                 visible: opacity < 0.01 ? false : true
-                height: 70
+                height: 90
                 width: videoArea.width
                 color: "transparent"
                 state: "display"
@@ -290,8 +290,8 @@ Rectangle {
                 color: "transparent"
                 anchors.bottom: videoArea.bottom
                 anchors.right: videoArea.right
-                anchors.bottomMargin: 75
-                anchors.rightMargin: 55
+                anchors.bottomMargin: parent.height * 0.15
+                anchors.rightMargin: parent.width * 0.05
                 PauseIcon {
                     anchors.fill: parent
                     video: videoBody

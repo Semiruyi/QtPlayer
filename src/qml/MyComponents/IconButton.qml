@@ -20,11 +20,10 @@ Rectangle {
     signal pressAndHold()
 
     width: 30
-    height: root.width
+    height: 30
     opacity: 0.9
     color: checked ? bgColorSelected : mouseArea.pressed ? Qt.darker(bgColor) : bgColor
     border.color: Qt.lighter(color)
-    scale: 0
 
     Text {
         id: text
@@ -61,14 +60,6 @@ Rectangle {
     }
     // state: "hide"
     states: [
-        // State {
-        //     name: "hide"
-        //     PropertyChanges { target: root; opacity: 0; scale: 0 }
-        // },
-        // State {
-        //     name: "display"
-        //     PropertyChanges { target: root; opacity: 0.9; scale: 1 }
-        // },
         State {
             name: "brighter"
             when: mouseArea.containsMouse && !mouseArea.pressed // only the first true State is applied, so put scale and opacity together
@@ -85,7 +76,6 @@ Rectangle {
 
     transitions: [
         Transition {
-            // from: "*"; to: "*"
             PropertyAnimation {
                 properties: "opacity,scale"
                 easing.type: Easing.OutQuart
@@ -93,9 +83,5 @@ Rectangle {
             }
         }
     ]
-
-    Component.onCompleted: {
-        root.scale = 1
-    }
 
 }

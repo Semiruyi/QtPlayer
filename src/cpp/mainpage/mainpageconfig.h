@@ -24,28 +24,12 @@ public:
     Q_PROPERTY(QStringList playFolderPaths READ playFolderPaths WRITE setPlayFolderPaths NOTIFY playFolderPathsChanged FINAL)
     Q_PROPERTY(QStringList titles READ titles WRITE setTitles NOTIFY titlesChanged FINAL)
     Q_PROPERTY(PlayCardModel* playCardModel READ playCardModel)
+    Q_PROPERTY(QString lastOpenedFolder READ lastOpenedFolder WRITE setLastOpenedFolder NOTIFY lastOpenedFolderChanged FINAL)
 
     QStringList playFolderPaths() const;
     void setPlayFolderPaths(const QStringList &newPlayFolderPaths);
     QStringList titles() const;
     void setTitles(const QStringList &newTitles);
-
-    Q_INVOKABLE void appendData(QString path, QString title)
-    {
-        m_playFolderPaths.append(path);
-        m_titles.append(title);
-    }
-
-    Q_INVOKABLE void removeData(int index)
-    {
-        if(index < 0 || index >= m_playFolderPaths.length())
-        {
-            qCritical() << QString("index: %1 out of range. length: %2").arg(index).arg(m_playFolderPaths.length());
-            return ;
-        }
-        m_playFolderPaths.remove(index);
-        m_titles.remove(index);
-    }
 
     Q_INVOKABLE int getWatchedCount(QString path)
     {
@@ -59,15 +43,34 @@ public:
 
     PlayCardModel *playCardModel() const;
 
+    QString lastOpenedFolder() const;
+    void setLastOpenedFolder(const QString &newLastOpenedFolder);
+
 signals:
     void playFolderPathsChanged();
     void titlesChanged();
+
+    void lastOpenedFolderChanged();
 
 private:
     QStringList m_playFolderPaths;
     QStringList m_titles;
     PlayCardModel *m_playCardModel = nullptr;
+    QString m_lastOpenedFolder = "";
 };
+
+inline QString MainPageConfig::lastOpenedFolder() const
+{
+    return m_lastOpenedFolder;
+}
+
+inline void MainPageConfig::setLastOpenedFolder(const QString &newLastOpenedFolder)
+{
+    if (m_lastOpenedFolder == newLastOpenedFolder)
+        return;
+    m_lastOpenedFolder = newLastOpenedFolder;
+    emit lastOpenedFolderChanged();
+}
 
 inline PlayCardModel *MainPageConfig::playCardModel() const
 {
