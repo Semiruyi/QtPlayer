@@ -72,7 +72,7 @@ void ConfigObject::fromJson(const QJsonObject &json) {
                 }
                 else if(propertyValue.canConvert<MyListModel*>())
                 {
-                    qDebug() << "enter value.canConvert<MyListModel*>()";
+                    // qDebug() << "enter value.canConvert<MyListModel*>()";
                     propertyValue.value<MyListModel*>()->fromJson(jsonValue.toArray());
                     metaProperty.write(this, propertyValue);
                 }

@@ -18,6 +18,7 @@ void MyListModel::init() {
             continue;
         }
         m_roles[Qt::UserRole + i + 1] = metaProperty.name();
+        m_keys.insert(QString(name));
         // qDebug() << "m_roles: " << (Qt::UserRole + i + 1) << "metaProperty.name(): " << metaProperty.name();
     }
 }
@@ -39,6 +40,23 @@ QVariant MyListModel::data(const QModelIndex &index, int role) const
     return item[m_roles[role]].toVariant();
 }
 
+void MyListModel::setData(const int index, QString key, QJsonValue jsonValue)
+{
+    if(index >= m_data.size() || index < 0)
+    {
+        qCritical() << "In" << this->metaObject()->className() << "call void MyListModel::setData(const int index, QString key, QVariant value)";
+        qCritical() << QString("index out of range! size: %1, index %2").arg(m_data.size()).arg(index);
+        return ;
+    }
+    if(m_data[index].find(key) == m_data[index].end())
+    {
+        qCritical() << "In void MyListModel::setData(const int index, QString key, QVariant value)";
+        qCritical() << "Do not find key: " << key << "in" << this->metaObject()->className();
+        return ;
+    }
+    m_data[index].insert(key, jsonValue);
+}
+
 QHash<int, QByteArray> MyListModel::roleNames() const
 {
     qDebug() << "call roleNames";
@@ -47,8 +65,21 @@ QHash<int, QByteArray> MyListModel::roleNames() const
 
 void MyListModel::append(const QJsonObject &json)
 {
+    if(json.size() != m_keys.size())
+    {
+        qCritical() << "append failed!" << this->metaObject()->className() << "you put in keys count is not equal with this model keys!";
+        return ;
+    }
+    for (const QString &key : json.keys())
+    {
+        if(!m_keys.contains(key))
+        {
+            qCritical() << "append failed!" << this->metaObject()->className() << "do not have key:" << key;
+            return ;
+        }
+    }
     beginInsertRows(QModelIndex(), m_data.size(), m_data.size());
-    m_data.append(json); // 直接添加 JSON 对象
+    m_data.append(json);
     endInsertRows();
 }
 
@@ -85,9 +116,28 @@ QJsonArray MyListModel::toJson()
 void MyListModel::fromJson(const QJsonArray& jsonArr)
 {
     m_data.clear();
+    qDebug() << "void MyListModel::fromJson(const QJsonArray& jsonArr): start";
     for(const QJsonValue& jsonValue : jsonArr)
     {
-        qDebug() << jsonValue;
-        m_data.append(jsonValue.toObject());
+        QJsonObject jsonObject = jsonValue.toObject();
+        for(const QString& key : m_keys)
+        {
+            if(jsonObject.find(key) == jsonObject.end())
+            {
+                const QMetaObject* metaObject = this->metaObject();
+                int propertyIndex = metaObject->indexOfProperty(key.toUtf8().constData());
+
+                if (propertyIndex != -1) {
+                    QMetaProperty metaProperty = metaObject->property(propertyIndex);
+                    QVariant value = metaProperty.read(this);
+                    jsonObject.insert(key, QJsonValue(QJsonValue::fromVariant(value)));
+                    qDebug() << "Property" << key << "value:" << value;
+                } else {
+                    qDebug() << "Property" << key << "not found!";
+                }
+            }
+        }
+        m_data.append(jsonObject);
     }
+    qDebug() << "void MyListModel::fromJson(const QJsonArray& jsonArr): end";
 }

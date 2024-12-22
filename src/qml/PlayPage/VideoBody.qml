@@ -11,6 +11,7 @@ Item {
     property alias mediaStatus: video.mediaStatus
     property bool autoPlayUsed: false
     property bool autoPlay: qPlayPageConfig.autoPlay
+    property alias playBackRate: video.playbackRate
 
     // private
     property bool isFirstLoad: true   // MediaPlay

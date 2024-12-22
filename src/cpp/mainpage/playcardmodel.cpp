@@ -29,3 +29,16 @@ void PlayCardModel::setAnimationTitle(const QString &newAnimationTitle)
     m_animationTitle = newAnimationTitle;
     emit animationTitleChanged();
 }
+
+int PlayCardModel::lastPlayedEpisode() const
+{
+    return m_lastPlayedEpisode;
+}
+
+void PlayCardModel::setLastPlayedEpisode(int newLastPlayedEpisode)
+{
+    if (m_lastPlayedEpisode == newLastPlayedEpisode)
+        return;
+    m_lastPlayedEpisode = newLastPlayedEpisode;
+    emit lastPlayedEpisodeChanged();
+}

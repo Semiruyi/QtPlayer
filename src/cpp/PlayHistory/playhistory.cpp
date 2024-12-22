@@ -75,15 +75,16 @@ int PlayHistory::setWatchState(int index, bool state) {
         int iRet = query.exec(QString(R"(UPDATE play_history SET is_watched=%2 WHERE episode_index='%1';)")
                        .arg(index).arg(state));
         if(iRet){
-            qDebug() << "update watch state success";
-        }else{
+            // qDebug() << "update watch state success";
+        }
+        else{
             qDebug() << "update watch state error";
         }
     }
     else {
         int iRet = query.exec(QString(R"(INSERT INTO play_history(episode_index, is_watched, position) VALUES(%1, %2, 0))").arg(index).arg(state));
         if(iRet){
-            qDebug() << "insert watch state success";
+            // qDebug() << "insert watch state success";
         }
         else{
             qDebug() << "insert watch state error";

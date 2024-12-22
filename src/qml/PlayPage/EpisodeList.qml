@@ -12,6 +12,7 @@ Item {
     property VideoBody video
     property int epIndex: 0
     property int lastEpIndex: 0
+    property int cardIndex: 0
 
     onEpIndexChanged: {
         video.source = root.folderUrl + "/" + root.folderModel.get(root.epIndex, "fileName")
@@ -20,6 +21,7 @@ Item {
         epList.itemAtIndex(root.epIndex).btn.watched = true
         epList.itemAtIndex(root.epIndex).btn.state = "selected"
         lastEpIndex = epIndex
+        qMainPageConfig.playCardModel.setData(root.cardIndex, "lastPlayedEpisode", root.epIndex)
     }
 
     Component.onCompleted: {

@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import "../MyComponents"
 import "utils.js" as Utils
 
@@ -21,7 +22,7 @@ Item {
             GradientStop { position: 1.0; color: "#A0000000" }
         }
 
-        ProgressBar {
+        VideoProgressBar {
             id: progressBar
             video: root.video
             episodeList: root.episodeList
@@ -116,10 +117,15 @@ Item {
                     onClicked: {
                         if(speedMessage.text == "1.0x") {
                             speedMessage.text = "1.25x"
+                            root.video.playBackRate = 1.25
+                        }
+                        else if(speedMessage.text == "1.25x") {
+                            speedMessage.text = "1.5x"
+                            root.video.playBackRate = 1.5
                         }
                         else {
                             speedMessage.text = "1.0x"
-                            console.log("are there")
+                            root.video.playBackRate = 1.0
                         }
                     }
                 }

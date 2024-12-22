@@ -27,7 +27,7 @@ set(SOURCES
     src/qml/PlayPage/PlayPage.qml
     src/qml/PlayPage/VideoBody.qml
     src/qml/PlayPage/EpisodeList.qml
-    src/qml/PlayPage/ProgressBar.qml
+    src/qml/PlayPage/VideoProgressBar.qml
     src/qml/PlayPage/PauseIcon.qml
     src/qml/MyComponents/MyCardView.qml
     src/qml/MyComponents/MyGridView.qml

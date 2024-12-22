@@ -10,6 +10,7 @@
 #include <QMetaProperty>
 #include <QDebug>
 #include <QJsonArray>
+#include <QSet>
 
 class MyListModel : public QAbstractListModel
 {
@@ -21,12 +22,13 @@ public:
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
     QHash<int, QByteArray> roleNames() const override;
 
     Q_INVOKABLE void append(const QJsonObject &json); // 修改为接受 QJsonObject
+    Q_INVOKABLE void setData(const int index, QString key, QJsonValue josnValue);
     Q_INVOKABLE void remove(int index);
     Q_INVOKABLE void move(int from, int to);
-
     Q_INVOKABLE QJsonArray toJson();
     Q_INVOKABLE void fromJson(const QJsonArray& jsonArr);
 
@@ -52,6 +54,7 @@ public:
 private:
     QVector<QJsonObject> m_data; // 使用 QJsonObject 存储数据
     QHash<int, QByteArray> m_roles;
+    QSet<QString> m_keys;
 };
 
 #endif // MYLISTMODEL_H

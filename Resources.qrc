@@ -11,7 +11,7 @@
         <file>src/qml/PlayPage/VideoFooter.qml</file>
         <file>src/qml/PlayPage/VideoBody.qml</file>
         <file>src/qml/PlayPage/EpisodeList.qml</file>
-        <file>src/qml/PlayPage/ProgressBar.qml</file>
+        <file>src/qml/PlayPage/VideoProgressBar.qml</file>
         <file>src/qml/PlayPage/PauseIcon.qml</file>
         <file>src/qml/MyComponents/MyGridView.qml</file>
         <file>src/qml/MyComponents/ImageButton.qml</file>

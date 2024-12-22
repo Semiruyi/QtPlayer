@@ -7,6 +7,7 @@ import QtQuick.Dialogs
 import QtQuick.Layouts
 import Qt.labs.folderlistmodel
 import "./MyComponents"
+import "./PlayPage"
 
 Window  {
     visible: true
@@ -120,7 +121,8 @@ Window  {
                         var title = newFolderPath.replace(/^.*[\\/]/, '')
                         qMainPageConfig.playCardModel.append({
                                                                 "animationTitle": title,
-                                                                "path" : newFolderPath
+                                                                "path" : newFolderPath,
+                                                                "lastPlayedEpisode" : 0
                                                              })
                         var lastOpenedFolder = newFolderPath.split("/");
                         lastOpenedFolder.pop();
@@ -188,10 +190,7 @@ Window  {
                         text: qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + qMainPageConfig.getWatchedCount(path + "/history.db")
                         anchors.centerIn: parent
                         onLeftClicked: {
-                            stack.push("PlayPage/PlayPage.qml", {
-                                           folderUrl: path,
-                                           parentValue: root
-                                       })
+                            stack.push(playPage)
                         }
                         onRightClicked: {
                             if(cardMenu.popupEnable)
@@ -199,6 +198,16 @@ Window  {
                                 cardMenu.popupEnable = false
                                 cardMenu.popup()
                                 cardView.allwaysDisplayTextContent = true
+                            }
+                        }
+
+                        Component {
+                            id: playPage
+                            PlayPage {
+                                folderUrl: path
+                                parentValue: root
+                                epIndex: lastPlayedEpisode
+                                cardIndex: index
                             }
                         }
 

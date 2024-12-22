@@ -9,6 +9,7 @@ Rectangle {
     property var parentValue: null
     property url folderUrl: ""
     property int epIndex: 0
+    property int cardIndex: 0
     property real playPageRatio: root.width / root.height
     property real preferrRatio: 2.197324414715719
     focus: true
@@ -143,6 +144,7 @@ Rectangle {
                 hoverEnabled: true
                 onPositionChanged: {
                     videoFooterArea.state = "display"
+                    videoAreaMouseArea.cursorShape = Qt.ArrowCursor
                 }
 
                 onClicked: {
@@ -280,6 +282,7 @@ Rectangle {
                     running: videoFooterArea.state == "display" && !videoFooterArea.containMouse && !videoHeaderArea.containsMouse
                     onTriggered: {
                         videoFooterArea.state = "hide"
+                        videoAreaMouseArea.cursorShape = Qt.BlankCursor
                     }
                 }
             }
@@ -309,7 +312,10 @@ Rectangle {
             color: Utils.rgb(31,34,35)
             EpisodeList {
                 id: episodeList
+                epIndex: root.epIndex
+                lastEpIndex: root.epIndex
                 anchors.fill: parent
+                cardIndex: root.cardIndex
                 folderModel: FolderListModel {
                     id: folderModel
                     folder: root.folderUrl
