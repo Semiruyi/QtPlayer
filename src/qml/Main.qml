@@ -183,11 +183,11 @@ Window  {
 
                     MyCardView {
                         id: cardView
-
+                        property int watchedCount: qMainPageConfig.getWatchedCount(path + "/history.db")
                         title: animationTitle
                         width: 200 * 1.618 * 0.9
                         height: 200 * 0.9
-                        text: qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + qMainPageConfig.getWatchedCount(path + "/history.db")
+                        text: qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + cardView.watchedCount
                         anchors.centerIn: parent
                         onLeftClicked: {
                             stack.push(playPage)

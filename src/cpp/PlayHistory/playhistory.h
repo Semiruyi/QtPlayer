@@ -37,6 +37,7 @@ public:
     int getTest() const;
     Q_INVOKABLE void setTest(int newTest);
     Q_INVOKABLE int getWatchedCount();
+    void colseDatabase();
 
     void debug(const QString& log)
     {

@@ -97,7 +97,7 @@ Item {
         }
 
         Timer {
-            interval: 350
+            interval: 1500
             running: root.video.isPlaying
             repeat: true
             onTriggered: {

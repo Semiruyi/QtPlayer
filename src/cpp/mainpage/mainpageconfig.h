@@ -33,12 +33,21 @@ public:
 
     Q_INVOKABLE int getWatchedCount(QString path)
     {
+
+        qDebug() << "start" << "with path:" << path;
+
         int ret = 0;
 
         PlayHistory playHistory(this);
         playHistory.init(path);
 
-        return playHistory.getWatchedCount();
+        ret = playHistory.getWatchedCount();
+
+        playHistory.colseDatabase();
+
+        qDebug() << "end";
+
+        return ret;
     }
 
     PlayCardModel *playCardModel() const;

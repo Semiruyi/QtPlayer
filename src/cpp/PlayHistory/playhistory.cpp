@@ -16,13 +16,25 @@ PlayHistory::PlayHistory(QObject *parent)
 
 int PlayHistory::init(QString dataUrl) {
 
-    this->dataUrl = QUrl(dataUrl);
+    qDebug() << "start with dataUrl:" << dataUrl;
 
-    // if(QSqlDatabase::contains("qt_sql_default_connection"))
-    //     db = QSqlDatabase::database("qt_sql_default_connection");
-    // else
-    db = QSqlDatabase::addDatabase("QSQLITE", dataUrl);
-    db.setDatabaseName(this->dataUrl.toLocalFile());
+    QUrl url(dataUrl);
+    QString connectionName = url.toString(); // 使用 dataUrl 作为连接名称
+
+    // 检查是否已经存在该连接
+    if (QSqlDatabase::contains(connectionName)) {
+        qDebug() << "Database connection already exists:" << connectionName;
+        db = QSqlDatabase::database(connectionName);
+    } else {
+        // 创建新的数据库连接
+        db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
+        db.setDatabaseName(url.toLocalFile());
+
+        if (!db.open()) {
+            qWarning() << "Failed to open database:" << db.lastError().text();
+        }
+        qDebug() << "Database connection opened successfully:" << connectionName;
+    }
 
     if(db.open()){
         qDebug()<<"history.db open success";
@@ -50,23 +62,31 @@ int PlayHistory::init(QString dataUrl) {
         qCritical() << "history.db open failed";
     }
 
+    qDebug() << "end";
 
     return 0;
 }
 
 int PlayHistory::isWatched(int index) {
+
+    qDebug() << "start with index:" << index;
+
     QSqlQuery query(db);
     // qDebug() << "check is watched index: " << index;
     query.exec(QString(R"(SELECT is_watched FROM play_history WHERE episode_index='%1';)").arg(index));
 
     if(query.next()) {
-        qDebug() << "check is watched index: " << index << "  isWatched: " << query.value(0).toInt();
         return query.value(0).toBool();
     }
+
+    qDebug() << "end";
     return 0;
 }
 
 int PlayHistory::setWatchState(int index, bool state) {
+
+    qDebug() << "start with index" << index << "watchedState:" << state;
+
     QSqlQuery query(db);
 
     query.exec(QString(R"(SELECT * FROM play_history WHERE episode_index='%1';)").arg(index));
@@ -91,10 +111,14 @@ int PlayHistory::setWatchState(int index, bool state) {
             qDebug() << query.lastError();
         }
     }
+
+    qDebug() << "end";
     return 0;
 }
 
 int PlayHistory::setEpPos(int index, int position) {
+
+    qDebug() << "start with index:" << index << "postion:" << position;
 
     setWatchState(index, true);
 
@@ -122,10 +146,14 @@ int PlayHistory::setEpPos(int index, int position) {
             qDebug() << query.lastError();
         }
     }
+
+    qDebug() << "end";
     return 0;
 }
 
 int PlayHistory::getEpPos(int index) {
+
+    qDebug() << "start with index:" << index;
 
     QSqlQuery query(db);
 
@@ -135,6 +163,8 @@ int PlayHistory::getEpPos(int index) {
         qDebug() << "get index: " << index << " EpPos: " << query.value(0).toInt();
         return query.value(0).toInt();
     }
+
+    qDebug() << "end";
     return 0;
 }
 
@@ -144,6 +174,8 @@ void PlayHistory::setTest(int newTest) {
 
 int PlayHistory::getWatchedCount()
 {
+    qDebug() << "start";
+
     QSqlQuery query(db);
 
     query.exec(QString(R"(SELECT is_watched FROM play_history;)"));
@@ -157,5 +189,16 @@ int PlayHistory::getWatchedCount()
 
     debug(dataUrl.toString() + " " + QString("watched: %1").arg(ret));
 
+    qDebug() << "end";
+
     return ret;
+}
+
+void PlayHistory::colseDatabase()
+{
+    qDebug() << "start";
+
+    db.close();
+
+    qDebug() << "end";
 }

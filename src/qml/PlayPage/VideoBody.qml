@@ -74,7 +74,7 @@ Item {
             volume: 1.0
         }
         onMediaStatusChanged: {
-            console.log("mediaStatus", mediaStatus)
+            // Fconsole.log("mediaStatus", mediaStatus)
             if(mediaStatus === MediaPlayer.LoadedMedia) {
                 video.position = qPlayHistoryConfig.getEpPos(root.epIndex)
             }

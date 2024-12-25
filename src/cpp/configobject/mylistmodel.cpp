@@ -59,7 +59,6 @@ void MyListModel::setData(const int index, QString key, QJsonValue jsonValue)
 
 QHash<int, QByteArray> MyListModel::roleNames() const
 {
-    qDebug() << "call roleNames";
     return m_roles;
 }
 
@@ -115,8 +114,8 @@ QJsonArray MyListModel::toJson()
 
 void MyListModel::fromJson(const QJsonArray& jsonArr)
 {
+    qDebug() << "start";
     m_data.clear();
-    qDebug() << "void MyListModel::fromJson(const QJsonArray& jsonArr): start";
     for(const QJsonValue& jsonValue : jsonArr)
     {
         QJsonObject jsonObject = jsonValue.toObject();
@@ -139,5 +138,5 @@ void MyListModel::fromJson(const QJsonArray& jsonArr)
         }
         m_data.append(jsonObject);
     }
-    qDebug() << "void MyListModel::fromJson(const QJsonArray& jsonArr): end";
+    qDebug() << "end";
 }

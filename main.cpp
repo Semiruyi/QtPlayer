@@ -5,6 +5,7 @@
 #include "./src/cpp/mainpage/mainpageconfig.h"
 #include "./src/cpp/config/playpageconfig.h"
 #include "./src/cpp/config/globalconfig.h"
+#include "./src/cpp/utilities/logger/logger.h"
 #include <QMetaType>
 
 int main(int argc, char *argv[])
@@ -14,7 +15,9 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qRegisterMetaType<ConfigObject>("ConfigObject");
+    Logger::getIns()->init();
+
+    qWarning() << "just a warning test";
 
     //init play history for play page to use it
     PlayHistory* playHistory = new PlayHistory();
