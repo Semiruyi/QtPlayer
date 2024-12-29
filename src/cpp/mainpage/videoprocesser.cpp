@@ -194,7 +194,7 @@ QStringList VideoProcesser::getVideoFiles(const QString &folderPath) {
         videoFiles.append(fileInfo.absoluteFilePath());
     }
 
-    qDebug() << "end with ret: " << videoFiles;
+    qDebug() << "end";
 
     return videoFiles;
 }

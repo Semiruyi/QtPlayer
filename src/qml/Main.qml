@@ -177,7 +177,7 @@ Window  {
                                 {
                                     return ;
                                 }
-                                qMainPageConfig.playCardModel.setData(root.cardIndex, "coverPosition", position)
+                                qMainPageConfig.playCardModel.setData(index, "coverPosition", position)
                                 console.log("source is ", source)
                                 cardView.imageSource = source
                             }
