@@ -122,7 +122,8 @@ Window  {
                         qMainPageConfig.playCardModel.append({
                                                                 "animationTitle": title,
                                                                 "path" : newFolderPath,
-                                                                "lastPlayedEpisode" : 0
+                                                                "lastPlayedEpisode" : 0,
+                                                                "coverPosition": 10
                                                              })
                         var lastOpenedFolder = newFolderPath.split("/");
                         lastOpenedFolder.pop();
@@ -162,13 +163,24 @@ Window  {
                     MyMenu {
                         id: cardMenu
                         MenuItem {
-                            text: "remove"
+                            text: qsTr("remove")
                             onTriggered: {
                                 qMainPageConfig.playCardModel.remove(index)
                             }
                         }
                         MenuItem {
-                            text: "Item 2"
+                            text: qsTr("change cover")
+                            onTriggered: {
+                                var position = Math.floor(Math.random() * 600) + 1
+                                var source = qVideoProcesser.qmlGetFrame(path, position, true)
+                                if(source == "")
+                                {
+                                    return ;
+                                }
+                                qMainPageConfig.playCardModel.setData(root.cardIndex, "coverPosition", position)
+                                console.log("source is ", source)
+                                cardView.imageSource = source
+                            }
                         }
                         MenuItem {
                             text: "Item 3"
@@ -199,6 +211,12 @@ Window  {
                                 cardMenu.popup()
                                 cardView.allwaysDisplayTextContent = true
                             }
+                        }
+
+                        Component.onCompleted: {
+                            var source = qVideoProcesser.qmlGetFrame(path, coverPosition, true)
+                            console.log("source is ", source)
+                            cardView.imageSource = source
                         }
 
                         Component {

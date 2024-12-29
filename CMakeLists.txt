@@ -4,6 +4,8 @@ project(QtPlayer VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTORCC ON)
+set(FFMPEG_INCLUDE_DIR C:/y/project/ffmpeg/ffmpeg-7.1-full_build-shared/include)
+set(FFMPEG_LIB_DIR C:/y/project/ffmpeg/ffmpeg-7.1-full_build-shared/lib)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Sql)
 
@@ -49,6 +51,9 @@ qt_add_qml_module(appQtPlayer
     SOURCES src/cpp/mainpage/playcardmodel.cpp src/cpp/mainpage/playcardmodel.h
     QML_FILES src/qml/MyComponents/IconButton.qml
     SOURCES src/cpp/utilities/logger/logger.cpp src/cpp/utilities/logger/logger.h
+    SOURCES src/cpp/utilities/exception/myexception.cpp src/cpp/utilities/exception/myexception.h
+    SOURCES src/cpp/utilities/imageprovider/myimageprovider.cpp src/cpp/utilities/imageprovider/myimageprovider.h
+    SOURCES src/cpp/mainpage/videoprocesser.cpp src/cpp/mainpage/videoprocesser.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -66,6 +71,12 @@ target_link_libraries(appQtPlayer
     PRIVATE Qt6::Quick
     PRIVATE Qt6::Sql
 )
+
+target_include_directories(appQtPlayer PRIVATE ${FFMPEG_INCLUDE_DIR})
+target_link_directories(appQtPlayer PRIVATE ${FFMPEG_LIB_DIR})
+
+# 链接 FFmpeg 库
+target_link_libraries(appQtPlayer PRIVATE avutil avformat avcodec swscale)
 
 include(GNUInstallDirs)
 install(TARGETS appQtPlayer

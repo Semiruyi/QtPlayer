@@ -42,3 +42,16 @@ void PlayCardModel::setLastPlayedEpisode(int newLastPlayedEpisode)
     m_lastPlayedEpisode = newLastPlayedEpisode;
     emit lastPlayedEpisodeChanged();
 }
+
+long long PlayCardModel::coverPosition() const
+{
+    return m_coverPosition;
+}
+
+void PlayCardModel::setCoverPosition(long long newCoverPosition)
+{
+    if (m_coverPosition == newCoverPosition)
+        return;
+    m_coverPosition = newCoverPosition;
+    emit coverPositionChanged();
+}
