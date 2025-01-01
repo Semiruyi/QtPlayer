@@ -13,6 +13,7 @@ Rectangle {
     property double textContentHeightRatio: 0.5
     property bool allwaysDisplayTextContent: false
     property int animationDuration: qGlobalConfig.animationDuration
+    property int imageChangeDuration: 200
     signal leftClicked()
     signal leftDoubleClicked()
     signal rightClicked()
@@ -45,19 +46,22 @@ Rectangle {
         visible: false
     }
 
-    Image {
+    // Image {
+    //     id: img
+    //     anchors.fill: parent
+    //     smooth: true
+    //     mipmap: true
+    //     source: root.imageSource
+    //     visible: false
+    //     fillMode: Image.PreserveAspectCrop
+    // }
+
+    MyImage {
         id: img
-        sourceSize {
-            height: 2160
-        }
         anchors.fill: parent
-        anchors.top: parent.top
-        anchors.left: parent.left
-        smooth: true
-        mipmap: true
         source: root.imageSource
+        radius: root.radius
         visible: false
-        fillMode: Image.PreserveAspectCrop
     }
 
     MultiEffect {
@@ -161,6 +165,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter   // 垂直居中
         }
     }
+
 
     // debug only
     // ColumnLayout {

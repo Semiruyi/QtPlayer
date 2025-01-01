@@ -26,6 +26,28 @@ void MyImageProvider::insert(QString videoFilePath, long long position, QImage i
     qDebug() << "end";
 }
 
+void MyImageProvider::removeImage(const QString& imageProviderSource)
+{
+    qDebug() << "start with imageProviderSource:" << imageProviderSource;
+    QString id = imageProviderSource;
+    if(id.startsWith(m_prefix))
+    {
+        id.remove(0, m_prefix.size());
+    }
+
+    if(m_imageMap.contains(id))
+    {
+        m_imageMap.remove(id);
+    }
+    else
+    {
+        qWarning() << "do not find image id:" << id;
+    }
+
+    qDebug() << "end";
+
+}
+
 QString MyImageProvider::getImage(QString videoFilePath, long long position)
 {
     qDebug() << "start width videoFilePath:" << videoFilePath << "postion:" << position;

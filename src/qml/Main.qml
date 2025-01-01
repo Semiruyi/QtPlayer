@@ -23,85 +23,11 @@ Window  {
         root.refresh()
     }
 
-    StackView {
+    MyStackView {
         id: stack
         property int animationDuration: qGlobalConfig.animationDuration
         anchors.fill: parent
         initialItem: mainViewComponet
-        pushEnter: Transition {
-            ParallelAnimation {
-                PropertyAnimation {
-                    property: "x"
-                    from: stack.width
-                    to: 0
-                    duration: stack.animationDuration
-                    easing.type: Easing.OutCubic
-                }
-
-                PropertyAnimation {
-                    property: "scale"
-                    from: 0.5
-                    to: 1.0
-                    duration: stack.animationDuration
-                    easing.type: Easing.OutCubic
-                }
-                PropertyAnimation {
-                    property: "opacity"
-                    from: 0.5
-                    to: 1.0
-                    duration: stack.animationDuration
-                    easing.type: Easing.OutCubic
-                }
-            }
-        }
-
-
-        pushExit: Transition {
-            PropertyAnimation {
-                property: "x"
-                from: 0
-                to: -stack.width
-                duration: 300
-                easing.type: Easing.OutCubic
-            }
-        }
-        popEnter: Transition {
-            ParallelAnimation {
-                PropertyAnimation {
-                    property: "x"
-                    from: -stack.width
-                    to: 0
-                    duration: stack.animationDuration
-                    easing.type: Easing.OutCubic
-                }
-
-                PropertyAnimation {
-                    property: "scale"
-                    from: 1.5
-                    to: 1.0
-                    duration: stack.animationDuration
-                    easing.type: Easing.OutCubic
-                }
-                PropertyAnimation {
-                    property: "opacity"
-                    from: 0.5
-                    to: 1.0
-                    duration: stack.animationDuration
-                    easing.type: Easing.OutCubic
-                }
-            }
-        }
-
-        // 自定义 popExit 动画
-        popExit: Transition {
-            PropertyAnimation {
-                property: "x"
-                from: 0
-                to: stack.width
-                duration: stack.animationDuration
-                easing.type: Easing.OutCubic
-            }
-        }
     }
 
     Component {
@@ -177,13 +103,18 @@ Window  {
                                 {
                                     return ;
                                 }
+                                qCoverImageProvider.removeImage(cardView.imageSource)
+
                                 qMainPageConfig.playCardModel.setData(index, "coverPosition", position)
-                                console.log("source is ", source)
+
                                 cardView.imageSource = source
                             }
                         }
                         MenuItem {
-                            text: "Item 3"
+                            text: "move to first"
+                            onTriggered: {
+                                qMainPageConfig.playCardModel.move(index, 0)
+                            }
                         }
                         onOpenedChanged: {
                             if(!cardMenu.opened)
@@ -216,6 +147,11 @@ Window  {
                         Component.onCompleted: {
                             var source = qVideoProcesser.qmlGetFrame(path, coverPosition, true)
                             console.log("source is ", source)
+                            if(source == "")
+                            {
+                                return ;
+                            }
+
                             cardView.imageSource = source
                         }
 

@@ -9,6 +9,7 @@
 #include "../exception/myexception.h"
 
 class MyImageProvider : public QQuickImageProvider {
+    Q_OBJECT
 public:
     MyImageProvider() : QQuickImageProvider(QQuickImageProvider::Image) {}
 
@@ -20,11 +21,12 @@ public:
             return image;
         }
         qDebug() << "end E";
-        return QImage("C:/y/picture/wallpaper/PC/44.png"); // 返回空图片
+        return QImage("qrc:/resources/icons/atrly.png"); // default image
     }
 
     bool isImageExist(QString videoFilePath, long long position);
     void insert(QString videoFilePath, long long position, QImage image);
+    Q_INVOKABLE void removeImage(const QString& imageProviderSource);
     QString getImage(QString videoFilePath, long long position);
     QString name(){
         return m_name;

@@ -10,7 +10,7 @@ QImage VideoProcesser::getFrame(QString videoFilePath, long long position)
     qDebug() << "start with videoFilePath:" << videoFilePath << "position:" << position;
 
 
-    const char *input_video = videoFilePath.toUtf8().constData();
+    const char *input_video = videoFilePath.toUtf8();
     float time_seconds = position;
     const char *output_image = "cover.png";
 

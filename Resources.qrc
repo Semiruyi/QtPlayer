@@ -21,5 +21,7 @@
         <file>src/qml/MyComponents/MyPopup.qml</file>
         <file>src/qml/MyComponents/MyMenu.qml</file>
         <file>resources/icons/plus.png</file>
+        <file>src/qml/MyComponents/MyStackView.qml</file>
+        <file>src/qml/MyComponents/MyImage.qml</file>
     </qresource>
 </RCC>

@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 
     VideoProcesser* videoProcesser = new VideoProcesser();
     MyImageProvider* myImageProvider = new MyImageProvider();
+    engine.rootContext()->setContextProperty("qCoverImageProvider", myImageProvider);
     videoProcesser->setMyImageProvider(myImageProvider);
     engine.rootContext()->setContextProperty("qVideoProcesser", videoProcesser);
     engine.addImageProvider(myImageProvider->name(), myImageProvider);
