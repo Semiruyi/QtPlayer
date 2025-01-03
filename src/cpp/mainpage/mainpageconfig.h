@@ -50,6 +50,22 @@ public:
         return ret;
     }
 
+    Q_INVOKABLE bool checkFolderPathIsValid(const QString& path)
+    {
+        qDebug() << "start with path:" << path;
+        bool ret = false;
+        QString cleanedPath = path;
+
+        if (cleanedPath.startsWith("file:///")) {
+            cleanedPath = QUrl(path).toLocalFile();
+        }
+
+        QDir dir(cleanedPath);
+        ret = dir.exists();
+        qDebug() << "end with ret:" << ret;
+        return ret;
+    }
+
     PlayCardModel *playCardModel() const;
 
     QString lastOpenedFolder() const;

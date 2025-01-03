@@ -30,6 +30,15 @@ Window  {
         initialItem: mainViewComponet
     }
 
+    NotificationView {
+        id: notificationView
+        height: parent.height * 0.7
+        width: parent.width * 0.5
+        y: parent.height * 0.03
+        anchors.horizontalCenter: parent.horizontalCenter
+        opacity: 0.8
+    }
+
     Component {
         id: mainViewComponet
         Rectangle {
@@ -37,6 +46,7 @@ Window  {
             color: "transparent"
             width: root.width
             height: root.height
+            // scale: 0.95
 
             FolderDialog {
                 id: folderDialog
@@ -51,6 +61,8 @@ Window  {
                                                                 "lastPlayedEpisode" : 0,
                                                                 "coverPosition": 10
                                                              })
+                        var info = qsTr("Add play folder success")
+                        notificationView.addNotification(info, NotificationView.Info)
                         var lastOpenedFolder = newFolderPath.split("/");
                         lastOpenedFolder.pop();
                         lastOpenedFolder = lastOpenedFolder.join("/");
@@ -101,6 +113,8 @@ Window  {
                                 var source = qVideoProcesser.qmlGetFrame(path, position, true)
                                 if(source == "")
                                 {
+                                    var errMsg = animationTitle +  qsTr(" cover load faild!")
+                                    notificationView.addNotification(errMsg, NotificationView.Error)
                                     return ;
                                 }
                                 qCoverImageProvider.removeImage(cardView.imageSource)
@@ -133,6 +147,13 @@ Window  {
                         text: qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + cardView.watchedCount
                         anchors.centerIn: parent
                         onLeftClicked: {
+                            if(!qMainPageConfig.checkFolderPathIsValid(path))
+                            {
+                                var errMsg = qsTr("Can not find this folder, maybe it has be moved or renamed")
+                                notificationView.addNotification(errMsg, NotificationView.Error)
+                                return
+                            }
+
                             stack.push(playPage)
                         }
                         onRightClicked: {
@@ -149,6 +170,8 @@ Window  {
                             console.log("source is ", source)
                             if(source == "")
                             {
+                                var errMsg = animationTitle +  qsTr(" Cover loading failed")
+                                notificationView.addNotification(errMsg, NotificationView.Error)
                                 return ;
                             }
 
@@ -194,6 +217,13 @@ Window  {
                         folderDialog.visible = true
                     }
                 }
+                // Button {
+                //     text: "test"
+                //     onClicked: {
+                //         console.log("test clicked")
+                //         notificationView.addNotification("just a test", NotificationView.Fail)
+                //     }
+                // }
             }
         }
     }
