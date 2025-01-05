@@ -12,13 +12,16 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Sql)
 # find_package(Qt6 REQUIRED COMPONENTS Sql)
 # target_link_libraries(mytarget PRIVATE Qt6::Sql)
 
+set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/AppIcon.rc")
+
 qt_standard_project_setup()
 
-qt_add_executable(appQtPlayer
+qt_add_executable(QtPlayer
     main.cpp
     Resources.qrc
     ./src/cpp/PlayHistory/playhistory.h
     ./src/cpp/PlayHistory/playhistory.cpp
+    ${app_icon_resource_windows}
 )
 
 set(SOURCES
@@ -35,7 +38,7 @@ set(SOURCES
     src/qml/MyComponents/MyGridView.qml
 )
 
-qt_add_qml_module(appQtPlayer
+qt_add_qml_module(QtPlayer
     URI QtPlayer
     VERSION 1.0
     QML_FILES ${SOURCES}
@@ -63,7 +66,7 @@ qt_add_qml_module(appQtPlayer
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-set_target_properties(appQtPlayer PROPERTIES
+set_target_properties(QtPlayer PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appQtPlayer
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -71,20 +74,39 @@ set_target_properties(appQtPlayer PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appQtPlayer
+target_link_libraries(QtPlayer
     PRIVATE Qt6::Quick
     PRIVATE Qt6::Sql
 )
 
-target_include_directories(appQtPlayer PRIVATE ${FFMPEG_INCLUDE_DIR})
-target_link_directories(appQtPlayer PRIVATE ${FFMPEG_LIB_DIR})
+target_include_directories(QtPlayer PRIVATE ${FFMPEG_INCLUDE_DIR})
+target_link_directories(QtPlayer PRIVATE ${FFMPEG_LIB_DIR})
 
 # 链接 FFmpeg 库
-target_link_libraries(appQtPlayer PRIVATE avutil avformat avcodec swscale)
+target_link_libraries(QtPlayer PRIVATE avutil avformat avcodec swscale)
 
 include(GNUInstallDirs)
-install(TARGETS appQtPlayer
+install(TARGETS QtPlayer
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+# translation relative
+set(TS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/translation")
+
+set(TS_FILES
+    "${TS_DIR}/${PROJECT_NAME}_chinese.ts"
+)
+
+find_program(LUPDATE_EXECUTABLE lupdate)
+find_program(LRELEASE_EXECUTABLE lrelease)
+
+foreach(_chinese_file ${TS_FILES})
+
+    execute_process(
+        COMMAND ${LUPDATE_EXECUTABLE} -recursive ${CMAKE_SOURCE_DIR} -ts ${_chinese_file})
+    execute_process(
+        COMMAND ${LRELEASE_EXECUTABLE} ${_chinese_file})
+
+endforeach()

@@ -23,5 +23,6 @@
         <file>resources/icons/plus.png</file>
         <file>src/qml/MyComponents/MyStackView.qml</file>
         <file>src/qml/MyComponents/MyImage.qml</file>
+        <file>translation/QtPlayer_chinese.qm</file>
     </qresource>
 </RCC>

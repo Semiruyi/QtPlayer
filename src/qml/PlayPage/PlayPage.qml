@@ -12,6 +12,7 @@ Rectangle {
     property int cardIndex: 0
     property real playPageRatio: root.width / root.height
     property real preferrRatio: 2.197324414715719
+    property int animationDuration: qGlobalConfig.animationDuration
     focus: true
     Keys.onPressed: function (event) {
         switch (event.key) {
@@ -220,6 +221,68 @@ Rectangle {
                         root.parentValue.back()
                     }
                     fileName: videoBody.source
+                }
+            }
+
+            Rectangle {
+                id: playPositionTipRec
+                height: playPositionTipText.implicitHeight * 2
+                width: playPositionTipText.implicitWidth * 1.1
+                radius: 5
+                color: Qt.rgba(0, 0, 0, 0.6)
+                anchors.bottom: videoFooterArea.top
+                anchors.left: videoArea.left
+                anchors.bottomMargin: -5
+                anchors.leftMargin: videoArea.width * 0.015
+                transformOrigin: Item.BottomLeft
+                scale: 0
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: root.animationDuration
+                        easing.type: Easing.OutCubic
+                    }
+                }
+
+                Text {
+                    id: playPositionTipText
+
+                    property string lastPlayPosText: "00:00"
+
+                    anchors.centerIn: parent
+                    text: qsTr("Redirected to last viewed location ") + lastPlayPosText
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color: "white"
+                    font.pixelSize: 16
+                }
+
+                Connections {
+                    target: videoBody
+                    function onVideoLoadedChanged() {
+                        if(videoBody.videoLoaded) {
+                            if(videoBody.position < 10000) {
+                                return
+                            }
+
+                            playPositionTipText.lastPlayPosText = Utils.formattedVideoDuration(videoBody.position)
+                            // console.log("try run times", i, "videoBody.position", playPositionTipText.lastPlayPosText)
+                            videoFooterArea.state = "display"
+                            playPositionTipRec.scale = 1
+                            if(!videoFooterArea.containMouse && !videoHeaderArea.containsMouse) {
+                                autoHideTimer.restart()
+                            }
+                            hidePlayPositionTipRecTimer.restart()
+                        }
+                    }
+                }
+
+                Timer {
+                    id: hidePlayPositionTipRecTimer
+                    interval: qPlayPageConfig.autoHideInterval
+                    running: false
+                    onTriggered: {
+                        playPositionTipRec.scale = 0
+                    }
                 }
             }
 

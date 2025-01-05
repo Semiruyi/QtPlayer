@@ -217,13 +217,13 @@ Window  {
                         folderDialog.visible = true
                     }
                 }
-                // Button {
-                //     text: "test"
-                //     onClicked: {
-                //         console.log("test clicked")
-                //         notificationView.addNotification("just a test", NotificationView.Fail)
-                //     }
-                // }
+                Button {
+                    text: "test"
+                    onClicked: {
+                        qGlobalConfig.language = "chinese"
+                        console.log(qGlobalConfig.language)
+                    }
+                }
             }
         }
     }

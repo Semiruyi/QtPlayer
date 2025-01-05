@@ -15,6 +15,7 @@ Item {
     property int cardIndex: 0
 
     onEpIndexChanged: {
+        video.epIndex = epIndex
         video.source = root.folderUrl + "/" + root.folderModel.get(root.epIndex, "fileName")
         video.pause()
         epList.itemAtIndex(root.lastEpIndex).btn.state = "watched"

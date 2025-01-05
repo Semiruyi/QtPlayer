@@ -12,6 +12,7 @@ Item {
     property bool autoPlayUsed: false
     property bool autoPlay: qPlayPageConfig.autoPlay
     property alias playBackRate: video.playbackRate
+    property bool videoLoaded: false
 
     // private
     property bool isFirstLoad: true   // MediaPlay
@@ -36,6 +37,7 @@ Item {
         video.source = root.source
         root.isPlaying = false
         root.autoPlayUsed = false
+        root.videoLoaded = false
         autoPlayTimer.restart()
     }
 
@@ -60,11 +62,16 @@ Item {
 
     onVolumeUp: {
         audioOutput.volume += 0.05
+        console.log("sdkfj", QtMultimedia.availableAudioOutputDevices)
     }
 
     onVolumeDown: {
         audioOutput.volume -= 0.05
     }
+
+    // onPositionChanged: {
+    //     console.log("video position: ", position)
+    // }
 
     MediaPlayer {
         id: video
@@ -94,7 +101,7 @@ Item {
         repeat: true
         interval: 400
         onTriggered: {
-            // console.log("timer triggered")
+            // 如果是进入播放页面的第一次播放，交给 fisrtLoadHandleAutoPlayTimer 处理
             if(root.isFirstLoad) {
                 autoPlayTimer.stop()
                 return
@@ -105,10 +112,14 @@ Item {
                 root.isPlaying = true
                 root.autoPlayUsed = true
             }
+            root.videoLoaded = true
         }
     }
 
+
+
     Timer {
+        id: fisrtLoadHandleAutoPlayTimer
         running: true
         interval: 400
         repeat: false
@@ -122,19 +133,18 @@ Item {
 
     Timer {
         id: pauseTimer
-        interval: 400
+        interval: 200
         running: false
         onTriggered: {
             if(!root.autoPlay) {
-                // console.log("rrrrrr right?")
                 video.pause()
                 root.isPlaying = false
             } else {
-                // console.log("rrrrrr error?")
                 root.isPlaying = true
             }
             audioOutput.volume = 1.0
             root.isFirstLoad = false
+            root.videoLoaded = true
         }
     }
 }
