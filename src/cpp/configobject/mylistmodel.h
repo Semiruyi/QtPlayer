@@ -27,6 +27,8 @@ public:
 
     Q_INVOKABLE void append(const QJsonObject &json); // 修改为接受 QJsonObject
     Q_INVOKABLE void setData(const int index, QString key, QJsonValue josnValue);
+    Q_INVOKABLE QVariant getData(const int index, const QString& key);
+    Q_INVOKABLE int isDataExist(const QString& key, const QJsonValue& jsonValue);
     Q_INVOKABLE void remove(int index);
     Q_INVOKABLE void move(int from, int to);
     Q_INVOKABLE QJsonArray toJson();

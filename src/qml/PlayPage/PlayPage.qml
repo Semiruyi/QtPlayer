@@ -332,7 +332,7 @@ Rectangle {
                     video: videoBody
                     videoArea: videoArea
                     episodeList: episodeList
-                    finalEpIndex: folderModel.count - 1
+                    finalEpIndex: qUtilities.getVideoFiles(folderUrl).length - 1
                     onProgressBarReleased: {
                         root.forceActiveFocus()
                     }
@@ -375,16 +375,8 @@ Rectangle {
             color: Utils.rgb(31,34,35)
             EpisodeList {
                 id: episodeList
-                epIndex: root.epIndex
-                lastEpIndex: root.epIndex
                 anchors.fill: parent
                 cardIndex: root.cardIndex
-                folderModel: FolderListModel {
-                    id: folderModel
-                    folder: root.folderUrl
-                    nameFilters: ["*.mp4", "*.mkv"]
-                    showDirs: false
-                }
                 folderUrl: root.folderUrl
                 video: videoBody
             }

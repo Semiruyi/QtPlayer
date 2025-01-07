@@ -61,6 +61,7 @@ qt_add_qml_module(QtPlayer
     QML_FILES src/qml/MyComponents/MyImage.qml
     QML_FILES src/qml/MyComponents/NotificationView.qml
     QML_FILES src/qml/MyComponents/MyListView.qml
+    SOURCES src/cpp/utilities/utilities.cpp src/cpp/utilities/utilities.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

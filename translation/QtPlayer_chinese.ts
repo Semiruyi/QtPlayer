@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN" sourcelanguage="en">
+<TS version="2.1" language="zh_CN" sourcelanguage="en_US">
 <context>
     <name>ColorDialog</name>
     <message>
@@ -155,6 +155,12 @@ Do you want to replace it?</source>
         <location filename="../src/qml/Main.qml" line="116"/>
         <source> cover load faild!</source>
         <translation> 封面加载失败！</translation>
+    </message>
+    <message>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="128"/>
+        <location filename="../src/qml/Main.qml" line="128"/>
+        <source>move to first</source>
+        <translation>移动到最前</translation>
     </message>
     <message>
         <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="147"/>

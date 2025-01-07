@@ -1,4 +1,5 @@
 #include "videoprocesser.h"
+#include "../utilities/utilities.h"
 
 VideoProcesser::VideoProcesser()
 {
@@ -9,10 +10,9 @@ QImage VideoProcesser::getFrame(QString videoFilePath, long long position)
 {
     qDebug() << "start with videoFilePath:" << videoFilePath << "position:" << position;
 
-
-    const char *input_video = videoFilePath.toUtf8();
+    std::string str = videoFilePath.toStdString();
+    const char *input_video = str.c_str();
     float time_seconds = position;
-    const char *output_image = "cover.png";
 
     // 打开输入文件
     AVFormatContext *pFormatCtx = nullptr;
@@ -176,17 +176,13 @@ QStringList VideoProcesser::getVideoFiles(const QString &folderPath) {
 
     QDir dir(localPath);
 
-    // 设置过滤器，只获取文件
     dir.setFilter(QDir::Files);
 
-    // 定义视频文件的后缀
     QStringList videoFilters;
     videoFilters << "*.mp4" << "*.avi" << "*.mkv" << "*.mov" << "*.flv" << "*.wmv";
 
-    // 获取符合条件的文件
     QFileInfoList fileList = dir.entryInfoList(videoFilters);
 
-    // 对文件列表进行自然排序
     std::sort(fileList.begin(), fileList.end(), naturalCompare);
 
     // 遍历文件列表，获取文件路径
@@ -207,7 +203,7 @@ QString VideoProcesser::qmlGetFrame(QString videoFilePath, long long position, b
     {
         if(isFolder)
         {
-            QStringList videoFiles = getVideoFiles(videoFilePath);
+            QStringList videoFiles = Utilities::getVideoFiles(videoFilePath); // getVideoFiles(videoFilePath);
             if(videoFiles.isEmpty())
             {
                 qCritical() << "Do not exist any video file in this folder:" << videoFilePath;

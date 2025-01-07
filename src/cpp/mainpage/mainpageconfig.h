@@ -25,6 +25,7 @@ public:
     Q_PROPERTY(QStringList titles READ titles WRITE setTitles NOTIFY titlesChanged FINAL)
     Q_PROPERTY(PlayCardModel* playCardModel READ playCardModel)
     Q_PROPERTY(QString lastOpenedFolder READ lastOpenedFolder WRITE setLastOpenedFolder NOTIFY lastOpenedFolderChanged FINAL)
+    Q_PROPERTY(QString appStartWithPath READ appStartWithPath WRITE setAppStartWithPath NOTIFY appStartWithPathChanged FINAL)
 
     QStringList playFolderPaths() const;
     void setPlayFolderPaths(const QStringList &newPlayFolderPaths);
@@ -50,26 +51,13 @@ public:
         return ret;
     }
 
-    Q_INVOKABLE bool checkFolderPathIsValid(const QString& path)
-    {
-        qDebug() << "start with path:" << path;
-        bool ret = false;
-        QString cleanedPath = path;
-
-        if (cleanedPath.startsWith("file:///")) {
-            cleanedPath = QUrl(path).toLocalFile();
-        }
-
-        QDir dir(cleanedPath);
-        ret = dir.exists();
-        qDebug() << "end with ret:" << ret;
-        return ret;
-    }
-
     PlayCardModel *playCardModel() const;
 
     QString lastOpenedFolder() const;
     void setLastOpenedFolder(const QString &newLastOpenedFolder);
+
+    QString appStartWithPath() const;
+    void setAppStartWithPath(const QString &newAppStartWithPath);
 
 signals:
     void playFolderPathsChanged();
@@ -77,12 +65,28 @@ signals:
 
     void lastOpenedFolderChanged();
 
+    void appStartWithPathChanged();
+
 private:
     QStringList m_playFolderPaths;
     QStringList m_titles;
     PlayCardModel *m_playCardModel = nullptr;
     QString m_lastOpenedFolder = "";
+    QString m_appStartWithPath = "";
 };
+
+inline QString MainPageConfig::appStartWithPath() const
+{
+    return m_appStartWithPath;
+}
+
+inline void MainPageConfig::setAppStartWithPath(const QString &newAppStartWithPath)
+{
+    if (m_appStartWithPath == newAppStartWithPath)
+        return;
+    m_appStartWithPath = newAppStartWithPath;
+    emit appStartWithPathChanged();
+}
 
 inline QString MainPageConfig::lastOpenedFolder() const
 {

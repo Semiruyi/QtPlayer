@@ -29,15 +29,12 @@ void Logger::saveLog(const QString &content) {
 
     QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd");
 
-    // 创建日志文件夹（如果不存在）
-    QDir logDir("./log");
+    QDir logDir(m_folderPath);
     if (!logDir.exists()) {
         logDir.mkpath(".");
     }
 
-    // 构造文件路径
     QString filePath = logDir.filePath(timestamp + ".log");
-
 
     QFile file(filePath);
     if (file.open(QIODevice::Text | QIODevice::Append)) {
@@ -84,7 +81,8 @@ void Logger::logMessageHandler(QtMsgType msgType, const QMessageLogContext &cont
         abort();
 }
 
-void Logger::init()
+void Logger::init(const QString& saveLogFolderPath)
 {
+    m_folderPath = saveLogFolderPath;
     qInstallMessageHandler(logMessageHandler);
 }

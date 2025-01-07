@@ -57,6 +57,40 @@ void MyListModel::setData(const int index, QString key, QJsonValue jsonValue)
     m_data[index].insert(key, jsonValue);
 }
 
+QVariant MyListModel::getData(const int index, const QString& key)
+{
+    if(index >= m_data.size() || index < 0)
+    {
+        qCritical() << "In" << this->metaObject()->className() << "call void MyListModel::setData(const int index, QString key, QVariant value)";
+        qCritical() << QString("index out of range! size: %1, index %2").arg(m_data.size()).arg(index);
+        return QJsonValue();
+    }
+    if(m_data[index].find(key) == m_data[index].end())
+    {
+        qCritical() << "In void MyListModel::setData(const int index, QString key, QVariant value)";
+        qCritical() << "Do not find key: " << key << "in" << this->metaObject()->className();
+        return QJsonValue();
+    }
+    return m_data[index][key].toVariant();
+}
+
+int MyListModel::isDataExist(const QString& key, const QJsonValue& jsonValue)
+{
+    qDebug() << "start with key:" << key << "jsonValue:" << jsonValue;
+    bool ret = -1;
+
+    for(int i = 0; i < m_data.size(); i++)
+    {
+        if(m_data[i].contains(key) && m_data[i][key] == jsonValue)
+        {
+            ret = i;
+        }
+    }
+
+    qDebug() << "end with ret:" << ret;
+    return ret;
+}
+
 QHash<int, QByteArray> MyListModel::roleNames() const
 {
     return m_roles;

@@ -76,7 +76,6 @@ private slots:
 
         if(qmPath != "")
         {
-            qDebug() << "here" << qmPath;
             if(!m_translator.load(":/translation/QtPlayer_chinese.qm", m_app.applicationDirPath()))
             {
                 qCritical() << "translation load failed";

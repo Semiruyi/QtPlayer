@@ -8,25 +8,33 @@ Item {
     id: root
 
     property url folderUrl
-    property FolderListModel folderModel
     property VideoBody video
-    property int epIndex: 0
-    property int lastEpIndex: 0
+    property int epIndex: qMainPageConfig.playCardModel.getData(root.cardIndex, "lastPlayedEpisode")
+    property int lastEpIndex: qMainPageConfig.playCardModel.getData(root.cardIndex, "lastPlayedEpisode")
     property int cardIndex: 0
+    property var videoFilePathList: qUtilities.getVideoFiles(folderUrl)
+
+    property bool isInited: false
 
     onEpIndexChanged: {
+        if(!root.isInited) {
+            return
+        }
+
         video.epIndex = epIndex
-        video.source = root.folderUrl + "/" + root.folderModel.get(root.epIndex, "fileName")
+        video.source = videoFilePathList[root.epIndex]
         video.pause()
         epList.itemAtIndex(root.lastEpIndex).btn.state = "watched"
         epList.itemAtIndex(root.epIndex).btn.watched = true
         epList.itemAtIndex(root.epIndex).btn.state = "selected"
         lastEpIndex = epIndex
         qMainPageConfig.playCardModel.setData(root.cardIndex, "lastPlayedEpisode", root.epIndex)
+        // console.log(qUtilites.getVideoFiles(folderUrl).length)
     }
 
     Component.onCompleted: {
         qPlayHistoryConfig.init(folderUrl + "/history.db")
+        root.isInited = true
     }
 
     MyGridView {
@@ -38,13 +46,7 @@ Item {
         cellWidth: width / 4
         cellHeight: cellWidth
         clip: true
-        model: root.folderModel
-
-        // header: Rectangle {
-        //     height: 20;
-        //     width: parent.width
-        //     color: "red"
-        // }
+        model: root.videoFilePathList
 
         ScrollBar.vertical: ScrollBar {       //滚动条
             anchors.right: epList.right
@@ -52,11 +54,6 @@ Item {
             active: true
             background: Item {            //滚动条的背景样式
                 Rectangle {
-                    // anchors.centerIn: parent
-                    // height: parent.height
-                    // width: parent.width * 0.2
-                    // color: 'grey'
-                    // radius: width/2
                     anchors.fill: parent
                     color: "transparent"
                 }
@@ -83,14 +80,16 @@ Item {
                 radius: qGlobalConfig.radius
                 color: Utils.rgb(10, 10, 10)
                 Component.onCompleted: {
+                    qPlayHistoryConfig.init(folderUrl + "/history.db")
+                    if(qPlayHistoryConfig.isWatched(index)) {
+                        epBtn.watched = true;
+                        epBtn.state = "watched"
+                    }
+
                     if(index === root.epIndex) {
                         epBtn.state = "selected"
                         epBtn.watched = true
-                        video.source = root.folderUrl + "/" + fileName
-                    }
-                    else if(qPlayHistoryConfig.isWatched(index)) {
-                        epBtn.watched = true;
-                        epBtn.state = "watched"
+                        root.video.source = modelData
                     }
                 }
 

@@ -16,6 +16,8 @@ Window  {
     height: 1200 / 2
     color: "#1f2223"
 
+    property int animationDuration: qGlobalConfig.animationDuration
+
     signal refresh()
 
     function back() {
@@ -25,7 +27,7 @@ Window  {
 
     MyStackView {
         id: stack
-        property int animationDuration: qGlobalConfig.animationDuration
+        animationDuration: root.animationDuration
         anchors.fill: parent
         initialItem: mainViewComponet
     }
@@ -125,7 +127,7 @@ Window  {
                             }
                         }
                         MenuItem {
-                            text: "move to first"
+                            text: qsTr("move to first")
                             onTriggered: {
                                 qMainPageConfig.playCardModel.move(index, 0)
                             }
@@ -141,13 +143,14 @@ Window  {
                     MyCardView {
                         id: cardView
                         property int watchedCount: qMainPageConfig.getWatchedCount(path + "/history.db")
+                        property int totalVideoCount: qUtilities.getVideoFiles(path).length
                         title: animationTitle
                         width: 200 * 1.618 * 0.9
                         height: 200 * 0.9
-                        text: qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + cardView.watchedCount
+                        text: qsTr("total: ") + cardView.totalVideoCount + "      " + qsTr("watched: ") + cardView.watchedCount
                         anchors.centerIn: parent
                         onLeftClicked: {
-                            if(!qMainPageConfig.checkFolderPathIsValid(path))
+                            if(!qUtilities.checkFolderPathIsValid(path))
                             {
                                 var errMsg = qsTr("Can not find this folder, maybe it has be moved or renamed")
                                 notificationView.addNotification(errMsg, NotificationView.Error)
@@ -176,6 +179,26 @@ Window  {
                             }
 
                             cardView.imageSource = source
+
+                            if(path == qMainPageConfig.appStartWithPath) {
+                                if(!qUtilities.checkFolderPathIsValid(path))
+                                {
+                                    qMainPageConfig.appStartWithPath = ""
+                                    var errMsg = qsTr("Can not find this folder, maybe it has be moved or renamed")
+                                    notificationView.addNotification(errMsg, NotificationView.Error)
+                                    return
+                                }
+
+                                delayEnterPlayPageTimer.start()
+                            }
+                        }
+
+                        Timer {
+                            id: delayEnterPlayPageTimer
+                            interval: 600
+                            onTriggered: {
+                                stack.push(playPage)
+                            }
                         }
 
                         Component {
@@ -191,15 +214,8 @@ Window  {
                         Connections {
                             target: root
                             function onRefresh() {
-                                cardView.text = qsTr("total: ") + folderModel.count + "      " + qsTr("watched: ") + qMainPageConfig.getWatchedCount(path + "/history.db")
+                                cardView.text = qsTr("total: ") + cardView.totalVideoCount + "      " + qsTr("watched: ") + qMainPageConfig.getWatchedCount(path + "/history.db")
                             }
-                        }
-
-                        FolderListModel {
-                            id: folderModel
-                            folder: path
-                            nameFilters: ["*.mp4", "*.mkv"]
-                            showDirs: false
                         }
                     }
                 }
@@ -217,13 +233,13 @@ Window  {
                         folderDialog.visible = true
                     }
                 }
-                Button {
-                    text: "test"
-                    onClicked: {
-                        qGlobalConfig.language = "chinese"
-                        console.log(qGlobalConfig.language)
-                    }
-                }
+                // Button {
+                //     text: "test"
+                //     onClicked: {
+                //         qGlobalConfig.language = "chinese"
+                //         console.log(qGlobalConfig.language)
+                //     }
+                // }
             }
         }
     }

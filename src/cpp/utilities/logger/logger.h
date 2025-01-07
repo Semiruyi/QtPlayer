@@ -29,12 +29,12 @@ public:
     static const char* QtMsgTypeToString(QtMsgType type);
     static void outputLogToConsole(const QString &msg);
     static void logMessageHandler(QtMsgType msgType, const QMessageLogContext &context, const QString &msg);
-    void init();
+    void init(const QString& saveLogFolderPath);
 
 private:
     void saveLog(const QString& content);
 
-
+    QString m_folderPath = "./log";
     QtMsgType logLevel = QtDebugMsg;
 };
 
