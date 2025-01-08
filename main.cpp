@@ -43,6 +43,8 @@ void handleAppStartWithFilePath(int argc, char *argv[], const QString& appPath,M
 
         int cardIndex = mainPageConfig->playCardModel()->isDataExist("path", playFolderPath);
 
+        // qCritical() << "cardIndex:" << cardIndex;
+
         if(cardIndex == -1)
         {
             QJsonObject jsonObj;
@@ -63,7 +65,6 @@ void handleAppStartWithFilePath(int argc, char *argv[], const QString& appPath,M
         qCritical() << "do not accept three or more than three args";
     }
 }
-
 
 int main(int argc, char *argv[])
 {

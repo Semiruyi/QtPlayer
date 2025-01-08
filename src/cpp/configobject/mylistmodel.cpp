@@ -77,12 +77,13 @@ QVariant MyListModel::getData(const int index, const QString& key)
 int MyListModel::isDataExist(const QString& key, const QJsonValue& jsonValue)
 {
     qDebug() << "start with key:" << key << "jsonValue:" << jsonValue;
-    bool ret = -1;
+    int ret = -1;
 
     for(int i = 0; i < m_data.size(); i++)
     {
         if(m_data[i].contains(key) && m_data[i][key] == jsonValue)
         {
+            // qCritical() << "isDataExist i" << i << "key" << key << m_data[i][key];
             ret = i;
         }
     }
