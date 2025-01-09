@@ -23,11 +23,8 @@ public:
     PlayPageConfig(QQmlApplicationEngine& engine, QString jsonPath, QObject* parent = nullptr) : ConfigObject(parent)
     {
         engine.rootContext()->setContextProperty("qPlayPageConfig", this);
-        setReadWriteJsonFilePath(jsonPath);
         hide("animationFirst");
-        readDataFromJson();
-
-        connect(this, &PlayPageConfig::autoHideIntervalChanged, this, &PlayPageConfig::writeDataToJson);
+        init(jsonPath);
     }
 
     int autoHideInterval() const;

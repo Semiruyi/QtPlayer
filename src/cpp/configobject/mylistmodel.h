@@ -33,6 +33,7 @@ public:
     Q_INVOKABLE void move(int from, int to);
     Q_INVOKABLE QJsonArray toJson();
     Q_INVOKABLE void fromJson(const QJsonArray& jsonArr);
+    void connectSlotToModelChanged(const QObject* reciver, const int slotIndex);
 
     // this method must be called before use model
     void init();
@@ -52,6 +53,9 @@ public:
         }
         return *this;
     }
+
+signals:
+    void modelChanged();
 
 private:
     QVector<QJsonObject> m_data; // 使用 QJsonObject 存储数据

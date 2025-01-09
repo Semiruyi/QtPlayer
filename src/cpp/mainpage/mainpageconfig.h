@@ -16,8 +16,8 @@ public:
         m_playCardModel = new PlayCardModel();
         hide("titles");
         hide("playFolderPaths");
-        setReadWriteJsonFilePath(jsonPath);
-        readDataFromJson();
+        // connect(m_playCardModel, &MyListModel::modelChanged, this, &ConfigObject::writeDataToJson);
+        init(jsonPath);
         engine.rootContext()->setContextProperty("qMainPageConfig", this);
     }
 

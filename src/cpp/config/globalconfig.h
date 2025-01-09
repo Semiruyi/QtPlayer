@@ -37,8 +37,7 @@ public:
         ConfigObject(parent)
     {
         engine.rootContext()->setContextProperty("qGlobalConfig", this);
-        setReadWriteJsonFilePath(jsonPath);
-        readDataFromJson();
+        init(jsonPath);
         onLanguageChanged();
         connect(this, &GlobalConfig::languageChanged, this, &GlobalConfig::onLanguageChanged);
     }

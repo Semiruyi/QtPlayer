@@ -1,14 +1,9 @@
 #include "configobject.h"
+#include "mylistmodel.h"
 
 ConfigObject::ConfigObject(QObject* parent) : QObject(parent)
 {
-    // auto save
-    {
-        m_timer = new QTimer(this);
-        connect(m_timer, &QTimer::timeout, this, &ConfigObject::writeDataToJson);
-        m_timer->setInterval(1000);
-        m_timer->start();
-    }
+
 }
 
 QJsonObject ConfigObject::toJson() const {
@@ -45,6 +40,19 @@ QJsonObject ConfigObject::toJson() const {
     return json;
 }
 
+void ConfigObject::init()
+{
+    readDataFromJson();
+
+    connectPropertyChangedSignalAndWriteDataToJson();
+}
+
+void ConfigObject::init(const QString& savePath)
+{
+    setReadWriteJsonFilePath(savePath);
+    init();
+}
+
 void ConfigObject::fromJson(const QJsonObject &json) {
     const QMetaObject *metaObject = this->metaObject();
     for (int i = 0; i < metaObject->propertyCount(); ++i) {
@@ -73,8 +81,19 @@ void ConfigObject::fromJson(const QJsonObject &json) {
                 else if(propertyValue.canConvert<MyListModel*>())
                 {
                     // qDebug() << "enter value.canConvert<MyListModel*>()";
-                    propertyValue.value<MyListModel*>()->fromJson(jsonValue.toArray());
+                    MyListModel* model = propertyValue.value<MyListModel*>();
+                    model->fromJson(jsonValue.toArray());
                     metaProperty.write(this, propertyValue);
+
+                    int slotIndex = this->metaObject()->indexOfMethod("writeDataToJson()");
+                    if(slotIndex == -1)
+                    {
+                        qCritical() << "do not find method: writeDataToJson()";
+                    }
+                    else
+                    {
+                        model->connectSlotToModelChanged(this, slotIndex);
+                    }
                 }
                 else
                 {
@@ -129,7 +148,7 @@ void ConfigObject::readDataFromJson()
 }
 
 void ConfigObject::writeDataToJson() {
-    // 检查并创建文件路径中的所有文件夹
+    qDebug() << "start";
     QFileInfo fileInfo(m_readWriteJsonFilePath);
     QDir dir = fileInfo.dir();
     if (!dir.exists()) {
@@ -140,22 +159,52 @@ void ConfigObject::writeDataToJson() {
         qDebug() << "Created directory:" << dir.path();
     }
 
-    // 将对象序列化为JSON
     QJsonObject jsonObj = this->toJson();
     QJsonDocument jsonDoc(jsonObj);
 
-    // 打开文件并写入JSON数据
     QFile file(m_readWriteJsonFilePath);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         file.write(jsonDoc.toJson());
         file.close();
-        // qDebug() << "Data written to JSON file:" << m_readWriteJsonFilePath;
-    } else {
+    }
+    else
+    {
         qWarning() << "Failed to open file for writing:" << m_readWriteJsonFilePath;
     }
+    qDebug() << "end";
 }
 
 void ConfigObject::hide(const QString& property)
 {
     m_hideProperties.insert(property);
+}
+
+void ConfigObject::connectPropertyChangedSignalAndWriteDataToJson()
+{
+    qDebug() << "start";
+
+    auto metaObj = this->metaObject();
+
+    for(int i = 0; i < metaObj->methodCount(); i++)
+    {
+        const auto& method = metaObj->method(i);
+        if (method.methodType() == QMetaMethod::Signal && !m_QObjectSignals.contains(QString(method.methodSignature())))
+        {
+            int slotIndex = metaObj->indexOfMethod("writeDataToJson()");
+            if(slotIndex == -1)
+            {
+                qCritical() << "do not find method: writeDataToJson()";
+                return ;
+            }
+            if(QMetaObject::connect(this, i, this, slotIndex, Qt::AutoConnection | Qt::UniqueConnection)){
+                // qDebug() << "connect signal"<< method.methodSignature() << "and writeDataToJson() success";
+            }
+            else
+            {
+                qCritical() << "connect signal"<< method.methodSignature() << "and writeDataToJson() failed";
+            }
+        }
+    }
+
+    qDebug() << "end";
 }

@@ -55,6 +55,7 @@ void MyListModel::setData(const int index, QString key, QJsonValue jsonValue)
         return ;
     }
     m_data[index].insert(key, jsonValue);
+    emit modelChanged();
 }
 
 QVariant MyListModel::getData(const int index, const QString& key)
@@ -115,6 +116,7 @@ void MyListModel::append(const QJsonObject &json)
     beginInsertRows(QModelIndex(), m_data.size(), m_data.size());
     m_data.append(json);
     endInsertRows();
+    emit modelChanged();
 }
 
 void MyListModel::remove(int index)
@@ -125,6 +127,7 @@ void MyListModel::remove(int index)
     beginRemoveRows(QModelIndex(), index, index);
     m_data.removeAt(index);
     endRemoveRows();
+    emit modelChanged();
 }
 
 void MyListModel::move(int from, int to)
@@ -135,6 +138,7 @@ void MyListModel::move(int from, int to)
     beginMoveRows(QModelIndex(), from, from, QModelIndex(), to > from ? to + 1 : to);
     m_data.move(from, to);
     endMoveRows();
+    emit modelChanged();
 }
 
 QJsonArray MyListModel::toJson()
@@ -174,4 +178,22 @@ void MyListModel::fromJson(const QJsonArray& jsonArr)
         m_data.append(jsonObject);
     }
     qDebug() << "end";
+}
+
+void MyListModel::connectSlotToModelChanged(const QObject* reciver, const int slotIndex)
+{
+    int signalIndex = this->metaObject()->indexOfSignal("modelChanged()");
+    if(signalIndex == -1)
+    {
+        qCritical() << "get modelChanged signalIndex failed";
+        return ;
+    }
+    if(!QMetaObject::connect(this, signalIndex, reciver, slotIndex, Qt::AutoConnection | Qt::UniqueConnection))
+    {
+        qCritical() << "connect MyListModel::modelChanged and reciver" << reciver << "slotIndex" << slotIndex << "failed";
+    }
+    // else
+    // {
+    //     qDebug() << "connect MyListModel::modelChanged and reciver" << reciver << "slotIndex" << slotIndex << "success";
+    // }
 }

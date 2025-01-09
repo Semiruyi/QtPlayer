@@ -16,7 +16,6 @@
 #include <QJsonArray>
 #include <QTimer>
 #include <QSet>
-#include "mylistmodel.h"
 
 class ConfigObject : public QObject
 {
@@ -26,8 +25,12 @@ public:
 
 private:
     QString m_readWriteJsonFilePath;
-    QTimer* m_timer;
     QSet<QString> m_hideProperties;
+    QSet<QString> m_QObjectSignals = {
+        QString("destroyed(QObject*)"),
+        QString("destroyed()"),
+        QString("objectNameChanged(QString)")
+    };
 
 #pragma region "" {
 
@@ -41,10 +44,14 @@ public:
 
 public:
     QJsonObject toJson() const;
+    void init();
+    void init(const QString& savePath);
     void fromJson(const QJsonObject &json);
     void readDataFromJson();
-    void writeDataToJson();
+    Q_INVOKABLE void writeDataToJson();
     void hide(const QString& property);
+private:
+    void connectPropertyChangedSignalAndWriteDataToJson();
 };
 
 Q_DECLARE_METATYPE(ConfigObject)
