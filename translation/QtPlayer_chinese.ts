@@ -129,74 +129,78 @@ Do you want to replace it?</source>
 <context>
     <name>Main</name>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="64"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="64"/>
-        <location filename="../src/qml/Main.qml" line="64"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="66"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="66"/>
+        <location filename="../src/qml/Main.qml" line="66"/>
         <source>Add play folder success</source>
         <translation>文件夹添加成功</translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="104"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="104"/>
-        <location filename="../src/qml/Main.qml" line="104"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="106"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="106"/>
+        <location filename="../src/qml/Main.qml" line="106"/>
         <source>remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="110"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="110"/>
-        <location filename="../src/qml/Main.qml" line="110"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="112"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="112"/>
+        <location filename="../src/qml/Main.qml" line="112"/>
         <source>change cover</source>
         <translation>更换封面</translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="116"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="116"/>
-        <location filename="../src/qml/Main.qml" line="116"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="118"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="118"/>
+        <location filename="../src/qml/Main.qml" line="118"/>
         <source> cover load faild!</source>
         <translation> 封面加载失败！</translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="128"/>
-        <location filename="../src/qml/Main.qml" line="128"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="130"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="130"/>
+        <location filename="../src/qml/Main.qml" line="130"/>
         <source>move to first</source>
         <translation>移动到最前</translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="147"/>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="194"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="150"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="217"/>
         <location filename="../build/Desktop_Qt_6_8_1_MinGW_64_bit-RelWithDebInfo/QtPlayer/src/qml/Main.qml" line="190"/>
         <location filename="../build/Desktop_Qt_6_8_1_MinGW_64_bit-RelWithDebInfo/QtPlayer/src/qml/Main.qml" line="217"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="147"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="194"/>
-        <location filename="../src/qml/Main.qml" line="147"/>
-        <location filename="../src/qml/Main.qml" line="194"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="150"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="217"/>
+        <location filename="../src/qml/Main.qml" line="150"/>
+        <location filename="../src/qml/Main.qml" line="217"/>
         <source>total: </source>
         <translation>总集数: </translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="147"/>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="194"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="150"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="217"/>
         <location filename="../build/Desktop_Qt_6_8_1_MinGW_64_bit-RelWithDebInfo/QtPlayer/src/qml/Main.qml" line="190"/>
         <location filename="../build/Desktop_Qt_6_8_1_MinGW_64_bit-RelWithDebInfo/QtPlayer/src/qml/Main.qml" line="217"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="147"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="194"/>
-        <location filename="../src/qml/Main.qml" line="147"/>
-        <location filename="../src/qml/Main.qml" line="194"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="150"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="217"/>
+        <location filename="../src/qml/Main.qml" line="150"/>
+        <location filename="../src/qml/Main.qml" line="217"/>
         <source>watched: </source>
         <translation>已观看: </translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="152"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="152"/>
-        <location filename="../src/qml/Main.qml" line="152"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="155"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="187"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="155"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="187"/>
+        <location filename="../src/qml/Main.qml" line="155"/>
+        <location filename="../src/qml/Main.qml" line="187"/>
         <source>Can not find this folder, maybe it has be moved or renamed</source>
         <translation>无法找到此文件夹，也许被移动或者删除了</translation>
     </message>
     <message>
-        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="173"/>
-        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="173"/>
-        <location filename="../src/qml/Main.qml" line="173"/>
+        <location filename="../build/debug/QtPlayer/src/qml/Main.qml" line="176"/>
+        <location filename="../build/release/QtPlayer/src/qml/Main.qml" line="176"/>
+        <location filename="../src/qml/Main.qml" line="176"/>
         <source> Cover loading failed</source>
         <translation> 封面加载失败</translation>
     </message>

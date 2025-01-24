@@ -17,7 +17,17 @@ Item {
         anchors.fill: parent
         from: 0
         to: root.video.duration
-        value: root.video.position
+        value: 0//root.video.position
+
+        Timer {
+            id: updateProgressBarTimer
+            interval: 10
+            repeat: true
+            running: !progressBar.pressed
+            onTriggered: function() {
+                progressBar.value = root.video.position
+            }
+        }
 
         onMoved: {
             if(root.video.mediaStatus == MediaPlayer.EndOfMedia)
@@ -25,13 +35,14 @@ Item {
                 root.video.play()
                 root.video.pause()
             }
-
+            updateProgressBarTimer.stop()
+            root.video.position = value
+            // do not ask me why the fucking mediaplayer need to set twice
             root.video.position = value
         }
 
         onPressedChanged: {
-            if(!progressBar.pressed)
-            {
+            if(!progressBar.pressed) {
                 root.released()
             }
         }

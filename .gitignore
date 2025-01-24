@@ -57,3 +57,4 @@ build/
 .kdev4
 /CMakeLists.txt.user
 /test
+dependency/

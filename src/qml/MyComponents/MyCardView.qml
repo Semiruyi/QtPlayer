@@ -1,13 +1,11 @@
 import QtQuick
 import QtQuick.Effects
-import QtQuick.Controls 2.15
-import QtQuick.Layouts
 
 Rectangle {
     id: root
-    property string title: "孤独摇滚"
+    property string title: "nothing"
     property double titleRatio: 0.5
-    property string text: "total: 12   watched: 4"
+    property string text: "total: 0   watched: 0"
     property string textRatio: 1 - titleRatio
     property string imageSource: "qrc:/resources/icons/atrly.png"
     property double textContentHeightRatio: 0.5
@@ -22,8 +20,16 @@ Rectangle {
     width: 200 * 1.618
     height: 200
     clip: true
+    scale: mainMouseArea.containsMouse ? 1.1 : 1.0
 
     color: "transparent"
+
+    Behavior on scale {
+        NumberAnimation {
+            duration: root.animationDuration
+            easing.type: Easing.OutCubic
+        }
+    }
 
     Rectangle {
         id: gradSrc
@@ -46,16 +52,6 @@ Rectangle {
         visible: false
     }
 
-    // Image {
-    //     id: img
-    //     anchors.fill: parent
-    //     smooth: true
-    //     mipmap: true
-    //     source: root.imageSource
-    //     visible: false
-    //     fillMode: Image.PreserveAspectCrop
-    // }
-
     MyImage {
         id: img
         anchors.fill: parent
@@ -65,6 +61,7 @@ Rectangle {
     }
 
     MultiEffect {
+        id: radiusMaskEffect
         source: img
         anchors.fill: img
         maskEnabled: true
@@ -100,15 +97,6 @@ Rectangle {
 
         onClicked:function handleMousePress(mouse) {
             if (mouse.button === Qt.LeftButton) {
-                // if(doubleClickTimer.running)
-                // {
-                //     root.leftDoubleClicked()
-                //     doubleClickTimer.stop()
-                // }
-                // else {
-                //     root.leftClicked()
-                // }
-                // console.log("doubleClickTimer.running", doubleClickTimer.running)
                 root.leftClicked()
             }
             else if(mouse.button === Qt.RightButton) {
@@ -120,6 +108,14 @@ Rectangle {
             root.leftDoubleClicked()
         }
 
+        // onContainsMouseChanged: function() {
+        //     if(mainMouseArea.containsMouse) {
+        //         root.scale = 1.1
+        //     }
+        //     else {
+        //         root.scale = 1
+        //     }
+        // }
     }
 
     Rectangle {
@@ -165,7 +161,6 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter   // 垂直居中
         }
     }
-
 
     // debug only
     // ColumnLayout {
