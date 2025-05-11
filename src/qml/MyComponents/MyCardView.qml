@@ -4,7 +4,7 @@ import QtQuick.Effects
 Rectangle {
     id: root
     property string title: "nothing"
-    property double titleRatio: 0.5
+    property double titleRatio: 0.6
     property string text: "total: 0   watched: 0"
     property string textRatio: 1 - titleRatio
     property string imageSource: "qrc:/resources/icons/atrly.png"
@@ -121,7 +121,7 @@ Rectangle {
     Rectangle {
         id: titleRec
         width: parent.width
-        height: root.textRatio * root.textContentHeightRatio * root.height
+        height: root.titleRatio * root.textContentHeightRatio * root.height
         color: "transparent"
         y: (1 - blurEffect.maskThresholdMax) * root.height
 
@@ -129,10 +129,16 @@ Rectangle {
         Text {
             id: titleText
             text: root.title
+            width: parent.width
+            height: parent.height
             font.pixelSize: 25
             font.bold: true
             color: "white"
             anchors.centerIn: parent
+            wrapMode: Text.Wrap
+            elide: Text.ElideRight
+            horizontalAlignment: Text.AlignHCenter // 水平居中
+            verticalAlignment: Text.AlignVCenter   // 垂直居中
         }
     }
 
@@ -156,9 +162,11 @@ Rectangle {
             width: parent.width * 0.8
             color: "white"
             anchors.centerIn: parent
+            anchors.verticalCenterOffset: -height * 0.1
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter // 水平居中
             verticalAlignment: Text.AlignVCenter   // 垂直居中
+            elide: Text.ElideRight
         }
     }
 

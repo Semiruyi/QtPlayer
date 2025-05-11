@@ -17,7 +17,6 @@ Item {
         anchors.fill: parent
         from: 0
         to: root.video.duration
-        value: 0//root.video.position
 
         Timer {
             id: updateProgressBarTimer
@@ -30,8 +29,7 @@ Item {
         }
 
         onMoved: {
-            if(root.video.mediaStatus == MediaPlayer.EndOfMedia)
-            {
+            if(root.video.mediaStatus == MediaPlayer.EndOfMedia) {
                 root.video.play()
                 root.video.pause()
             }
@@ -39,6 +37,9 @@ Item {
             root.video.position = value
             // do not ask me why the fucking mediaplayer need to set twice
             root.video.position = value
+
+            console.log("progressBar.position", progressBar.position)
+            console.log("progressBar.visualPosition", progressBar.visualPosition)
         }
 
         onPressedChanged: {
@@ -66,7 +67,7 @@ Item {
             }
 
             Rectangle {
-                width: (progressBar.value - progressBar.from) / (progressBar.to - progressBar.from) * parent.width
+                width: progressBar.position * parent.width
                 height: parent.height
                 color: Utils.rgb(33,139,188)
                 radius: 2
@@ -81,8 +82,7 @@ Item {
         }
 
         handle: Rectangle {
-            x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
-            // x: progressBar.visualPosition * root.width
+            x: progressBar.visualPosition * root.width - width / 2
             y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
 
             scale: progressBar.pressed ? 0.8 : (progressBar.hovered ? 1 : 0)
